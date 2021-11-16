@@ -14,6 +14,9 @@ export function homepage() {
 export function getBanner() {
   return request.get('/banner')
 }
+export function getPersonalized() {
+  return request.get('/personalized/newsong')
+}
 
 // export function getPlayList_Qua(params: object) {
 //   return request({

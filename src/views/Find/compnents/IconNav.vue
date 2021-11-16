@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useTime from '@/hooks/useTime'
 import { reactive } from '@vue/reactivity'
-
+const Time = useTime().getDate()
 const iconList = [
   {
     name: '每日推荐',
@@ -24,17 +24,13 @@ const iconList = [
     icon: 'zhaunji'
   }
 ]
-const time = useTime()
-setInterval(() => {
-  console.log(time.getSeconds())
-}, 1000)
 </script>
 
 <template>
   <ul>
     <li v-for="item in iconList" class="dfx-dc">
       <div class="icon dfx">
-        <p v-if="item.icon === 'eli'" class="time">16</p>
+        <p v-if="item.icon === 'eli'" class="time">{{ Time }}</p>
         <svg-icon
           :name="item.icon"
           :style="{

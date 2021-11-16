@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SwiperVue from '@/components/Swiper.vue'
 import IconNavVue from './compnents/IconNav.vue'
+import RecommendVue from './compnents/Recommend.vue'
 import SearchVue from './compnents/Search.vue'
-IconNavVue
 </script>
 
 <template>
@@ -15,6 +15,8 @@ IconNavVue
       <SwiperVue></SwiperVue>
       <!-- icon导航栏区域 -->
       <IconNavVue></IconNavVue>
+      <!-- 推荐歌单 -->
+      <RecommendVue></RecommendVue>
     </div>
   </div>
 </template>
