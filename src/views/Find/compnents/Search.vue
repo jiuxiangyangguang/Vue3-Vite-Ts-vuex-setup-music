@@ -29,6 +29,9 @@
   align-items: center;
   background-color: #f0f0f0;
   padding: 0 4px;
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
   .van-search {
     flex: 1;
     margin: 0 10px;

@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store/index'
 import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据
 const service = axios.create({
-  baseURL: 'https://music.qier222.com/api/',
+  baseURL: '/api',
   timeout: 10000,
   withCredentials: true
 })

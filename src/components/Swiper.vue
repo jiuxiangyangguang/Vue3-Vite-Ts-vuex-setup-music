@@ -59,7 +59,6 @@ getBannerData()
   width: 100%;
   margin: 0 auto;
   height: 130px;
-  margin-top: 20px;
   border-radius: 10px;
 
   img {

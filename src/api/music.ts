@@ -11,12 +11,24 @@ export function homepage() {
   return request.get('/homepage/block/page')
 }
 
+// 获取海报 
 export function getBanner() {
   return request.get('/banner')
 }
-export function getPersonalized() {
-  return request.get('/personalized/newsong')
+// 推荐歌单 
+export function getPersonalized(limit: number = 10) {
+  return request.get(`/personalized?limit=${limit}`)
 }
+// 推荐新音乐 
+export function getNewSong(limit: number = 10) {
+  return request.get(`/personalized/newsong?limit=${limit}`)
+}
+
+// 获取排行榜信息
+export function getTopList() {
+  return request.get('/toplist/detail')
+}
+
 
 // export function getPlayList_Qua(params: object) {
 //   return request({
@@ -38,10 +50,6 @@ export function getMusicDetail(params: IDs) {
   return request.get('/song/detail', params)
 }
 
-// 获取排行榜信息
-export function getTopList() {
-  return request.get('/toplist/detail')
-}
 
 // 根据id获取歌单详情
 export function getListById(params: ID) {

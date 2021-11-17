@@ -43,11 +43,11 @@ const iconList = [
   </ul>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 ul {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px !important;
+  padding: 8px 0;
   li {
     text-align: center;
     display: flex;
