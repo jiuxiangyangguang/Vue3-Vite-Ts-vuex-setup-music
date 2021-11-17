@@ -50,6 +50,7 @@ getTopListData()
     border: 1px solid #eee;
     border-radius: 10px;
     padding: 10px;
+    box-shadow: 0 0 4px 0px #eee;
     .title {
       font-weight: 700;
       text-align: center;

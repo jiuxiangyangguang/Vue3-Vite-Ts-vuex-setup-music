@@ -23,12 +23,10 @@ export function getPersonalized(limit: number = 10) {
 export function getNewSong(limit: number = 10) {
   return request.get(`/personalized/newsong?limit=${limit}`)
 }
-
 // 获取排行榜信息
 export function getTopList() {
   return request.get('/toplist/detail')
 }
-
 
 // export function getPlayList_Qua(params: object) {
 //   return request({

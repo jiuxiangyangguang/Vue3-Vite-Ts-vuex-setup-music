@@ -70,10 +70,11 @@ getlistData()
     overflow: hidden;
   }
   ul {
-    min-width: 1000px;
+    min-width: 1100px;
     display: flex;
     li {
       display: flex;
+      width: 100px;
       flex-direction: column;
       margin-right: 10px;
       p {
