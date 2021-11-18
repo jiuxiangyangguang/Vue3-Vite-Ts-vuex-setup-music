@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getListById } from '@/api/music'
-import { ref } from 'vue'
+import { onActivated, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 const $route = useRoute()
 const $router = useRouter()
@@ -13,7 +13,10 @@ const getListData = async () => {
 const back = () => {
   $router.back()
 }
-getListData()
+onActivated(() => {
+  songInfo.value = {}
+  getListData()
+})
 </script>
 
 <template>

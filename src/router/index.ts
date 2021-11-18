@@ -13,6 +13,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'find',
         name: 'Find',
+        meta: { keepAlive: true },
         component: Find,
       },
       {

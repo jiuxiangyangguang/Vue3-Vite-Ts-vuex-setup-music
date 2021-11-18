@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from '@vue/reactivity'
 import { watch } from '@vue/runtime-core'
+import { KeepAlive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
 const active = ref<string>('/find')
 const $router = useRouter()
 const $route = useRoute()
@@ -18,9 +18,9 @@ watch($route, () => {
 
 <template>
   <!-- 二级路由部分 -->
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component, route }">
     <keep-alive>
-      <component :is="Component"></component>
+      <component :is="Component" :key="route.path"></component>
     </keep-alive>
   </router-view>
   <!-- 导航栏部分 -->
