@@ -18,7 +18,11 @@ watch($route, () => {
 
 <template>
   <!-- 二级路由部分 -->
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component"></component>
+    </keep-alive>
+  </router-view>
   <!-- 导航栏部分 -->
   <van-tabbar v-model="active" @change="onChange">
     <van-tabbar-item name="/find">

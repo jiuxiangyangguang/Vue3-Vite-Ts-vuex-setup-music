@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 
 interface Img {
   url: string
-  size?: number
+  size?: number | string
 }
 const $store = useStore()
 const $route = useRoute()
@@ -17,13 +17,13 @@ const props = withDefaults(defineProps<Img>(), {
 </script>
 
 <template>
-  <div class="img-spin">
+  <div class="img-com">
     <img :src="url + `?param=${size}y${size}`" />
   </div>
 </template>
 
 <style lang="less" scoped>
-.img-spin {
+.img-com {
   width: 100%;
   height: 100%;
 }

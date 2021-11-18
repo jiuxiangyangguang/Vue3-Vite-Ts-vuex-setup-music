@@ -75,7 +75,7 @@ newsong()
           color: #ccc;
         }
       }
-      :deep(.img-spin) {
+      :deep(.img-com) {
         width: 40px;
         height: 40px;
         overflow: hidden;

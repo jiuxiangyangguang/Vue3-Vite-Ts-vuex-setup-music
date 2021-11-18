@@ -4,27 +4,27 @@ import IconNavVue from './compnents/IconNav.vue'
 import NewSongVue from './compnents/NewSong.vue'
 import RankListVue from './compnents/RankList.vue'
 import RecommendVue from './compnents/Recommend.vue'
-import SearchVue from './compnents/Search.vue'
+// import SearchVue from '../../components/Search-com.vue'
 </script>
 
 <template>
   <div class="find">
     <!-- 搜索组件 -->
-    <SearchVue></SearchVue>
+    <search-com></search-com>
     <div class="banner-nav">
       <!-- 轮播图区域 -->
-      <SwiperVue></SwiperVue>
+      <swiper-vue></swiper-vue>
       <!-- icon导航栏区域 -->
-      <IconNavVue></IconNavVue>
+      <icon-nav-vue></icon-nav-vue>
     </div>
     <!-- 卡片盒子 -->
     <div class="cord">
       <!-- 推荐歌单 -->
-      <RecommendVue></RecommendVue>
+      <recommend-vue></recommend-vue>
       <!-- 推荐新音乐 -->
-      <NewSongVue></NewSongVue>
+      <new-song-vue></new-song-vue>
       <!-- 排行榜 -->
-      <RankListVue></RankListVue>
+      <rank-list-vue></rank-list-vue>
     </div>
   </div>
 </template>

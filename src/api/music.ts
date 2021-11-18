@@ -28,6 +28,12 @@ export function getTopList() {
   return request.get('/toplist/detail')
 }
 
+// 根据id获取歌单详情
+export function getListById(params: ID) {
+  return request.get('/playlist/detail', params)
+}
+
+
 // export function getPlayList_Qua(params: object) {
 //   return request({
 //     url: '/top/playlist/highquality',
@@ -49,10 +55,6 @@ export function getMusicDetail(params: IDs) {
 }
 
 
-// 根据id获取歌单详情
-export function getListById(params: ID) {
-  return request.get('/playlist/detail', params)
-}
 
 // 根据id获取专辑详情
 export function getAlbumById(params: object) {

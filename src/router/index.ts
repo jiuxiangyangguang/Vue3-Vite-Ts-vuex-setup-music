@@ -36,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Yuncun/Yuncun.vue'),
       }
     ]
+  },
+  {
+    path: '/song',
+    name: 'Song',
+    component: () => import('@/views/SongSheet/SongSheet.vue'),
   }
 ]
 
