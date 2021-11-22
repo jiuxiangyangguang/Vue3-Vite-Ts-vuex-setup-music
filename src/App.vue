@@ -8,10 +8,12 @@ const $routr = useRoute()
 </script>
 
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component"></component>
-    </keep-alive>
+  <router-view v-slot="{ Component, route }">
+    <transition :name="route.meta.transition">
+      <keep-alive>
+        <component :is="Component"></component>
+      </keep-alive>
+    </transition>
   </router-view>
 </template>
 
