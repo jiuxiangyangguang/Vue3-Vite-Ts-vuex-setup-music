@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from '@vue/reactivity'
 import { watch } from '@vue/runtime-core'
+import { KeepAlive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
 const active = ref<string>('/find')
 const $router = useRouter()
 const $route = useRoute()
@@ -17,75 +17,77 @@ watch($route, () => {
 </script>
 
 <template>
-  <!-- 二级路由部分 -->
-  <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component"></component>
-    </keep-alive>
-  </router-view>
-  <!-- 导航栏部分 -->
-  <van-tabbar v-model="active" @change="onChange">
-    <van-tabbar-item name="/find">
-      <p>发现</p>
-      <template #icon="props">
-        <svg-icon
-          name="log"
-          :style="{
-            fontSize: '20px',
-            color: props.active ? '#fff' : '#808080'
-          }"
-        ></svg-icon>
-      </template>
-    </van-tabbar-item>
-    <van-tabbar-item name="/podcast">
-      <p>博客</p>
-      <template #icon="props">
-        <svg-icon
-          name="boke"
-          :style="{
-            fontSize: '20px',
-            color: props.active ? '#fff' : '#808080'
-          }"
-        ></svg-icon>
-      </template>
-    </van-tabbar-item>
-    <van-tabbar-item name="/my">
-      <p>我的</p>
-      <template #icon="props">
-        <svg-icon
-          name="music"
-          :style="{
-            fontSize: '20px',
-            color: props.active ? '#fff' : '#808080'
-          }"
-        ></svg-icon>
-      </template>
-    </van-tabbar-item>
-    <van-tabbar-item name="/follow">
-      <p>关注</p>
-      <template #icon="props">
-        <svg-icon
-          name="guanz"
-          :style="{
-            fontSize: '20px',
-            color: props.active ? '#fff' : '#808080'
-          }"
-        ></svg-icon>
-      </template>
-    </van-tabbar-item>
-    <van-tabbar-item name="/yuncun">
-      <p>云村</p>
-      <template #icon="props">
-        <svg-icon
-          name="guangc"
-          :style="{
-            fontSize: '20px',
-            color: props.active ? '#fff' : '#808080'
-          }"
-        ></svg-icon>
-      </template>
-    </van-tabbar-item>
-  </van-tabbar>
+  <div class="animt-css3">
+    <!-- 二级路由部分 -->
+    <router-view v-slot="{ Component, route }">
+      <keep-alive>
+        <component :is="Component" :key="route.path"></component>
+      </keep-alive>
+    </router-view>
+    <!-- 导航栏部分 -->
+    <van-tabbar v-model="active" @change="onChange">
+      <van-tabbar-item name="/find">
+        <p>发现</p>
+        <template #icon="props">
+          <svg-icon
+            name="log"
+            :style="{
+              fontSize: '20px',
+              color: props.active ? '#fff' : '#808080'
+            }"
+          ></svg-icon>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="/podcast">
+        <p>博客</p>
+        <template #icon="props">
+          <svg-icon
+            name="boke"
+            :style="{
+              fontSize: '20px',
+              color: props.active ? '#fff' : '#808080'
+            }"
+          ></svg-icon>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="/my">
+        <p>我的</p>
+        <template #icon="props">
+          <svg-icon
+            name="music"
+            :style="{
+              fontSize: '20px',
+              color: props.active ? '#fff' : '#808080'
+            }"
+          ></svg-icon>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="/follow">
+        <p>关注</p>
+        <template #icon="props">
+          <svg-icon
+            name="guanz"
+            :style="{
+              fontSize: '20px',
+              color: props.active ? '#fff' : '#808080'
+            }"
+          ></svg-icon>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="/yuncun">
+        <p>云村</p>
+        <template #icon="props">
+          <svg-icon
+            name="guangc"
+            :style="{
+              fontSize: '20px',
+              color: props.active ? '#fff' : '#808080'
+            }"
+          ></svg-icon>
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
+  </div>
 </template>
 
 <style lang="less">

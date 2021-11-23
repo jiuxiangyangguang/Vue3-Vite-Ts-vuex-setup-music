@@ -9,12 +9,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Home,
     redirect: 'find',
-    meta: { keepAlive: true },
+    meta: { keepAlive: true, transition: 'fadess' },
     children: [
       {
         path: 'find',
         name: 'Find',
+        meta: { keepAlive: true, transition: 'fadess' },
         component: Find,
+
       },
       {
         path: 'podcast',
@@ -42,6 +44,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/song',
     name: 'song',
     component: () => import('@/views/SongSheet/SongSheet.vue'),
+    meta: {
+      transition: 'fade'
+    }
   }
 ]
 
