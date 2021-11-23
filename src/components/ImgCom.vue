@@ -6,19 +6,26 @@ import { useRoute } from 'vue-router'
 interface Img {
   url: string
   size?: number | string
+  skeleton?: boolean
 }
 const $store = useStore()
 const $route = useRoute()
 const flag = ref<boolean>(true)
 const props = withDefaults(defineProps<Img>(), {
   url: '',
-  size: 100
+  size: 100,
+  skeleton: false
 })
+
+const onLoad = () => {
+  flag.value = false
+}
 </script>
 
 <template>
   <div class="img-com">
-    <img :src="url + `?param=${size}y${size}`" />
+    <van-skeleton title :row="3" v-show="flag" v-if="skeleton" />
+    <img :src="url + `?param=${size}y${size}`" @load="onLoad" v-show="!flag" />
   </div>
 </template>
 

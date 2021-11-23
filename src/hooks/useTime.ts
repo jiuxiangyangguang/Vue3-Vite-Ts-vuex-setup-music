@@ -1,18 +1,28 @@
+import { log } from "console";
 
-interface FnNum {
-  (): number
-}
 interface Time {
-  getDate: FnNum
-  getFullYear: FnNum
-  getSeconds: FnNum
+  getDate: () => number
+  getFullYear: () => number
+  getSeconds: () => number
+  getTimeInvert: (e: number) => string
 }
 
-export default function () {
+export default function (time?: number) {
+
   const timeDate: Time = {
     getDate: () => new Date().getDate(),
     getFullYear: () => new Date().getFullYear(),
-    getSeconds: () => new Date().getSeconds()
+    getSeconds: () => new Date().getSeconds(),
+    getTimeInvert: (time?: number) => {
+      const date = new Date(time || 0);
+      const YY = date.getFullYear() + '-';
+      const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      const DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+      const hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+      const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+      const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+      return (YY + MM + DD + " " + hh + mm + ss)
+    }
   }
 
   return timeDate
