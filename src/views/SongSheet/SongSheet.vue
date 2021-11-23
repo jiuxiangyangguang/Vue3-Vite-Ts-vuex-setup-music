@@ -41,7 +41,7 @@ onActivated(() => {
 <template>
   <div class="animt-css3">
     <div class="loding" v-show="!flag">
-      <img src="../../assets/icon/svg/mss.gif" alt="" />
+      <img src="../../assets/icon/mss.gif" alt="" />
       <span>正在加载...</span>
     </div>
     <div class="lodings" v-show="flag">
