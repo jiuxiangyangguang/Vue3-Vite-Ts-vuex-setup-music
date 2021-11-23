@@ -16,9 +16,10 @@ const props = withDefaults(defineProps<Img>(), {
   size: 100,
   skeleton: false
 })
-
+const emit = defineEmits(['imgload'])
 const onLoad = () => {
   flag.value = false
+  emit('imgload')
 }
 </script>
 

@@ -4,16 +4,16 @@ interface Time {
   getDate: () => number
   getFullYear: () => number
   getSeconds: () => number
-  getTimeInvert: (e: number) => string
+  getTimeInvert: (e: number | undefined) => string
 }
 
-export default function (time?: number) {
+export default function (time?: number | undefined) {
 
   const timeDate: Time = {
     getDate: () => new Date().getDate(),
     getFullYear: () => new Date().getFullYear(),
     getSeconds: () => new Date().getSeconds(),
-    getTimeInvert: (time?: number) => {
+    getTimeInvert: (time) => {
       const date = new Date(time || 0);
       const YY = date.getFullYear() + '-';
       const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
