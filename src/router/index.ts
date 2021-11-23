@@ -9,6 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Home,
     redirect: 'find',
+    meta: { keepAlive: true },
     children: [
       {
         path: 'find',
@@ -39,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/song',
-    name: 'Song',
+    name: 'song',
     component: () => import('@/views/SongSheet/SongSheet.vue'),
   }
 ]

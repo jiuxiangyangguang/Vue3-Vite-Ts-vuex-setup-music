@@ -11,7 +11,7 @@ const getListData = async () => {
   songInfo.value = playlist
 }
 const back = () => {
-  $router.back()
+  $router.push('/')
 }
 getListData()
 </script>
