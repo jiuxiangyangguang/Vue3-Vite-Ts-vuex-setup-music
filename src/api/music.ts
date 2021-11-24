@@ -6,7 +6,9 @@ interface IDs {
 interface ID {
   id: string | number
 }
-
+interface SongId {
+  songid: string
+}
 export function homepage() {
   return request.get('/homepage/block/page')
 }
@@ -31,6 +33,10 @@ export function getTopList() {
 // 根据id获取歌单详情
 export function getListById(params: ID) {
   return request.get('/playlist/detail', params)
+}
+// 根据id获取歌曲相关视频
+export function getMvList(params: SongId) {
+  return request.get('/mlog/music/rcmd', params)
 }
 
 

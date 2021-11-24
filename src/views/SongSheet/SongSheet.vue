@@ -28,9 +28,10 @@ const back = () => {
   $router.push('/')
 }
 const imgloag = () => {
-  console.log(1)
-
-  flag.value = true
+  setTimeout(() => (flag.value = true), 200)
+}
+const jumpMv = (songid) => {
+  console.log(songid)
 }
 onActivated(() => {
   songInfo.value = {}
@@ -112,7 +113,12 @@ onActivated(() => {
             </p>
           </div>
           <div class="icon">
-            <svg-icon class="svg" name="sp" style="color: #fc716d"></svg-icon>
+            <svg-icon
+              @click="jumpMv(item.id)"
+              class="svg"
+              name="sp"
+              style="color: #fc716d"
+            ></svg-icon>
             <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
           </div>
         </div>
@@ -127,6 +133,8 @@ onActivated(() => {
   padding: 10px;
   padding-bottom: 40px;
   overflow: hidden;
+  height: 200px;
+  box-sizing: border-box;
   .bgurl {
     width: 100%;
     height: 100%;
@@ -229,6 +237,7 @@ onActivated(() => {
       width: 40px;
       line-height: 40px;
       text-align: center;
+      color: #919191;
     }
     .info {
       flex: 1;
@@ -236,6 +245,7 @@ onActivated(() => {
         width: 100%;
         line-height: 25px;
         overflow: hidden;
+        color: #343434;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 1;
@@ -248,6 +258,9 @@ onActivated(() => {
     }
     .icon {
       width: 80px;
+      display: flex;
+      justify-content: space-around;
+      padding: 4px;
       svg {
         padding: 4px;
         border-radius: 10px;
