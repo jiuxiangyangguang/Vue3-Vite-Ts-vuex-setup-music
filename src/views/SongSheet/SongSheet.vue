@@ -30,7 +30,7 @@ const back = () => {
 const imgloag = () => {
   setTimeout(() => (flag.value = true), 200)
 }
-const jumpMv = (songid) => {
+const jumpMv = (songid: number) => {
   console.log(songid)
 }
 onActivated(() => {
@@ -67,6 +67,7 @@ onActivated(() => {
             :url="songInfo.coverImgUrl"
             size="100"
             @imgload="imgloag"
+            skeleton
           ></img-com>
           <div class="info">
             <p class="text">{{ songInfo.name }}</p>

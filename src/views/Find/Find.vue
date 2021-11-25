@@ -10,7 +10,7 @@ import RecommendVue from './compnents/Recommend.vue'
 <template>
   <div class="find">
     <!-- 搜索组件 -->
-    <search-com></search-com>
+    <search-com @click="$router.push('search')"></search-com>
     <div class="banner-nav">
       <!-- 轮播图区域 -->
       <swiper-vue></swiper-vue>
