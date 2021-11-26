@@ -4,13 +4,17 @@ import vue from '@vitejs/plugin-vue'
 import ViteComponents, { VantResolver } from 'vite-plugin-components'  // 自动的注册vant组件 
 import styleImport from 'vite-plugin-style-import'
 import { svgBuilder } from './src/utils/svgBuilder'
-
+import viteSvgIcons from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    svgBuilder('./src/assets/icon/svg/'),
+    // svgBuilder('./src/assets/icon/svg/'),
+    viteSvgIcons({
+      iconDirs: [resolve(process.cwd(), 'src/assets/icon/svg')],
+      symbolId: 'icon-[name]'
+    }),
     ViteComponents({
       customComponentResolvers: [VantResolver()],
     }),
