@@ -33,10 +33,12 @@ const imgloag = () => {
 const jumpMv = (songid: number) => {
   console.log(songid)
 }
-onActivated(() => {
-  songInfo.value = {}
-  getListData()
-})
+// onActivated(() => {
+//   songInfo.value = {}
+//   getListData()
+// })
+
+getListData()
 </script>
 
 <template>
@@ -72,7 +74,7 @@ onActivated(() => {
           <div class="info">
             <p class="text">{{ songInfo.name }}</p>
             <p class="time">
-              {{ timeInvert.getTimeInvert(songInfo.trackUpdateTime) }}
+              {{ timeInvert.getTimeYMDHMS(songInfo.trackUpdateTime) }}
               <van-icon name="fire-o" color="#ee0a24" />
             </p>
             <p class="icon">

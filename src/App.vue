@@ -10,7 +10,7 @@ const $routr = useRoute()
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transition">
-      <keep-alive>
+      <keep-alive :include="['Find']">
         <component :is="Component"></component>
       </keep-alive>
     </transition>

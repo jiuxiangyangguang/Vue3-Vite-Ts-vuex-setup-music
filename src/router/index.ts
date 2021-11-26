@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Search',
     component: () => import('@/views/Search/Search.vue'),
     meta: {
-      transition: 'fade'
+      transition: ''
     }
   }
 ]

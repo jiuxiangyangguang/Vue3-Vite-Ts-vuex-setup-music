@@ -6,7 +6,11 @@ import RankListVue from './compnents/RankList.vue'
 import RecommendVue from './compnents/Recommend.vue'
 // import SearchVue from '../../components/Search-com.vue'
 </script>
-
+<script lang="ts">
+export default {
+  name: 'Find'
+}
+</script>
 <template>
   <div class="find">
     <!-- 搜索组件 -->
