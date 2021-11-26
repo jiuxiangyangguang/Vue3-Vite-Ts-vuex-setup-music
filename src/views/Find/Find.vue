@@ -6,11 +6,15 @@ import RankListVue from './compnents/RankList.vue'
 import RecommendVue from './compnents/Recommend.vue'
 // import SearchVue from '../../components/Search-com.vue'
 </script>
-
+<script lang="ts">
+export default {
+  name: 'Find'
+}
+</script>
 <template>
   <div class="find">
     <!-- 搜索组件 -->
-    <search-com></search-com>
+    <search-com @click="$router.push('search')"></search-com>
     <div class="banner-nav">
       <!-- 轮播图区域 -->
       <swiper-vue></swiper-vue>
