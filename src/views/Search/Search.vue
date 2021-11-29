@@ -51,9 +51,8 @@ const back = () => {
         <li v-for="item in historyList">{{ item.value }}</li>
       </ul>
     </div>
-
-    <!-- 随机歌曲 -->
-    <ranDomSong></ranDomSong>
+    <!-- 榜单切换 -->
+    <ranDomSong />
   </div>
 </template>
 
