@@ -2,6 +2,7 @@
 import { computed, onActivated, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getListById } from '@/api/music'
+import ranDomSong from './compnents/ranDomSong.vue'
 import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
 const $route = useRoute()
@@ -50,6 +51,9 @@ const back = () => {
         <li v-for="item in historyList">{{ item.value }}</li>
       </ul>
     </div>
+
+    <!-- 随机歌曲 -->
+    <ranDomSong></ranDomSong>
   </div>
 </template>
 
