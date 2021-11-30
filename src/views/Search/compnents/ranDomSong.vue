@@ -11,6 +11,23 @@ const flag = ref<boolean>(false) // 动画阀
 const active = ref<string>('es') // 动画阀
 const $store = useStore()
 
+interface HOT {
+  first?: string
+  iconType?: number
+  second?: number
+}
+// 类型声明方式
+// const props = defineProps<{
+//   hot: Array<HOT>
+// }>()
+
+// 运行时声明
+const props = defineProps({
+  hot: {
+    type: Array as () => Array<HOT>,
+    default: () => []
+  }
+})
 const scollStart = () => {
   if (!flag.value) {
     flag.value = true
@@ -27,7 +44,22 @@ const scollStart = () => {
 <template>
   <div class="ranklist">
     <van-tabs v-model:active="active">
-      <van-tab title="热搜榜"><div class="randombox"></div></van-tab>
+      <van-tab title="热搜榜"
+        ><div class="randombox">
+          <ul class="list">
+            <li v-for="(item, index) in hot">
+              <span
+                :style="{ color: index < 3 ? '#e71c34' : '#b3afaf' }"
+                class="index"
+                >{{ index + 1 }}</span
+              >
+              <span :style="{ color: index < 3 ? '#000' : '#b3afaf' }">{{
+                item.first
+              }}</span>
+            </li>
+          </ul>
+        </div></van-tab
+      >
       <van-tab title="随机榜">
         <div class="randombox">
           <div class="random">
@@ -72,7 +104,22 @@ const scollStart = () => {
   border: 1px solid #eee;
   padding: 20px;
   box-shadow: 0 0 20px 0 #eee;
-
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      flex: 0 0 50%;
+      margin: 8px 0;
+      font-size: 14px;
+      span.index {
+        color: #aaa;
+      }
+      span {
+        margin: 4px;
+        color: #5c5c5c;
+      }
+    }
+  }
   .random {
     width: 50%;
     height: 70px;

@@ -1,28 +1,26 @@
 <script setup lang="ts">
 import { computed, onActivated, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getKeyWord } from '@/api/music'
+import {
+  getListById,
+  getHot,
+  getHotDetail,
+  getKeyWord,
+  getMultimatch
+} from '@/api/music'
+import ranDomSong from './ranDomSong.vue'
 import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
-import SeachHomeVue from './compnents/SeachHome.vue'
-import SearchTabs from './compnents/SearchTabs.vue'
-
+const $route = useRoute()
 const $router = useRouter()
 const searValue = ref('') // 搜索关键字
-const searList = ref([]) // 搜索结果数组
-const flag = ref(true) // 搜索关键词盒子
-const search = ref() // 搜索框DOM
 const $store = useStore()
 const $time = useTime()
-const com = ref(1) //显示某个组件
+const hot = ref([])
+
 $store.commit('getHistoryList') // 获取历史搜索
 const historyList = computed(() => $store.state.historyList) // 历史记录数组
-
-// 自动聚焦
-onMounted(() => {
-  search.value.focus()
-})
-
+const emit = defineEmits(['inputValue'])
 // 搜索事件
 const onSearch = () => {
   const seach = {
@@ -30,67 +28,31 @@ const onSearch = () => {
     date: $time.getTimeYMD
   }
   $store.commit('setHistoryList', seach)
+}
+// 获取排行榜
+const getRankList = async () => {
+  const {
+    result: { hots }
+  }: any = await getHot()
+  hot.value = hots
+}
 
-  com.value = 0 // 切换tab
-}
-// 搜索框input事件
-const inputValue = async () => {
-  flag.value = true // 打开搜索关键字盒子
-  const data: any = await getKeyWord(searValue.value)
-  searList.value = data?.result?.allMatch || []
-}
-// 用户点击事件
-const keyWord = (str: string) => {
-  flag.value = false // 关闭搜索关键字盒子
-  searValue.value = str
-  onSearch()
-}
-const back = () => {
-  if (searValue.value) {
-    searValue.value = ''
-    com.value = 1 // 切换tab
-  } else {
-    $router.push('/')
-  }
-}
-const tabSwitch = () => {
-  com.value = 0
-}
+getRankList()
 </script>
 
 <template>
-  <div class="animt-css3">
-    <!-- input框 -->
-    <div class="search">
-      <van-search
-        ref="search"
-        v-model="searValue"
-        @search="onSearch"
-        @update:model-value="inputValue"
-        autofocus
-        placeholder="请输入搜索关键词"
-        :clearable="false"
-      />
-      <van-icon :name="searValue ? 'cross' : 'down'" @click="back" />
-      <div class="searchMue" v-show="searList.length && flag">
-        <p v-for="item: any in searList" @click="keyWord(item.keyword)">
-          <van-icon name="search" /> <span>{{ item.keyword }} </span>
-        </p>
-      </div>
-    </div>
-    <component
-      @inputValue="inputValue"
-      :keyword="searValue"
-      :is="com ? SeachHomeVue : SearchTabs"
-    ></component>
+  <!-- 历史 -->
+  <div class="history" v-if="historyList.length > 0">
+    <div class="title">历史</div>
+    <ul>
+      <li v-for="item in historyList">{{ item.value }}</li>
+    </ul>
   </div>
+  <!-- 榜单切换 -->
+  <ranDomSong :hot="hot" />
 </template>
 
 <style lang="less" scoped>
-.animt-css3 {
-  padding: 0 4px;
-  box-sizing: border-box;
-}
 .search {
   display: flex;
   height: 40px;

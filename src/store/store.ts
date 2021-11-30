@@ -7,7 +7,7 @@ export interface State {
   historyList: Array<SearchArr>
 }
 export const state: State = {
-  historyList: [{ value: '一直循环里', date: '2021/11/12' }]
+  historyList: []
 }
 export const mutations = {
   setHistoryList(state: State, payload: SearchArr) {
@@ -15,7 +15,9 @@ export const mutations = {
     set('historyList', JSON.stringify(state.historyList))
   },
   getHistoryList(state: State) {
-    get('historyList')
+    if (get('historyList')) {
+      state.historyList = JSON.parse(get('historyList') as string) || []
+    }
   }
 }
 

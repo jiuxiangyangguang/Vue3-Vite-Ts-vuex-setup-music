@@ -38,6 +38,22 @@ export function getListById(params: ID) {
 export function getMvList(params: SongId) {
   return request.get('/mlog/music/rcmd', params)
 }
+// 热搜列表(简略)
+export function getHot() {
+  return request.get('/search/hot')
+}
+// 热搜列表(详细)
+export function getHotDetail() {
+  return request.get('/search/hot/detail')
+}
+// 搜索建议
+export function getKeyWord(params: string) {
+  return request.get(`/search/suggest?keywords=${params}&type=mobile`)
+}
+// 搜索关键词相关全部信息
+export function getMultimatch(params: string, type: number = 1) {
+  return request.get(`/search/cloudsearch?keywords=${params}&type=${type}`)
+}
 
 
 // export function getPlayList_Qua(params: object) {
