@@ -1,15 +1,82 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted } from 'vue'
+import { computed, onActivated, ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getListById } from '@/api/music'
+import { getMultimatch } from '@/api/music'
 import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
 const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
-const props = defineProps
+const active = ref<string>('综合')
+const currenShowList = ref()
+const songList = ref({}) // 单曲列表
+const new_mlog = ref({}) // 视频列表
+const playList = ref({}) // 歌单列表
+const album = ref({}) // 专辑列表
+const tablist = [
+  {
+    name: '综合',
+    type: 1018
+  },
+  {
+    name: '单曲',
+    type: 1
+  },
+  {
+    name: '歌单',
+    type: 1000
+  },
+  {
+    name: '专辑',
+    type: 10
+  },
+  {
+    name: '歌词',
+    type: 1006
+  },
+  {
+    name: 'MV',
+    type: 1004
+  }
+]
+const emit = defineEmits(['tabSwitch'])
+const props = defineProps({
+  keyword: {
+    type: String,
+    default: ''
+  }
+})
+// 获取信息
+const getDanqu = async () => {
+  const list = tablist.filter((item) => item.name === active.value)
+  const data: any = await getMultimatch(props.keyword, list[0].type)
+  if (list[0].name === '综合') {
+    songList.value = data?.result?.song
+    new_mlog.value = data?.result?.new_mlog
+    playList.value = data?.result?.playList
+    album.value = data?.result?.album
+  }
+  console.log(data)
+}
+
+watch(
+  active,
+  () => {
+    getDanqu()
+  },
+  { immediate: true }
+)
 </script>
 
-<template>哈哈哈</template>
+<template>
+  <van-tabs v-model:active="active" swipeable>
+    <van-tab :name="item.name" v-for="item in tablist" :title="item.name">
+    </van-tab>
+  </van-tabs>
+</template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+:deep(.van-tabs__content) {
+  height: 400px;
+}
+</style>

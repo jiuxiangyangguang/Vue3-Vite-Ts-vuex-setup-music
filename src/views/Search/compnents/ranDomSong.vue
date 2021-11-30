@@ -28,6 +28,7 @@ const props = defineProps({
     default: () => []
   }
 })
+const emit = defineEmits(['jump'])
 const scollStart = () => {
   if (!flag.value) {
     flag.value = true
@@ -47,7 +48,7 @@ const scollStart = () => {
       <van-tab title="热搜榜"
         ><div class="randombox">
           <ul class="list">
-            <li v-for="(item, index) in hot">
+            <li v-for="(item, index) in hot" @click="emit('jump', item.first)">
               <span
                 :style="{ color: index < 3 ? '#e71c34' : '#b3afaf' }"
                 class="index"

@@ -20,7 +20,13 @@ const hot = ref([])
 
 $store.commit('getHistoryList') // 获取历史搜索
 const historyList = computed(() => $store.state.historyList) // 历史记录数组
-const emit = defineEmits(['inputValue'])
+const emit = defineEmits(['tabSwitch'])
+const props = defineProps({
+  keyword: {
+    type: String,
+    default: ''
+  }
+})
 // 搜索事件
 const onSearch = () => {
   const seach = {
@@ -36,7 +42,9 @@ const getRankList = async () => {
   }: any = await getHot()
   hot.value = hots
 }
-
+const jump = (str: string) => {
+  emit('tabSwitch', str)
+}
 getRankList()
 </script>
 
@@ -45,11 +53,13 @@ getRankList()
   <div class="history" v-if="historyList.length > 0">
     <div class="title">历史</div>
     <ul>
-      <li v-for="item in historyList">{{ item.value }}</li>
+      <li @click="emit('tabSwitch', item.value)" v-for="item in historyList">
+        {{ item.value }}
+      </li>
     </ul>
   </div>
   <!-- 榜单切换 -->
-  <ranDomSong :hot="hot" />
+  <ranDomSong @jump="jump" :hot="hot" />
 </template>
 
 <style lang="less" scoped>
@@ -122,12 +132,12 @@ getRankList()
       width: 0;
       height: 0;
     }
-
     li {
       flex-shrink: 0;
-      padding: 4px 8px;
+      height: 20px;
+      padding: 0px 8px;
+      border-radius: 10px;
       background-color: #f2f2f2;
-      border-radius: 20px;
       box-sizing: border-box;
       margin: 0 8px;
     }

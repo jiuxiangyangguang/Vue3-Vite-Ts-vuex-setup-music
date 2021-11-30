@@ -30,7 +30,6 @@ const onSearch = () => {
     date: $time.getTimeYMD
   }
   $store.commit('setHistoryList', seach)
-
   com.value = 0 // 切换tab
 }
 // 搜索框input事件
@@ -53,7 +52,9 @@ const back = () => {
     $router.push('/')
   }
 }
-const tabSwitch = () => {
+const tabSwitch = (str: string) => {
+  flag.value = false // 关闭搜索关键字盒子
+  searValue.value = str
   com.value = 0
 }
 </script>
@@ -79,7 +80,7 @@ const tabSwitch = () => {
       </div>
     </div>
     <component
-      @inputValue="inputValue"
+      @tabSwitch="tabSwitch"
       :keyword="searValue"
       :is="com ? SeachHomeVue : SearchTabs"
     ></component>
@@ -109,7 +110,7 @@ const tabSwitch = () => {
     box-shadow: 0 0 20px 0 #eee;
     font-size: 14px;
     p {
-      margin: 8px 0;
+      margin: 10px 0;
       .van-icon {
         margin-right: 10px;
       }
