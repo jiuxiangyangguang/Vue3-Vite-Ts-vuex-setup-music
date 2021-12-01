@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onActivated, ref } from 'vue'
+import { computed, onActivated, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMultimatch } from '@/api/music'
 import useTime from '@/hooks/useTime'
@@ -11,23 +11,15 @@ const $router = useRouter()
 const $store = useStore()
 const cord = ref()
 const emit = defineEmits(['loadMore'])
-interface SongS {
-  name: string
+const flag = ref<boolean>(false) // 等待框
+const lodingFlag = ref<boolean>(false) // 加载框
+interface PlayList {
   id: number
-  album: ALB
-  artists: Array<ART>
-}
-interface ALB {
-  id: number
-  name: string
-}
-interface ART {
-  id: number
-  name: string
+  coverImgUrl: string
 }
 const props = defineProps({
-  currenShowList: {
-    type: Array as () => Array<SongS>,
+  currenplayList: {
+    type: Array as () => Array<PlayList>,
     default: []
   }
 })
@@ -38,39 +30,37 @@ const touchEnd = () => {
   const scrollTop = cord.value.scrollTop
 
   if (clientHeight + scrollTop >= scrollHeight) {
-    emit('loadMore', props.currenShowList.length + 30)
+    lodingFlag.value = true
+    emit('loadMore', props.currenplayList.length + 30)
   }
 }
-const loadMore = () => {}
+watch(
+  () => props.currenplayList,
+  () => {
+    flag.value = true
+    lodingFlag.value = false // 加载更多
+  },
+  { deep: true }
+)
 </script>
 
 <template>
-  <div class="animt" ref="cord">
+  <div class="animt" ref="cord" v-show="flag">
     <div class="cord" @touchend="touchEnd()">
-      <h2>
-        单曲 <span><van-icon name="play-circle-o" />播放</span>
-      </h2>
       <ul>
-        <li v-for="item in currenShowList">
-          <div class="left">
-            <p class="songname">{{ item.name }}</p>
-            <p class="arname">
-              <svg-icon
-                class="svg"
-                name="wus"
-                style="font-size: 20px"
-              ></svg-icon
-              >{{ item.artists[0].name }}-{{ item.album.name }}
-            </p>
-          </div>
-          <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
+        <li v-for="item in currenplayList">
+          <img-com :url="item.coverImgUrl" size="100" skeleton></img-com>
         </li>
-        <div class="loding">
+        <div class="loding" v-show="lodingFlag && currenplayList.length">
           <img src="../../../assets/icon/mss.gif" alt="" />
           <span>正在加载...</span>
         </div>
       </ul>
     </div>
+  </div>
+  <div class="lodings" v-show="!flag">
+    <img src="../../../assets/icon/mss.gif" alt="" />
+    <span>正在加载...</span>
   </div>
 </template>
 
@@ -101,7 +91,19 @@ const loadMore = () => {}
       }
     }
     ul {
-      padding: 0 10px;
+      padding: 0 10px 30px 10px;
+      .loding {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 4px;
+        img {
+          width: 20px;
+        }
+        span {
+          font-size: 14px;
+        }
+      }
       li {
         height: 60px;
         display: flex;
@@ -113,13 +115,20 @@ const loadMore = () => {}
           line-height: 20px;
         }
         .arname {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
           font-size: 12px;
           color: #aaa;
         }
         & > svg {
+          flex: 0 0 24px;
           padding: 4px;
           border-radius: 10px;
           background-color: #eee;
+          font-size: 24px;
+          box-sizing: border-box;
         }
       }
       li:last-child {
@@ -128,11 +137,15 @@ const loadMore = () => {}
     }
   }
 }
-.loding {
+.lodings {
   display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
   justify-content: center;
   align-items: center;
-  padding-bottom: 4px;
+  transform: translate(-50%, -50%);
   img {
     width: 20px;
   }

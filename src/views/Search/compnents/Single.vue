@@ -28,7 +28,7 @@ interface ART {
   name: string
 }
 const props = defineProps({
-  currenShowList: {
+  currensongList: {
     type: Array as () => Array<SongS>,
     default: []
   }
@@ -41,11 +41,11 @@ const touchEnd = () => {
 
   if (clientHeight + scrollTop >= scrollHeight) {
     lodingFlag.value = true
-    emit('loadMore', props.currenShowList.length + 30)
+    emit('loadMore', props.currensongList.length + 30)
   }
 }
 watch(
-  () => props.currenShowList,
+  () => props.currensongList,
   () => {
     flag.value = true
     lodingFlag.value = false
@@ -61,7 +61,7 @@ watch(
         单曲 <span><van-icon name="play-circle-o" />播放</span>
       </h2>
       <ul>
-        <li v-for="item in currenShowList">
+        <li v-for="item in currensongList">
           <div class="left">
             <p class="songname">{{ item.name }}</p>
             <p class="arname">
@@ -75,7 +75,7 @@ watch(
           </div>
           <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
         </li>
-        <div class="loding" v-show="lodingFlag && currenShowList.length">
+        <div class="loding" v-show="lodingFlag && currensongList.length">
           <img src="../../../assets/icon/mss.gif" alt="" />
           <span>正在加载...</span>
         </div>

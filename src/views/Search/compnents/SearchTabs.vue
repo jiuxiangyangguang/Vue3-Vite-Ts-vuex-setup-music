@@ -7,12 +7,16 @@ import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
 import comsive from './Comprehensive.vue'
 import single from './Single.vue'
+import songsheet from './SongSheet.vue'
 
 const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
 const active = ref<string>('综合')
-const currenShowList = ref()
+const currensongList = ref() // 单曲组件
+const currennew_mlog = ref() // 视频组件
+const currenalbum = ref() // 专辑组件
+const currenplayList = ref() // 歌单组件
 const songList = ref({}) // 单曲列表
 const new_mlog = ref({}) // 视频列表
 const playList = ref({}) // 歌单列表
@@ -61,8 +65,10 @@ const getDanqu = async (limit?: number) => {
     playList.value = data?.result?.playList
     album.value = data?.result?.album
   } else if (list[0].name === '单曲') {
-    currenShowList.value = data?.result?.songs
-    console.log(data)
+    currensongList.value = data?.result?.songs
+  } else if (list[0].name === '歌单') {
+    currenplayList.value = data?.result?.playlists
+    console.log(data?.result?.playlists)
   }
 }
 watch(
@@ -85,7 +91,12 @@ watch(
       />
       <single
         v-if="item.name === '单曲'"
-        :currenShowList="currenShowList"
+        :currensongList="currensongList"
+        @loadMore="getDanqu"
+      />
+      <songsheet
+        v-if="item.name === '歌单'"
+        :currenplayList="currenplayList"
         @loadMore="getDanqu"
       />
     </van-tab>
