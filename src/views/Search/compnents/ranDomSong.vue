@@ -102,9 +102,8 @@ const scollStart = () => {
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #eee;
   padding: 20px;
-  box-shadow: 0 0 20px 0 #eee;
+  box-shadow: 0 0 10px 0 #eee;
   .list {
     display: flex;
     flex-wrap: wrap;

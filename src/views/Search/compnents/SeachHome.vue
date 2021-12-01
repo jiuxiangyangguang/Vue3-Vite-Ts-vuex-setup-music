@@ -45,6 +45,10 @@ const getRankList = async () => {
 const jump = (str: string) => {
   emit('tabSwitch', str)
 }
+// 清空历史数据
+const del = () => {
+  $store.commit('deHistoryList')
+}
 getRankList()
 </script>
 
@@ -56,6 +60,7 @@ getRankList()
       <li @click="emit('tabSwitch', item.value)" v-for="item in historyList">
         {{ item.value }}
       </li>
+      <van-icon name="delete-o" @click="del" />
     </ul>
   </div>
   <!-- 榜单切换 -->
@@ -131,6 +136,14 @@ getRankList()
     &::-webkit-scrollbar {
       width: 0;
       height: 0;
+    }
+    .van-icon {
+      position: absolute;
+      right: 0px;
+      font-size: 18px;
+      background-color: #fff;
+      padding: 2px 10px 2px 2px;
+      border-radius: 10px;
     }
     li {
       flex-shrink: 0;

@@ -44,6 +44,11 @@ const keyWord = (str: string) => {
   searValue.value = str
   onSearch()
 }
+// 获取端口事件
+const focus = () => {
+  flag.value = true // 打开搜索关键字盒子
+  com.value = 1 // 切换tabs
+}
 const back = () => {
   if (searValue.value) {
     searValue.value = ''
@@ -68,6 +73,7 @@ const tabSwitch = (str: string) => {
         v-model="searValue"
         @search="onSearch"
         @update:model-value="inputValue"
+        @focus="focus"
         autofocus
         placeholder="请输入搜索关键词"
         :clearable="false"

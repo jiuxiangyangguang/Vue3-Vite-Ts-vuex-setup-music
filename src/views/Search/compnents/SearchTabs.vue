@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, onActivated, ref, onMounted, watch } from 'vue'
+
 import { useRoute, useRouter } from 'vue-router'
 import { getMultimatch } from '@/api/music'
 import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
+import comsive from './Comprehensive.vue'
+import single from './Single.vue'
+
 const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
@@ -39,6 +43,7 @@ const tablist = [
     type: 1004
   }
 ]
+
 const emit = defineEmits(['tabSwitch'])
 const props = defineProps({
   keyword: {
@@ -47,18 +52,19 @@ const props = defineProps({
   }
 })
 // 获取信息
-const getDanqu = async () => {
+const getDanqu = async (limit?: number) => {
   const list = tablist.filter((item) => item.name === active.value)
-  const data: any = await getMultimatch(props.keyword, list[0].type)
+  const data: any = await getMultimatch(props.keyword, list[0].type, limit)
   if (list[0].name === '综合') {
     songList.value = data?.result?.song
     new_mlog.value = data?.result?.new_mlog
     playList.value = data?.result?.playList
     album.value = data?.result?.album
+  } else if (list[0].name === '单曲') {
+    currenShowList.value = data?.result?.songs
+    console.log(data)
   }
-  console.log(data)
 }
-
 watch(
   active,
   () => {
@@ -71,12 +77,34 @@ watch(
 <template>
   <van-tabs v-model:active="active" swipeable>
     <van-tab :name="item.name" v-for="item in tablist" :title="item.name">
+      <comsive
+        :songList="songList"
+        :playList="playList"
+        :new_mlog="new_mlog"
+        v-if="item.name === '综合'"
+      />
+      <single
+        v-if="item.name === '单曲'"
+        :currenShowList="currenShowList"
+        @loadMore="getDanqu"
+      />
     </van-tab>
   </van-tabs>
 </template>
 
 <style lang="less" scoped>
+.van-tabs {
+  height: 80%;
+}
 :deep(.van-tabs__content) {
-  height: 400px;
+  height: 100%;
+  overflow: hidden;
+  .van-tab__pane {
+    height: 100%;
+  }
+  // 切换tab时小图标溢出了
+  .van-tab__pane-wrapper--inactive {
+    overflow: hidden;
+  }
 }
 </style>
