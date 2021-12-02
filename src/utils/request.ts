@@ -1,3 +1,12 @@
+/*
+ * @Author: c
+ * @Date: 2021-11-16 14:44:35
+ * @LastEditTime: 2021-12-02 11:38:16
+ * @LastEditors: jiuxiangyang
+ * @Description: 
+ * @FilePath: \musicwangyi\src\utils\request.ts
+ * 版权声明
+ */
 import axios from 'axios'
 import store from '@/store/index'
 import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据

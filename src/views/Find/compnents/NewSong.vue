@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { getNewSong } from '@/api/music'
 import BScroll from '@better-scroll/core'
+import { useRoute, useRouter } from 'vue-router'
 import { nextTick, onMounted, ref } from 'vue'
-
+const $router = useRouter()
 const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
@@ -13,6 +14,15 @@ const newSongData = ref([])
 const newsong = async () => {
   const { result }: any = await getNewSong()
   newSongData.value = result.slice(0, 3)
+}
+// 跳转音乐页
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
 }
 
 newsong()
@@ -26,7 +36,7 @@ newsong()
       <span><van-icon name="play-circle-o" />播放</span>
     </div>
     <ul>
-      <li v-for="item: any in newSongData">
+      <li v-for="item: any in newSongData" @click="jump(item.id)">
         <img-com :url="item.picUrl" :size="100"></img-com>
         <div class="info">
           <p class="songname">{{ item.name }}</p>

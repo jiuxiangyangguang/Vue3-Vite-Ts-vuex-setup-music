@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
 interface IDs {
-  ids: string[]
+  ids: number | null
 }
 interface ID {
-  id: string | number
+  id: number | number
 }
 interface SongId {
   songid: string
@@ -58,6 +58,10 @@ export function getMultimatch(params: string, type: number = 1, limit: number = 
   return request.get(`/search/cloudsearch?keywords=${params}&type=${type}&limit=${limit}`)
 }
 
+// 根据id获取音乐详情
+export function getMusicDetail(params: IDs) {
+  return request.get('/song/detail', params)
+}
 
 // export function getPlayList_Qua(params: object) {
 //   return request({
@@ -75,10 +79,7 @@ export function getMusicById(params: object) {
   )
 }
 
-// 根据id获取音乐详情
-export function getMusicDetail(params: IDs) {
-  return request.get('/song/detail', params)
-}
+
 
 
 

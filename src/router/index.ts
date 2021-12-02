@@ -1,3 +1,12 @@
+/*
+ * @Author: c
+ * @Date: 2021-11-16 14:44:41
+ * @LastEditTime: 2021-12-02 11:13:18
+ * @LastEditors: jiuxiangyang
+ * @Description: 
+ * @FilePath: \musicwangyi\src\router\index.ts
+ * 版权声明
+ */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/layout/Home.vue'
 import Find from '@/views/Find/Find.vue'
@@ -55,7 +64,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       transition: ''
     }
-  }
+  },
+  {
+    path: '/play',
+    name: 'Play',
+    component: () => import('@/views/PlayPage/PlayHome.vue'),
+    meta: {
+      transition: ''
+    }
+  },
 ]
 
 const router = createRouter({
