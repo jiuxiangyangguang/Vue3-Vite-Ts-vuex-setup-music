@@ -1,7 +1,7 @@
 <!--
  * @Author: c
  * @Date: 2021-12-02 14:17:53
- * @LastEditTime: 2021-12-03 11:21:57
+ * @LastEditTime: 2021-12-03 11:42:24
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\views\PlayPage\PlayCont.vue
@@ -86,22 +86,12 @@ const touchend = () => {
 
 // 上一首
 const prev = () => {
-  const num = index.value - 1
-  if (num < 0) {
-    $store.commit('setIndex', currentPlayLen.value - 1)
-  } else {
-    $store.commit('setIndex', num)
-  }
+  $store.commit('setIndex', index.value - 1)
 }
 
 // 下一首
 const next = () => {
-  const num = index.value + 1
-  if (num === currentPlayLen.value) {
-    $store.commit('setIndex', 0)
-  } else {
-    $store.commit('setIndex', num)
-  }
+  $store.commit('setIndex', index.value + 1)
 }
 
 // 播放模式
@@ -190,7 +180,7 @@ watch(currentLength, () => {
     width: 70%;
     height: 2px;
     background-color: #aaa;
-    margin: 0 4px;
+    margin: 0 16px;
     position: relative;
     .speed {
       width: 0;

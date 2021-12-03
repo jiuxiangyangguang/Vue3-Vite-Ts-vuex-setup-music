@@ -1,7 +1,7 @@
 <!--
  * @Author: c
  * @Date: 2021-11-16 14:43:38
- * @LastEditTime: 2021-12-02 16:53:21
+ * @LastEditTime: 2021-12-03 13:47:24
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\App.vue
@@ -27,6 +27,8 @@ const $routr = useRoute()
 
   <!--  音乐播放组件 隐藏的全局共享 不可删除 -->
   <audio-bar />
+  <!-- 音乐播放组件 -->
+  <audio-box />
 </template>
 
 <style lang="less"></style>

@@ -1,7 +1,7 @@
 /*
  * @Author: c
  * @Date: 2021-11-26 16:32:01
- * @LastEditTime: 2021-12-03 10:00:32
+ * @LastEditTime: 2021-12-03 11:32:29
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\store\store.ts
@@ -90,7 +90,13 @@ export const mutations = {
     state.audio.setCurrentLen = length
   },
   setIndex(state: State, index: number) {
-    state.audio.index = index
+    if (index < 0) {
+      state.audio.index = state.audio.currentPlayLen - 1
+    } else if (index === state.audio.currentPlayLen) {
+      state.audio.index = 0
+    } else {
+      state.audio.index = index
+    }
   },
   setMode(state: State, mode: 0 | 1 | 2) {
     state.audio.mode = mode
