@@ -44,6 +44,14 @@ const touchEnd = () => {
     emit('loadMore', props.currensongList.length + 30)
   }
 }
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
+}
 watch(
   () => props.currensongList,
   () => {
@@ -61,7 +69,7 @@ watch(
         单曲 <span><van-icon name="play-circle-o" />播放</span>
       </h2>
       <ul>
-        <li v-for="item in currensongList">
+        <li v-for="item in currensongList" @click="jump(item.id)">
           <div class="left">
             <p class="songname">{{ item.name }}</p>
             <p class="arname">
