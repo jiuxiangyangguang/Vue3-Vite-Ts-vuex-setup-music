@@ -60,6 +60,15 @@ watch(
   },
   { deep: true }
 )
+// 跳转音乐页
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
+}
 </script>
 
 <template>

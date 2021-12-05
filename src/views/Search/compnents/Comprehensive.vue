@@ -53,6 +53,15 @@ watch(
   },
   { deep: true }
 )
+// 跳转音乐页
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
+}
 </script>
 
 <template>
@@ -63,7 +72,7 @@ watch(
         单曲 <span><van-icon name="play-circle-o" />播放</span>
       </h2>
       <ul>
-        <li v-for="item in songList.songs">
+        <li v-for="item in songList.songs" @click="jump(item.id)">
           <div class="left">
             <p class="songname">{{ item.name }}</p>
             <p class="arname">

@@ -1,3 +1,12 @@
+/*
+ * @Author: c
+ * @Date: 2021-11-16 14:43:38
+ * @LastEditTime: 2021-12-03 09:28:12
+ * @LastEditors: jiuxiangyang
+ * @Description: 
+ * @FilePath: \musicwangyi\vite.config.ts
+ * 版权声明
+ */
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
@@ -42,7 +51,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
-        javascriptEnabled: true
+        javascriptEnabled: true,
       }
     }
   },

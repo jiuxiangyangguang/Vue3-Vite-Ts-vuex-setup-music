@@ -1,7 +1,7 @@
 /*
  * @Author: c
  * @Date: 2021-11-26 16:32:01
- * @LastEditTime: 2021-12-02 18:07:33
+ * @LastEditTime: 2021-12-03 11:32:29
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\store\store.ts
@@ -26,7 +26,7 @@ const audio = {
   setCurrentLen: 0, // 设置当前长度
   progerssAudioLength: 0,
   totalAudioLength: 0,
-  mode: 0, // 0:列表循环 1：顺序播放 2：随机播放 3：单曲循环
+  mode: 0 as 0 | 1 | 2, // 0:正常列表循环 1：随机播放 2：单曲循环
   mute: false, // 是否静音,
   jump: -1,
   prev: false,
@@ -90,7 +90,16 @@ export const mutations = {
     state.audio.setCurrentLen = length
   },
   setIndex(state: State, index: number) {
-    state.audio.index = index
+    if (index < 0) {
+      state.audio.index = state.audio.currentPlayLen - 1
+    } else if (index === state.audio.currentPlayLen) {
+      state.audio.index = 0
+    } else {
+      state.audio.index = index
+    }
+  },
+  setMode(state: State, mode: 0 | 1 | 2) {
+    state.audio.mode = mode
   }
 }
 

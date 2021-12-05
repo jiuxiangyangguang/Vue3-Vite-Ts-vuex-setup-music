@@ -1,7 +1,7 @@
 <!--
  * @Author: c
  * @Date: 2021-12-02 11:08:33
- * @LastEditTime: 2021-12-02 19:01:07
+ * @LastEditTime: 2021-12-03 10:59:47
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\views\PlayPage\PlayHome.vue
@@ -163,7 +163,8 @@ const back = () => {
   }
 }
 .controller {
-  height: 150px;
+  height: 100px;
+  position: relative;
 }
 
 @keyframes imgrotate {
