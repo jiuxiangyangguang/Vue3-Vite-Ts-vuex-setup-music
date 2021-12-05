@@ -1,7 +1,7 @@
 <!--
  * @Author: c
  * @Date: 2021-12-02 14:17:53
- * @LastEditTime: 2021-12-03 11:39:49
+ * @LastEditTime: 2021-12-05 20:03:37
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\components\AudioBar.vue
@@ -45,6 +45,7 @@ const audioPause = () => {
   $store.commit('setPlayFlag', false)
 }
 
+// 原生结束播放
 const ended = () => {
   if (mode.value === 0) {
     $store.commit('setIndex', index.value + 1)
