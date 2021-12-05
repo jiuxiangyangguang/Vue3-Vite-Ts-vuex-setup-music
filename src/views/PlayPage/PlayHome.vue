@@ -7,6 +7,11 @@
  * @FilePath: \musicwangyi\src\views\PlayPage\PlayHome.vue
  * 版权声明
 -->
+<script lang="ts">
+export default {
+  name: 'PlayHome'
+}
+</script>
 <script setup lang="ts">
 import { computed, onActivated, ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -71,9 +76,19 @@ watch(index, async () => {
   $router.push({ path: 'play', query: { id } }) // 虽然路由更新但,参数未更新
   getDetail(false, id)
 })
+//
+watch(
+  currentPlay,
+  () => {
+    const id = currentPlay.value[index.value].id
+    $router.push({ path: 'play', query: { id } }) // 虽然路由更新但,参数未更新
+    getDetail(false, id)
+  },
+  { deep: true }
+)
 
 // @ts-ignore
-getDetail(true, $route.query.id)
+onActivated(() => getDetail(true, $route.query.id))
 const back = () => {
   $router.push('/')
 }

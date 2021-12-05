@@ -17,11 +17,25 @@ interface MusicList {
   url: string
 }
 const $store = useStore()
+
 const audioDom = ref<any>(null) // 音频标签
+
+const imgcom = ref(null) // 旋转标签
+
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
+
 const progerssAudioLength = computed(
   () => $store.state.audio.progerssAudioLength
 ) // 总长度
+
+const currentRate = ref(0)
+
+const currentAudioLength = computed(() => $store.state.audio.currentAudioLength) // 当前播放长度
+
+const durationAudioLength = computed(
+  () => $store.state.audio.durationAudioLength
+) // 音乐播放长度
+
 const mode = computed(() => $store.state.audio.mode) // 播放模式
 
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前音乐列表
@@ -36,6 +50,12 @@ const setCurrentLen = computed(() => $store.state.audio.setCurrentLen) // 用户
 const timeupdate = () => {
   $store.commit('setCurrentAudioLength', audioDom.value.currentTime)
 }
+
+// 控制播放暂停
+const play = () => {
+  $store.commit('setPlayFlags')
+}
+
 // 监听播放
 watch(
   playFlag,
@@ -46,18 +66,48 @@ watch(
   },
   { immediate: true }
 )
+// 控制图片是否旋转
+watch(
+  playFlag,
+  async () => {
+    await nextTick()
+    const el = document.getElementById('imgcom') as HTMLElement
+    if (!el) return // 盒子不显示时不需要播放动画
+    if (playFlag.value) {
+      el.style.animationPlayState = 'running'
+    } else {
+      el.style.animationPlayState = 'paused'
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <div class="audio-box" v-if="currentPlay.length > 0">
-    <div class="leftbox">
+    <div class="leftbox" @click="$router.push('play')">
       <div class="bgc">
-        <img-com :url="currentPlay[index]?.picUrl" size="200"></img-com>
+        <img-com
+          id="imgcom"
+          :url="currentPlay[index]?.picUrl"
+          size="200"
+        ></img-com>
       </div>
       <p>{{ currentPlay[index]?.songName }}/{{ currentPlay[index]?.name }}</p>
     </div>
 
-    <van-icon name="play" />
+    <div class="icon">
+      <van-circle
+        v-model:current-rate="currentRate"
+        :rate="(currentAudioLength * 100) / durationAudioLength"
+        size="30px"
+        color="#fc3b41"
+        layer-color="#ebedf0"
+        :stroke-width="60"
+      />
+      <van-icon :name="!playFlag ? 'play' : 'pause'" @click="play" />
+      <svg-icon name="bflb" style="font-size: 18px" />
+    </div>
   </div>
 </template>
 
@@ -75,6 +125,7 @@ watch(
   font-size: 12px;
   .leftbox {
     display: flex;
+    width: 80%;
     align-items: center;
   }
   .bgc {
@@ -93,6 +144,21 @@ watch(
       animation: imgrotate infinite 10s linear;
     }
     .van-icon {
+    }
+  }
+  .icon {
+    width: 20%;
+    font-size: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .van-icon {
+      position: absolute;
+      left: 5px;
+    }
+    svg {
+      color: #000;
+      margin-left: 10px;
     }
   }
 }

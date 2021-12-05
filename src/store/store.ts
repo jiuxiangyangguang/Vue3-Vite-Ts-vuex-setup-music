@@ -1,7 +1,7 @@
 /*
  * @Author: c
  * @Date: 2021-11-26 16:32:01
- * @LastEditTime: 2021-12-03 11:32:29
+ * @LastEditTime: 2021-12-05 19:39:07
  * @LastEditors: jiuxiangyang
  * @Description: 
  * @FilePath: \musicwangyi\src\store\store.ts
@@ -22,7 +22,7 @@ const audio = {
   playFlag: false, // 是否播放
   lineFlagPlay: false, // 进度条控制
   currentAudioLength: 0, // 当前播放长度
-  durationAudioLength: 0, // 音乐长度
+  durationAudioLength: 0, // 音乐播放长度
   setCurrentLen: 0, // 设置当前长度
   progerssAudioLength: 0,
   totalAudioLength: 0,

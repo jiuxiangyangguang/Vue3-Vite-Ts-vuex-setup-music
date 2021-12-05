@@ -44,14 +44,6 @@ const touchEnd = () => {
     emit('loadMore', props.currensongList.length + 30)
   }
 }
-const jump = (id: number) => {
-  $router.push({
-    path: 'play',
-    query: {
-      id
-    }
-  })
-}
 watch(
   () => props.currensongList,
   () => {

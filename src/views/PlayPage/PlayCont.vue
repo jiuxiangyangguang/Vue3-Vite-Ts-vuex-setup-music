@@ -49,6 +49,7 @@ const lineTotalLen = ref(0) // 进度条长度
 
 const time = useTime()
 
+// 控制播放暂停
 const play = () => {
   $store.commit('setPlayFlags')
 }
