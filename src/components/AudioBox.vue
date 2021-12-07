@@ -11,12 +11,15 @@
 import { reactive, ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicDetail } from '@/api/music'
+import { useRoute } from 'vue-router'
 interface MusicList {
   id: string
   name: string
   url: string
 }
 const $store = useStore()
+
+const $route = useRoute()
 
 const audioDom = ref<any>(null) // 音频标签
 
@@ -84,7 +87,11 @@ watch(
 </script>
 
 <template>
-  <div class="audio-box" v-if="currentPlay.length > 0">
+  <div
+    class="audio-box"
+    v-if="currentPlay.length > 0"
+    :style="{ bottom: $route.matched[0].path === '/' ? '50px' : '0px' }"
+  >
     <div class="leftbox" @click="$router.push('play')">
       <div class="bgc">
         <img-com
@@ -123,6 +130,7 @@ watch(
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
+  box-sizing: border-box;
   .leftbox {
     display: flex;
     width: 80%;

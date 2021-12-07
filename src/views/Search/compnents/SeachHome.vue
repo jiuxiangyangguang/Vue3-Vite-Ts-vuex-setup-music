@@ -112,8 +112,6 @@ getRankList()
     overflow: hidden;
     border: 1px solid #eee;
     padding: 0;
-    :deep(.van-search__content) {
-    }
   }
 }
 .history {

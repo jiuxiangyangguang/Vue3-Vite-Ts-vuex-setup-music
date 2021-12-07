@@ -46,6 +46,12 @@ const getDetail = async (flag: boolean, ids: number) => {
   const data: any = await getMusicDetail({ ids })
   songdetail.value = data?.songs
 
+  currentPlay.value.forEach((item, i) => {
+    if (item.id === ids) {
+      $store.commit('setIndex', i)
+      flag = false
+    }
+  })
   if (flag) {
     // 向歌曲列表添加歌曲歌曲
     $store.commit('setCurrentPlay', {
@@ -73,19 +79,19 @@ watch(
 // 上下切换歌曲
 watch(index, async () => {
   const id = currentPlay.value[index.value].id
-  $router.push({ path: 'play', query: { id } }) // 虽然路由更新但,参数未更新
+  $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
   getDetail(false, id)
 })
 //
-watch(
-  currentPlay,
-  () => {
-    const id = currentPlay.value[index.value].id
-    $router.push({ path: 'play', query: { id } }) // 虽然路由更新但,参数未更新
-    getDetail(false, id)
-  },
-  { deep: true }
-)
+// watch(
+//   currentPlay,
+//   () => {
+//     const id = currentPlay.value[index.value].id
+//     $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
+//     getDetail(false, id)
+//   },
+//   { deep: true }
+// )
 
 // @ts-ignore
 onActivated(() => getDetail(true, $route.query.id))
