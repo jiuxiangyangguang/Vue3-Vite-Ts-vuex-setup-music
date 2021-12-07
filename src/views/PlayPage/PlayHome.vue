@@ -18,6 +18,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { getMusicDetail } from '@/api/music'
 import useStore from '@/hooks/useStore'
 import playcont from './PlayCont.vue'
+import volume from './Volume.vue'
 const $route = useRoute()
 const $router = useRouter()
 const songdetail = ref<Array<Song>>([])
@@ -121,6 +122,8 @@ const back = () => {
       </div>
       <van-icon name="share-o" />
     </div>
+    <!-- 音量控制组件 -->
+    <volume />
     <!-- 图片旋转组件 -->
     <div class="img-rotate" ref="imgrotate">
       <img-com :url="songdetail[0]?.al.picUrl" size="200"></img-com>

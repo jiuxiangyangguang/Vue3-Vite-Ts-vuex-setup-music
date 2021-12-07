@@ -31,7 +31,7 @@ const audio = {
   jump: -1,
   prev: false,
   next: false,
-  volume: 50, // 音量
+  volume: 0.5, // 音量 [0,1]
   lyric: '', // 歌词
   index: 0, // 当前播放第几首 数组索引
   currentPlay: [] as Array<CurrentPlay>,
@@ -100,6 +100,9 @@ export const mutations = {
   },
   setMode(state: State, mode: 0 | 1 | 2) {
     state.audio.mode = mode
+  },
+  setVolume(state: State, num: number) {
+    state.audio.volume = num
   }
 }
 
