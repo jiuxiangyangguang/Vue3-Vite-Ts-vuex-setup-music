@@ -51,13 +51,15 @@ const audioPause = () => {
 
 // 原生结束播放
 const ended = () => {
-  if (mode.value === 0) {
-    $store.commit('setIndex', index.value + 1)
-  } else if (mode.value === 1) {
-    $store.commit('setIndex', Math.floor(Math.random() * currentPlayLen.value))
-  } else {
+  let value = index.value + 1
+  if (mode.value === 2) {
     $store.commit('setCurrentAudioLength', 0)
     $store.commit('setPlayFlags')
+  } else {
+    if (mode.value === 1) {
+      value = Math.floor(Math.random() * currentPlayLen.value)
+    }
+    $store.commit('setIndex', value)
   }
 }
 
