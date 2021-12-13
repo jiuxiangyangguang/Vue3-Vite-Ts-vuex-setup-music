@@ -43,7 +43,7 @@ interface AR {
   name: string
 }
 //
-const getDetail = async (flag: boolean, ids: number) => {
+const getDetail = async (flag: boolean, ids: number | string) => {
   const data: any = await getMusicDetail({ ids })
   songdetail.value = data?.songs
 
@@ -80,22 +80,15 @@ watch(
 // 上下切换歌曲
 watch(index, async () => {
   const id = currentPlay.value[index.value].id
-  $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
+  // 防止因为切换歌曲,从其他页面跳转过来
+  if ($route.path === '/play') $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
   getDetail(false, id)
 })
-//
-// watch(
-//   currentPlay,
-//   () => {
-//     const id = currentPlay.value[index.value].id
-//     $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
-//     getDetail(false, id)
-//   },
-//   { deep: true }
-// )
-
 // @ts-ignore
-onActivated(() => getDetail(true, $route.query.id))
+onActivated(() => {
+  getDetail(true, $route.query.id as string)
+})
+
 const back = () => {
   $router.push('/')
 }

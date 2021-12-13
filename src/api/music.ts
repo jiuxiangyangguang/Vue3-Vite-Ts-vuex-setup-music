@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
 interface IDs {
-  ids: number | null
+  ids: number | null | string
 }
 interface ID {
-  id: number | number
+  id: number | null | string
 }
 interface SongId {
   songid: string

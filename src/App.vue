@@ -11,16 +11,19 @@
 // This starter template is using Vue 3 <script setup> SFCs
 
 import { useRoute, useRouter } from 'vue-router'
+import useStore from './hooks/useStore'
 
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-const $routr = useRoute()
+const $route = useRoute()
 const $router = useRouter()
+
+const $store = useStore()
+$store.commit('getLocation')
 </script>
 
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transition">
-      <keep-alive :include="['Find', 'PlayHome']">
+      <keep-alive :include="['Home', 'PlayHome']">
         <component :is="Component"></component>
       </keep-alive>
     </transition>
@@ -29,7 +32,7 @@ const $router = useRouter()
   <!--  音乐播放组件 隐藏的全局共享 不可删除 -->
   <audio-bar />
   <!-- 音乐播放组件 -->
-  <audio-box v-show="$routr.path !== '/play'" />
+  <audio-box v-show="$route.path !== '/play'" />
 </template>
 
 <style lang="less"></style>

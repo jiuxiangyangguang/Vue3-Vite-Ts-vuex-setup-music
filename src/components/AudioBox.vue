@@ -11,7 +11,7 @@
 import { reactive, ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicDetail } from '@/api/music'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 interface MusicList {
   id: string
   name: string
@@ -20,6 +20,8 @@ interface MusicList {
 const $store = useStore()
 
 const $route = useRoute()
+
+const $router = useRouter()
 
 const audioDom = ref<any>(null) // 音频标签
 
@@ -59,6 +61,16 @@ const play = () => {
   $store.commit('setPlayFlags')
 }
 
+// 跳转音乐页
+const jump = () => {
+  $router.push({
+    path: 'play',
+    query: {
+      id: currentPlay.value[index.value].id
+    }
+  })
+}
+
 // 监听播放
 watch(
   playFlag,
@@ -90,9 +102,9 @@ watch(
   <div
     class="audio-box"
     v-if="currentPlay.length > 0"
-    :style="{ bottom: $route.matched[0].path === '/' ? '50px' : '0px' }"
+    :style="{ bottom: $route?.matched[0]?.path === '/' ? '50px' : '0px' }"
   >
-    <div class="leftbox" @click="$router.push('play')">
+    <div class="leftbox" @click="jump">
       <div class="bgc">
         <img-com
           id="imgcom"

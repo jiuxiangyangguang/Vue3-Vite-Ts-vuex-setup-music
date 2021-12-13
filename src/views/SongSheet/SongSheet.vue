@@ -33,6 +33,15 @@ const imgloag = () => {
 const jumpMv = (songid: number) => {
   console.log(songid)
 }
+// 跳转音乐页
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
+}
 // onActivated(() => {
 //   songInfo.value = {}
 //   getListData()
@@ -109,7 +118,7 @@ getListData()
       <div class="songlist">
         <div class="list" v-for="(item, index) in songInfo.tracks">
           <div class="index">{{ index + 1 }}</div>
-          <div class="info">
+          <div class="info" @click="jump(item.id)">
             <p class="songname">{{ item.name }}</p>
             <p class="songArName">
               <span v-for="son in item.ar"> {{ son.name + '/' }}</span>

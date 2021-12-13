@@ -16,6 +16,10 @@ const lodingFlag = ref<boolean>(false) // 加载框
 interface PlayList {
   id: number
   coverImgUrl: string
+  name: string
+  playCount: number
+  creator: any
+  trackCount: number
 }
 const props = defineProps({
   currenplayList: {
@@ -34,6 +38,11 @@ const touchEnd = () => {
     emit('loadMore', props.currenplayList.length + 30)
   }
 }
+
+const jump = (item: any) => {
+  $router.push({ path: '/song', query: { id: item.id } })
+}
+
 watch(
   () => props.currenplayList,
   () => {
@@ -48,8 +57,16 @@ watch(
   <div class="animt" ref="cord" v-show="flag">
     <div class="cord" @touchend="touchEnd()">
       <ul>
-        <li v-for="item in currenplayList">
+        <li v-for="item in currenplayList" @click="jump(item)">
           <img-com :url="item.coverImgUrl" size="100" skeleton></img-com>
+          <div class="info">
+            <p class="songname">{{ item.name }}</p>
+            <p class="artistsname">
+              {{ item.trackCount }}首,by {{ item.creator.nickname }},播放{{
+                (item.playCount / 10000).toFixed(1)
+              }}万次播放
+            </p>
+          </div>
         </li>
         <div class="loding" v-show="lodingFlag && currenplayList.length">
           <img src="../../../assets/icon/mss.gif" alt="" />
@@ -91,7 +108,7 @@ watch(
       }
     }
     ul {
-      padding: 0 10px 30px 10px;
+      padding: 10px 10px 30px 10px;
       .loding {
         display: flex;
         justify-content: center;
@@ -109,18 +126,27 @@ watch(
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-top: 1px solid #eee;
-        .songname {
-          font-size: 14px;
-          line-height: 20px;
-        }
-        .arname {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 1;
+        margin: 10px 0;
+        :deep(.img-com) {
+          width: 60px;
+          border-radius: 10px;
           overflow: hidden;
-          font-size: 12px;
-          color: #aaa;
+        }
+        .info {
+          flex: 1;
+          margin-left: 10px;
+          .songname {
+            font-size: 14px;
+            line-height: 30px;
+          }
+          .artistsname {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            font-size: 12px;
+            color: #aaa;
+          }
         }
         & > svg {
           flex: 0 0 24px;

@@ -6,6 +6,7 @@ const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
 const flag = ref<boolean>(false) // 等待框
+const songlist = ref()
 interface Song {
   name: string
   id: number
@@ -146,6 +147,8 @@ const jump = (id: number) => {
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid #eee;
+      position: relative;
+
       .songname {
         font-size: 14px;
         line-height: 20px;

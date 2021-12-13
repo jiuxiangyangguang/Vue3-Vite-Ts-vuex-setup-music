@@ -40,6 +40,7 @@ const currentPlayLen = computed(() => $store.state.audio.currentPlayLen) // 播�
 // 原生开始播放
 const audioPlay = () => {
   audioDom.value.volume = volume.value // 设置音量
+  audioDom.value.currentTime = $store.state.audio.currentAudioLength
   $store.commit('setPlayFlag', true)
   $store.commit('setDurationAudioLength', audioDom.value.duration)
 }
@@ -83,11 +84,7 @@ watch(
   playFlag,
   async () => {
     await nextTick()
-    if (playFlag.value) {
-      audioDom.value.play()
-    } else {
-      audioDom.value.pause()
-    }
+    playFlag.value ? audioDom.value.play() : audioDom.value.pause()
   },
   { immediate: true }
 )
@@ -98,6 +95,14 @@ watch(volume, () => {
 watch(setCurrentLen, () => {
   audioDom.value.currentTime = setCurrentLen.value
 })
+// 监听歌曲变化  保存数据在本地
+watch(
+  [currentPlay, index, volume, currentPlayLen, playFlag],
+  () => {
+    $store.commit('setLocation')
+  },
+  { deep: true }
+)
 </script>
 
 <template>

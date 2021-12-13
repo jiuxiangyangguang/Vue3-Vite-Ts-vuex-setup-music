@@ -74,6 +74,9 @@ export const mutations = {
     state.audio.currentPlayLen = state.audio.currentPlay.length
     set('audio', JSON.stringify(state.audio))
   },
+  setCurrentPlayCle(state: State) {
+    state.audio.currentPlay.length = 0
+  },
   setPlayFlag(state: State, flag: boolean) {
     state.audio.playFlag = flag
   },
@@ -94,6 +97,7 @@ export const mutations = {
       state.audio.index = state.audio.currentPlayLen - 1
     } else if (index === state.audio.currentPlayLen) {
       state.audio.index = 0
+      state.audio.currentAudioLength = 0
     } else {
       state.audio.index = index
     }
@@ -103,6 +107,16 @@ export const mutations = {
   },
   setVolume(state: State, num: number) {
     state.audio.volume = num
+  },
+
+  setLocation(state: State) {
+    set('audio', JSON.stringify(state.audio))
+  },
+  getLocation(state: State) {
+    //@ts-ignore
+    const data = get('audio') && JSON.parse(get('audio'))
+    state.audio = Object.assign(state.audio, data)
+    state.audio.playFlag = false
   }
 }
 

@@ -204,12 +204,13 @@ watch(currentLength, () => {
 .icon {
   display: flex;
   font-size: 40px;
-  color: #fff;
+  color: #aaa;
   align-items: center;
   margin-top: 10px;
   padding: 0 30px;
   .svg-icon {
     flex: 1;
+    color: #aaa;
   }
   .van-icon {
     margin: 0 10px;
