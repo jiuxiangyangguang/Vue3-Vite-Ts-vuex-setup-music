@@ -71,6 +71,11 @@ const jump = () => {
   })
 }
 
+// 打开歌曲列表
+const showList = () => {
+  $store.commit('setShowPlayList')
+}
+
 // 监听播放
 watch(
   playFlag,
@@ -125,7 +130,7 @@ watch(
         :stroke-width="60"
       />
       <van-icon :name="!playFlag ? 'play' : 'pause'" @click="play" />
-      <svg-icon name="bflb" style="font-size: 18px" />
+      <svg-icon name="bflb" style="font-size: 18px" @click="showList" />
     </div>
   </div>
 </template>

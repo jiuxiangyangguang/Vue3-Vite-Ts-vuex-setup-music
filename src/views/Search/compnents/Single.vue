@@ -13,6 +13,7 @@ const cord = ref()
 const emit = defineEmits(['loadMore'])
 const flag = ref<boolean>(false) // 等待框
 const lodingFlag = ref<boolean>(false) // 加载框
+const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前列表
 interface SongS {
   name: string
   id: number
@@ -61,6 +62,18 @@ const jump = (id: number) => {
     }
   })
 }
+// 不跳转页面添加歌曲
+const addSong = (item: any) => {
+  const index = currentPlay.value.findIndex((song) => song.id === item.id)
+  const obj = {
+    name: item.name,
+    songName: item.artists[0].name,
+    picUrl: item.album.picUrl,
+    id: item.id
+  }
+  const param = index === -1 ? obj : index
+  $store.commit(index === -1 ? 'setCurrentPlay' : 'setIndex', param)
+}
 </script>
 
 <template>
@@ -82,7 +95,12 @@ const jump = (id: number) => {
               >{{ item.artists[0].name }}-{{ item.album.name }}
             </p>
           </div>
-          <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
+          <svg-icon
+            class="svg"
+            name="ms"
+            style="color: #fc716d"
+            @click.stop="addSong(item)"
+          ></svg-icon>
         </li>
         <div class="loding" v-show="lodingFlag && currensongList.length">
           <img src="../../../assets/icon/mss.gif" alt="" />

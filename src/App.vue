@@ -7,17 +7,34 @@
  * @FilePath: \musicwangyi\src\App.vue
  * 版权声明
 -->
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
+<script lang="ts">
+import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue'
+const playlist = shallowRef(null)
 
+export default {
+  components: { playlist }
+}
+</script>
+<script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import useStore from './hooks/useStore'
 
 const $route = useRoute()
 const $router = useRouter()
-
 const $store = useStore()
+const show = computed(() => $store.state.showPlayList)
 $store.commit('getLocation')
+
+watch(show, () => {
+  if (show.value) {
+    //@ts-ignore
+    playlist.value = defineAsyncComponent(
+      () => import('@/components/PlayList.vue')
+    )
+  } else {
+    playlist.value = null
+  }
+})
 </script>
 
 <template>
@@ -33,6 +50,9 @@ $store.commit('getLocation')
   <audio-bar />
   <!-- 音乐播放组件 -->
   <audio-box v-show="$route.path !== '/play'" />
+
+  <!-- 播放列表 -->
+  <component :is="playlist"></component>
 </template>
 
 <style lang="less"></style>

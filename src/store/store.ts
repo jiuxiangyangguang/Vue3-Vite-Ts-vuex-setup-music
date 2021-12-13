@@ -45,11 +45,13 @@ type Audio = typeof audio
 export interface State {
   historyList: Array<SearchArr>
   audio: Audio,
+  showPlayList: boolean
 }
 
 export const state: State = {
   historyList: [],
-  audio
+  audio,
+  showPlayList: false
 }
 
 
@@ -107,6 +109,9 @@ export const mutations = {
   },
   setVolume(state: State, num: number) {
     state.audio.volume = num
+  },
+  setShowPlayList(state: State) {
+    state.showPlayList = !state.showPlayList
   },
 
   setLocation(state: State) {
