@@ -10,7 +10,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/layout/Home.vue'
 import Find from '@/views/Find/Find.vue'
-
+import useStore from '@/hooks/useStore'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -78,6 +78,10 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  next()
 })
 
 export default router

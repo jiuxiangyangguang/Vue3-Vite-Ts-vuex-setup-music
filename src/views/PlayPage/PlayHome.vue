@@ -85,8 +85,8 @@ watch([index, currentPlaylen], async () => {
     return
   }
   const id = currentPlay.value[index.value].id
-  // 防止因为切换歌曲,从其他页面跳转过来
-  if ($route.path === '/play') $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
+  // 防止因为切换歌曲,从其他页面跳转过来   使用replace来替换历史记录,方便返回上一级
+  if ($route.path === '/play') $router.replace({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
   getDetail(false, id)
 })
 // @ts-ignore
