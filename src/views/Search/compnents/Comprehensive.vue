@@ -6,6 +6,8 @@ const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
 const flag = ref<boolean>(false) // 等待框
+const songlist = ref()
+const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 interface Song {
   name: string
   id: number
@@ -62,6 +64,19 @@ const jump = (id: number) => {
     }
   })
 }
+
+// 不跳转页面添加歌曲
+const addSong = (item: any) => {
+  const index = currentPlay.value.findIndex((song) => song.id === item.id)
+  const obj = {
+    name: item.name,
+    songName: item.ar[0].name,
+    picUrl: item.al.picUrl,
+    id: item.id
+  }
+  const param = index === -1 ? obj : index
+  $store.commit(index === -1 ? 'setCurrentPlay' : 'setIndex', param)
+}
 </script>
 
 <template>
@@ -84,7 +99,12 @@ const jump = (id: number) => {
               >{{ item.ar[0].name }}-{{ item.al.name }}
             </p>
           </div>
-          <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
+          <svg-icon
+            class="svg"
+            name="ms"
+            style="color: #fc716d"
+            @click.stop="addSong(item)"
+          ></svg-icon>
         </li>
       </ul>
     </div>
@@ -146,6 +166,8 @@ const jump = (id: number) => {
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid #eee;
+      position: relative;
+
       .songname {
         font-size: 14px;
         line-height: 20px;

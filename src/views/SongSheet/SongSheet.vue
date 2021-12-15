@@ -3,10 +3,13 @@ import { getListById } from '@/api/music'
 import useTime from '@/hooks/useTime'
 import { computed, onActivated, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import useStore from '@/hooks/useStore'
 const $route = useRoute()
 const $router = useRouter()
+const $store = useStore()
 const songInfo = ref<SongList>({})
 const flag = ref<boolean>(false)
+const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const timeInvert = useTime()
 interface SongList {
   commentCount?: number
@@ -33,10 +36,32 @@ const imgloag = () => {
 const jumpMv = (songid: number) => {
   console.log(songid)
 }
+// 跳转音乐页
+const jump = (id: number) => {
+  $router.push({
+    path: 'play',
+    query: {
+      id
+    }
+  })
+}
 // onActivated(() => {
 //   songInfo.value = {}
 //   getListData()
 // })
+
+// 不跳转页面添加歌曲
+const addSong = (item: any) => {
+  const index = currentPlay.value.findIndex((song) => song.id === item.id)
+  const obj = {
+    name: item.name,
+    songName: item.ar[0].name,
+    picUrl: item.al.picUrl,
+    id: item.id
+  }
+  const param = index === -1 ? obj : index
+  $store.commit(index === -1 ? 'setCurrentPlay' : 'setIndex', param)
+}
 
 getListData()
 </script>
@@ -109,7 +134,7 @@ getListData()
       <div class="songlist">
         <div class="list" v-for="(item, index) in songInfo.tracks">
           <div class="index">{{ index + 1 }}</div>
-          <div class="info">
+          <div class="info" @click="jump(item.id)">
             <p class="songname">{{ item.name }}</p>
             <p class="songArName">
               <span v-for="son in item.ar"> {{ son.name + '/' }}</span>
@@ -122,7 +147,12 @@ getListData()
               name="sp"
               style="color: #fc716d"
             ></svg-icon>
-            <svg-icon class="svg" name="ms" style="color: #fc716d"></svg-icon>
+            <svg-icon
+              class="svg"
+              name="ms"
+              style="color: #fc716d"
+              @click="addSong(item)"
+            ></svg-icon>
           </div>
         </div>
       </div>
@@ -233,9 +263,7 @@ getListData()
     align-items: center;
     height: 40px;
     padding: 8px 0;
-    &:active {
-      background-color: #eee;
-    }
+
     .index {
       width: 40px;
       line-height: 40px;

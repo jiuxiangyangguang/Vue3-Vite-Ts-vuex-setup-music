@@ -61,3 +61,32 @@ body {
     opacity: 0;
   }
 }
+
+.playlist-enter-active {
+  animation: op 0.5s ease;
+  .list {
+    animation: bom 0.4s ease;
+  }
+}
+.playlist-leave-active {
+  animation: op 0.2s reverse;
+  .list {
+    animation: bom 0.2s ease reverse;
+  }
+}
+@keyframes op {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+@keyframes bom {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 20px;
+  }
+}

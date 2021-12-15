@@ -8,6 +8,10 @@
  * 版权声明
  */
 import { get, set, ref } from '@/utils/local'
+interface route {
+  name: string,
+  path: string
+}
 interface SearchArr {
   value: string;
   date: string;
@@ -37,6 +41,8 @@ const audio = {
   currentPlay: [] as Array<CurrentPlay>,
   currentPlayLen: 0
 }
+
+
 const currentPlay = {}
 type Audio = typeof audio
 
@@ -45,11 +51,15 @@ type Audio = typeof audio
 export interface State {
   historyList: Array<SearchArr>
   audio: Audio,
+  showPlayList: boolean,
+  routeArr: Array<route>
 }
 
 export const state: State = {
   historyList: [],
-  audio
+  audio: { ...audio },
+  showPlayList: false,
+  routeArr: []
 }
 
 
@@ -74,6 +84,14 @@ export const mutations = {
     state.audio.currentPlayLen = state.audio.currentPlay.length
     set('audio', JSON.stringify(state.audio))
   },
+  setCurrentPlayCle(state: State) {
+    state.audio.currentPlay.length = 0
+  },
+  setCurrentPlayRef(state: State, index: number) {
+    state.audio.currentPlay.splice(index, 1)
+    state.audio.currentPlayLen = state.audio.currentPlay.length
+    if (state.audio.index) state.audio.index--
+  },
   setPlayFlag(state: State, flag: boolean) {
     state.audio.playFlag = flag
   },
@@ -89,6 +107,10 @@ export const mutations = {
   setSetCurrentLen(state: State, length: number) {
     state.audio.setCurrentLen = length
   },
+  resAudio(state: State) {
+    state.audio = audio
+
+  },
   setIndex(state: State, index: number) {
     if (index < 0) {
       state.audio.index = state.audio.currentPlayLen - 1
@@ -103,6 +125,24 @@ export const mutations = {
   },
   setVolume(state: State, num: number) {
     state.audio.volume = num
+  },
+  setShowPlayList(state: State) {
+    state.showPlayList = !state.showPlayList
+  },
+
+  setRouteArr(state: State, route: route) {
+    // 不重复添加路由
+    if (state.routeArr.some(item => item.name === route.name)) return
+    state.routeArr.push(route)
+  },
+  setLocation(state: State) {
+    set('audio', JSON.stringify(state.audio))
+  },
+  getLocation(state: State) {
+    //@ts-ignore
+    const data = get('audio') && JSON.parse(get('audio'))
+    state.audio = Object.assign(state.audio, data)
+    state.audio.playFlag = false
   }
 }
 

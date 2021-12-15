@@ -3,17 +3,47 @@ import { getNewSong } from '@/api/music'
 import BScroll from '@better-scroll/core'
 import { useRoute, useRouter } from 'vue-router'
 import { nextTick, onMounted, ref } from 'vue'
+import useStore from '@/hooks/useStore'
 const $router = useRouter()
+const $store = useStore()
 const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
     click: true
   })
 }
-const newSongData = ref([])
+const newSongData = ref([]) // 默认展示3首歌曲
+
+const songData = ref([]) // 获取的所有歌曲
 const newsong = async () => {
   const { result }: any = await getNewSong()
+  songData.value = result
   newSongData.value = result.slice(0, 3)
+}
+
+// 刷新推荐歌单
+const replay = async () => {
+  const len = 34
+  const { result }: any = await getNewSong(len)
+  const one = Math.ceil(Math.random() * len - 4)
+  //@ts-ignore
+  newSongData.value = [result[one], result[one + 1], result[one + 2]]
+
+  songData.value = result
+}
+// 播放全部
+const palyAll = () => {
+  $store.commit('setCurrentPlayCle') // 清空歌曲列表
+  const arr = [...songData.value]
+  arr.reverse().forEach((item: any) => {
+    const obj = {
+      name: item.name,
+      songName: item.song.artists[0].name,
+      id: item.id,
+      picUrl: item.picUrl
+    }
+    $store.commit('setCurrentPlay', obj)
+  })
 }
 // 跳转音乐页
 const jump = (id: number) => {
@@ -32,8 +62,8 @@ newsong()
   <!-- 推荐新音乐 -->
   <div class="newsong">
     <div class="title">
-      <p><van-icon name="replay" /> 推荐新音乐</p>
-      <span><van-icon name="play-circle-o" />播放</span>
+      <p><van-icon name="replay" @click="replay" /> 推荐新音乐</p>
+      <span @click="palyAll"><van-icon name="play-circle-o" />播放</span>
     </div>
     <ul>
       <li v-for="item: any in newSongData" @click="jump(item.id)">

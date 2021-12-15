@@ -15,7 +15,11 @@ watch($route, () => {
   active.value = $route.path
 })
 </script>
-
+<script lang="ts">
+export default {
+  name: 'Home'
+}
+</script>
 <template>
   <div class="animt-css3">
     <!-- 二级路由部分 -->

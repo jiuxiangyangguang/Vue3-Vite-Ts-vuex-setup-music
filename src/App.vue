@@ -7,20 +7,40 @@
  * @FilePath: \musicwangyi\src\App.vue
  * 版权声明
 -->
+<script lang="ts">
+import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue'
+const playlist = shallowRef(null)
+
+export default {
+  components: { playlist }
+}
+</script>
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-
 import { useRoute, useRouter } from 'vue-router'
+import useStore from './hooks/useStore'
 
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-const $routr = useRoute()
+const $route = useRoute()
 const $router = useRouter()
+const $store = useStore()
+const show = computed(() => $store.state.showPlayList)
+$store.commit('getLocation')
+
+watch(show, () => {
+  if (show.value) {
+    //@ts-ignore
+    playlist.value = defineAsyncComponent(
+      () => import('@/components/PlayList.vue')
+    )
+  } else {
+    playlist.value = null
+  }
+})
 </script>
 
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transition">
-      <keep-alive :include="['Find', 'PlayHome']">
+      <keep-alive :include="['Home', 'PlayHome', 'Search']">
         <component :is="Component"></component>
       </keep-alive>
     </transition>
@@ -29,7 +49,12 @@ const $router = useRouter()
   <!--  音乐播放组件 隐藏的全局共享 不可删除 -->
   <audio-bar />
   <!-- 音乐播放组件 -->
-  <audio-box v-show="$routr.path !== '/play'" />
+  <audio-box v-show="$route.path !== '/play'" />
+
+  <!-- 播放列表 -->
+  <transition name="playlist">
+    <component :is="playlist"> </component>
+  </transition>
 </template>
 
 <style lang="less"></style>
