@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { onActivated, onDeactivated, ref } from 'vue'
 import SwiperVue from '@/components/Swiper.vue'
 import IconNavVue from './compnents/IconNav.vue'
 import NewSongVue from './compnents/NewSong.vue'
 import RankListVue from './compnents/RankList.vue'
 import RecommendVue from './compnents/Recommend.vue'
 // import SearchVue from '../../components/Search-com.vue'
+
+// 解决由于组件缓存导致的轮播图不刷新
+const swiperShow = ref<boolean>(false)
+onActivated(() => (swiperShow.value = true))
+onDeactivated(() => (swiperShow.value = false))
 </script>
 
 <template>
@@ -13,7 +19,7 @@ import RecommendVue from './compnents/Recommend.vue'
     <search-com @click="$router.push('search')"></search-com>
     <div class="banner-nav">
       <!-- 轮播图区域 -->
-      <swiper-vue></swiper-vue>
+      <swiper-vue v-if="swiperShow"></swiper-vue>
       <!-- icon导航栏区域 -->
       <icon-nav-vue></icon-nav-vue>
     </div>

@@ -27,6 +27,7 @@ const $store = useStore()
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
 const index = computed(() => $store.state.audio.index) // 当前播放索引
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
+const currentPlaylen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表
 interface Song {
   name: string
   id: number
@@ -77,8 +78,12 @@ watch(
   },
   { immediate: true }
 )
-// 上下切换歌曲
-watch(index, async () => {
+// 上下切换歌曲,歌单列表变化
+watch([index, currentPlaylen], async () => {
+  if (currentPlaylen.value === 0) {
+    $router.push('/')
+    return
+  }
   const id = currentPlay.value[index.value].id
   // 防止因为切换歌曲,从其他页面跳转过来
   if ($route.path === '/play') $router.push({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
@@ -90,7 +95,7 @@ onActivated(() => {
 })
 
 const back = () => {
-  $router.push('/')
+  $router.go(-1)
 }
 </script>
 

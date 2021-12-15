@@ -112,6 +112,11 @@ const modeChange = () => {
   $store.commit('setMode', modes)
 }
 
+// 播放列表
+const show = () => {
+  $store.commit('setShowPlayList')
+}
+
 // 进度条自动控制
 watch(currentLength, () => {
   if (flag.value) return // 手动控制就调用自动控制
@@ -159,7 +164,7 @@ watch(currentLength, () => {
       :name="!playFlag ? 'play-circle-o' : 'pause-circle-o'"
     />
     <svg-icon name="next" @click="next" />
-    <svg-icon name="bflb" style="font-size: 18px" />
+    <svg-icon name="bflb" style="font-size: 18px" @click="show" />
   </div>
 
   <!-- 模式提示框 -->

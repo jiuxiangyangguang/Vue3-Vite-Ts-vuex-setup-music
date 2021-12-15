@@ -50,7 +50,7 @@ export interface State {
 
 export const state: State = {
   historyList: [],
-  audio,
+  audio: { ...audio },
   showPlayList: false
 }
 
@@ -79,6 +79,10 @@ export const mutations = {
   setCurrentPlayCle(state: State) {
     state.audio.currentPlay.length = 0
   },
+  setCurrentPlayRef(state: State, index: number) {
+    state.audio.currentPlay.splice(index, 1)
+    state.audio.currentPlayLen = state.audio.currentPlay.length
+  },
   setPlayFlag(state: State, flag: boolean) {
     state.audio.playFlag = flag
   },
@@ -94,12 +98,15 @@ export const mutations = {
   setSetCurrentLen(state: State, length: number) {
     state.audio.setCurrentLen = length
   },
+  resAudio(state: State) {
+    state.audio = audio
+
+  },
   setIndex(state: State, index: number) {
     if (index < 0) {
       state.audio.index = state.audio.currentPlayLen - 1
     } else if (index === state.audio.currentPlayLen) {
       state.audio.index = 0
-      state.audio.currentAudioLength = 0
     } else {
       state.audio.index = index
     }

@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+  name: 'Search'
+}
+</script>
 <script setup lang="ts">
 import { computed, onActivated, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

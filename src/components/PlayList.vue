@@ -30,8 +30,6 @@ const volume = computed(() => $store.state.audio.volume) // 音量
 
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前音乐列表
 
-const resources = ref('') // 当前播放url
-
 const index = computed(() => $store.state.audio.index) // 当前音乐在播放列表中的索引
 
 const setCurrentLen = computed(() => $store.state.audio.setCurrentLen) // 用户手动设置播放长度
@@ -50,13 +48,36 @@ const modeChange = () => {
   }
   $store.commit('setMode', modes)
 }
-const show = () => {
-  $store.commit('setShowPlayList')
+
+// 退出播放列表
+const show = (e: any) => {
+  if (e.target.className === 'playlist') $store.commit('setShowPlayList')
+}
+
+// 点击播放
+const play = (index: number) => {
+  $store.commit('setIndex', index)
+}
+
+// 点击删除歌曲
+const del = (i: number) => {
+  if (index.value === i && currentPlayLen.value === 1) {
+    // 只有一首歌曲
+    $store.commit('resAudio') // 清空audio
+    $store.commit('setShowPlayList') // 不显示播放列表
+  }
+  if (index.value === i && currentPlayLen.value === index.value + 1) {
+    // 删除最后一个歌曲
+    $store.commit('setCurrentPlayRef', i)
+    $store.commit('setIndex', 0)
+    return
+  }
+  $store.commit('setCurrentPlayRef', i)
 }
 </script>
 
 <template>
-  <div class="playlist" @click="show">
+  <div class="playlist" @click="show($event)">
     <div class="list">
       <div class="top">
         <p class="curren">
@@ -72,11 +93,12 @@ const show = () => {
       </div>
 
       <ul>
-        <li v-for="item in currentPlay">
-          <p>
+        <li v-for="(item, i) in currentPlay" @click="play(i)">
+          <p :class="index === i ? 'current' : ''">
+            <svg-icon name="td" v-if="index === i"></svg-icon>
             {{ item.name }} - <span>{{ item.songName }}</span>
           </p>
-          <van-icon name="cross" />
+          <van-icon name="cross" @click.stop="del(i)" />
         </li>
       </ul>
     </div>
@@ -92,7 +114,6 @@ const show = () => {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 10000;
-  animation: op 0.5s ease;
   .list {
     width: 90%;
     height: 400px;
@@ -104,7 +125,6 @@ const show = () => {
     border-radius: 20px;
     padding: 20px 14px;
     box-sizing: border-box;
-    animation: bom 0.5s ease;
     .top {
       display: flex;
       justify-content: space-between;
@@ -138,28 +158,18 @@ const show = () => {
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
         }
+        .current {
+          color: #f43319;
+          span {
+            color: #f43319;
+          }
+        }
         span {
           font-size: 12px;
           color: #aaa;
         }
       }
     }
-  }
-}
-@keyframes op {
-  0% {
-    background-color: transparent;
-  }
-  100% {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-}
-@keyframes bom {
-  0% {
-    bottom: -100%;
-  }
-  100% {
-    bottom: 20px;
   }
 }
 </style>

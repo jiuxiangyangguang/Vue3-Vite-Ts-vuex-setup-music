@@ -40,7 +40,7 @@ watch(show, () => {
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transition">
-      <keep-alive :include="['Home', 'PlayHome']">
+      <keep-alive :include="['Home', 'PlayHome', 'Search']">
         <component :is="Component"></component>
       </keep-alive>
     </transition>
@@ -52,7 +52,9 @@ watch(show, () => {
   <audio-box v-show="$route.path !== '/play'" />
 
   <!-- 播放列表 -->
-  <component :is="playlist"></component>
+  <transition name="playlist">
+    <component :is="playlist"> </component>
+  </transition>
 </template>
 
 <style lang="less"></style>
