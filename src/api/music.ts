@@ -63,6 +63,23 @@ export function getMusicDetail(params: IDs) {
   return request.get('/song/detail', params)
 }
 
+// 根据id获取歌词
+export function getMusicLyric(params: ID) {
+  return request.get('/lyric', params)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // export function getPlayList_Qua(params: object) {
 //   return request({
 //     url: '/top/playlist/highquality',

@@ -17,17 +17,20 @@ import { computed, onActivated, ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMusicDetail } from '@/api/music'
 import useStore from '@/hooks/useStore'
-import playcont from './PlayCont.vue'
-import volume from './Volume.vue'
+import playcont from './compnents/PlayCont.vue'
+import volume from './compnents/Volume.vue'
+import lyricCom from './compnents/LyricCom.vue'
 const $route = useRoute()
 const $router = useRouter()
 const songdetail = ref<Array<Song>>([])
-const imgrotate = ref(null)
 const $store = useStore()
+
+const imgrotate = ref(null) // 旋转img
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
 const index = computed(() => $store.state.audio.index) // 当前播放索引
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const currentPlaylen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表
+const imgBoxShow = ref<boolean>(true) // 切换图片歌词显示
 interface Song {
   name: string
   id: number
@@ -43,19 +46,21 @@ interface AR {
   id: number
   name: string
 }
-//
+// 获取歌曲详情
 const getDetail = async (flag: boolean, ids: number | string) => {
   const data: any = await getMusicDetail({ ids })
   songdetail.value = data?.songs
 
+  // 判断歌单列表存不存在该歌曲
   currentPlay.value.forEach((item, i) => {
     if (item.id === ids) {
       $store.commit('setIndex', i)
       flag = false
     }
   })
+
   if (flag) {
-    // 向歌曲列表添加歌曲歌曲
+    // 向歌曲列表添加歌曲
     $store.commit('setCurrentPlay', {
       name: songdetail.value[0]?.name,
       songName: songdetail.value[0]?.ar[0]?.name,
@@ -64,6 +69,12 @@ const getDetail = async (flag: boolean, ids: number | string) => {
     })
   }
 }
+
+// 切换歌词显示
+const showlyric = () => {
+  imgBoxShow.value = !imgBoxShow.value
+}
+
 // 控制图片是否旋转
 watch(
   playFlag,
@@ -78,6 +89,7 @@ watch(
   },
   { immediate: true }
 )
+
 // 上下切换歌曲,歌单列表变化
 watch([index, currentPlaylen], async () => {
   if (currentPlaylen.value === 0) {
@@ -89,6 +101,7 @@ watch([index, currentPlaylen], async () => {
   if ($route.path === '/play') $router.replace({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
   getDetail(false, id)
 })
+
 // @ts-ignore
 onActivated(() => {
   getDetail(true, $route.query.id as string)
@@ -111,6 +124,7 @@ const back = () => {
         backgroundPosition: 'center'
       }"
     ></div>
+
     <!-- 歌曲名称 -->
     <div class="title">
       <van-icon class="back" name="down" @click="back" />
@@ -120,12 +134,24 @@ const back = () => {
       </div>
       <van-icon name="share-o" />
     </div>
+
     <!-- 音量控制组件 -->
     <volume />
+
     <!-- 图片旋转组件 -->
-    <div class="img-rotate" ref="imgrotate">
-      <img-com :url="songdetail[0]?.al.picUrl" size="200"></img-com>
+    <div class="img-rotate" ref="imgrotate" v-show="imgBoxShow">
+      <img-com
+        :url="songdetail[0]?.al.picUrl"
+        size="200"
+        @click="showlyric"
+      ></img-com>
     </div>
+
+    <!-- 歌词组件 -->
+    <div style="flex: 1" v-show="!imgBoxShow">
+      <lyric-com @showlyric="showlyric" />
+    </div>
+
     <!-- 进度条--播放组件 -->
     <div class="controller">
       <playcont></playcont>
