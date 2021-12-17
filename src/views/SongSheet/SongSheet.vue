@@ -11,17 +11,7 @@ const songInfo = ref<SongList>({})
 const flag = ref<boolean>(false)
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const timeInvert = useTime()
-interface SongList {
-  commentCount?: number
-  name?: string
-  shareCount?: number
-  subscribedCount?: number
-  tags?: Array<string>
-  trackIds?: Array<any>
-  trackUpdateTime?: number
-  tracks?: Array<any>
-  coverImgUrl?: string
-}
+
 const getListData = async () => {
   const id = $route.query.id as string
   const { playlist }: any = await getListById({ id })

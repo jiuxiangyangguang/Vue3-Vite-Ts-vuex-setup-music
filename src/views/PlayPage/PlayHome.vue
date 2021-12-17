@@ -31,21 +31,7 @@ const index = computed(() => $store.state.audio.index) // 当前播放索引
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const currentPlaylen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表
 const imgBoxShow = ref<boolean>(true) // 切换图片歌词显示
-interface Song {
-  name: string
-  id: number
-  al: AL
-  ar: Array<AR>
-}
-interface AL {
-  id: number
-  name: string
-  picUrl: string
-}
-interface AR {
-  id: number
-  name: string
-}
+
 // 获取歌曲详情
 const getDetail = async (flag: boolean, ids: number | string) => {
   const data: any = await getMusicDetail({ ids })

@@ -13,20 +13,7 @@ const emit = defineEmits(['loadMore'])
 const flag = ref<boolean>(false) // 等待框
 const lodingFlag = ref<boolean>(false) // 加载框
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前列表
-interface SongS {
-  name: string
-  id: number
-  album: ALB
-  artists: Array<ART>
-}
-interface ALB {
-  id: number
-  name: string
-}
-interface ART {
-  id: number
-  name: string
-}
+
 const props = defineProps({
   currensongList: {
     type: Array as () => Array<SongS>,
