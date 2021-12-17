@@ -50,7 +50,7 @@ const getDetail = async (flag: boolean, ids: number | string) => {
     $store.commit('setCurrentPlay', {
       name: songdetail.value[0]?.name,
       songName: songdetail.value[0]?.ar[0]?.name,
-      id: ids,
+      id: Number(ids), // 一定要存储数字类型
       picUrl: songdetail.value[0]?.al.picUrl
     })
   }

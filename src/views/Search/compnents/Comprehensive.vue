@@ -33,7 +33,9 @@ const jump = (id: number) => {
 
 // 不跳转页面添加歌曲
 const addSong = (item: any) => {
-  const index = currentPlay.value.findIndex((song) => song.id === item.id)
+  const index = currentPlay.value.findIndex(
+    (song) => Number(song.id) === Number(item.id)
+  )
   const obj = {
     name: item.name,
     songName: item.ar[0].name,
