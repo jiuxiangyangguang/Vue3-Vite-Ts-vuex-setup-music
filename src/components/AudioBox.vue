@@ -12,11 +12,7 @@ import { reactive, ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicDetail } from '@/api/music'
 import { useRoute, useRouter } from 'vue-router'
-interface MusicList {
-  id: string
-  name: string
-  url: string
-}
+
 const $store = useStore()
 
 const $route = useRoute()

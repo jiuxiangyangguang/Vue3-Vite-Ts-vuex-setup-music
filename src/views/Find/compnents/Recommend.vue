@@ -13,11 +13,6 @@ const better = () => {
     click: true
   })
 }
-interface Img {
-  id: number
-  name: string
-  picUrl: string
-}
 
 const songList = ref<Array<Img>>([])
 

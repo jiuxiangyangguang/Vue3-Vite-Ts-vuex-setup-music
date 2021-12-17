@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-
 interface Img {
   url: string
   size?: number | string

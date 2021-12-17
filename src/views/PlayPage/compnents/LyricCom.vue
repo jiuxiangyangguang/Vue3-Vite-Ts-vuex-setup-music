@@ -15,10 +15,7 @@ import useStore from '@/hooks/useStore'
 const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
-interface Lyric {
-  time?: number
-  text?: string
-}
+
 const ul = ref() // 获取ul DOM
 const currentAudioLength = computed(() => $store.state.audio.currentAudioLength) // 当前播放长度
 const lyrics = ref<Array<Lyric>>([]) // 歌词对象列表

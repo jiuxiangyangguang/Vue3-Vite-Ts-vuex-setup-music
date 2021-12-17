@@ -11,11 +11,7 @@
 import { reactive, ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicDetail } from '@/api/music'
-interface MusicList {
-  id: string
-  name: string
-  url: string
-}
+
 const $store = useStore()
 const audioDom = ref<any>(null) // 音频标签
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
