@@ -6,7 +6,6 @@ import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
 // import SeachHomeVue from './compnents/SeachHome.vue'
 // import SearchTabs from './compnents/SearchTabs.vue'
-import { dir, log } from 'console'
 const $router = useRouter()
 const $store = useStore()
 const cord = ref()
