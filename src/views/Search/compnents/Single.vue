@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onActivated, ref, watch } from 'vue'
+import { Notify } from 'vant'
 import { useRoute, useRouter } from 'vue-router'
 import { getMultimatch } from '@/api/music'
 import useTime from '@/hooks/useTime'
@@ -40,7 +41,11 @@ const touchEnd = () => {
   const clientHeight = cord.value.clientHeight
   const scrollTop = cord.value.scrollTop
 
-  if (clientHeight + scrollTop >= scrollHeight) {
+  if (props.currensongList.length + 30 >= 120) {
+    Notify({ type: 'warning', message: '没有更多咯' })
+    return
+  }
+  if (scrollHeight - clientHeight - scrollTop <= 5) {
     lodingFlag.value = true
     emit('loadMore', props.currensongList.length + 30)
   }
