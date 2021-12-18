@@ -11,11 +11,6 @@ const flag = ref<boolean>(false) // 动画阀
 const active = ref<string>('es') // 动画阀
 const $store = useStore()
 
-interface HOT {
-  first?: string
-  iconType?: number
-  second?: number
-}
 // 类型声明方式
 // const props = defineProps<{
 //   hot: Array<HOT>

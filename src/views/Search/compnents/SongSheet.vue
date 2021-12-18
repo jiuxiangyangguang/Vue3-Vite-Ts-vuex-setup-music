@@ -13,14 +13,7 @@ const cord = ref()
 const emit = defineEmits(['loadMore'])
 const flag = ref<boolean>(false) // 等待框
 const lodingFlag = ref<boolean>(false) // 加载框
-interface PlayList {
-  id: number
-  coverImgUrl: string
-  name: string
-  playCount: number
-  creator: any
-  trackCount: number
-}
+
 const props = defineProps({
   currenplayList: {
     type: Array as () => Array<PlayList>,

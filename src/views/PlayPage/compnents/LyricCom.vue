@@ -15,10 +15,7 @@ import useStore from '@/hooks/useStore'
 const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
-interface Lyric {
-  time?: number
-  text?: string
-}
+
 const ul = ref() // 获取ul DOM
 const currentAudioLength = computed(() => $store.state.audio.currentAudioLength) // 当前播放长度
 const lyrics = ref<Array<Lyric>>([]) // 歌词对象列表
@@ -56,6 +53,7 @@ watch(currentAudioLength, (newV, lodV) => {
 // 监听歌词索引变化
 watch(currentPlayIndex, async () => {
   await nextTick()
+  if ($route.path !== 'play') return // 不在播放页面不需要操作歌词
   const top = currentPlayIndex.value
   const span = document.querySelectorAll('li span') as NodeListOf<HTMLLIElement>
   span.forEach((item) => {
@@ -64,7 +62,6 @@ watch(currentPlayIndex, async () => {
   })
   //@ts-ignore
   const time = lyrics.value[top + 1].time - lyrics.value[top].time
-
   span[top].style.transition = `background-size ${time - 0.5}s ease`
   span[top].style.backgroundSize = '100%'
   ul.value.style.top = `-${top * 40}px`

@@ -8,40 +8,6 @@ const $store = useStore()
 const flag = ref<boolean>(false) // 等待框
 const songlist = ref()
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
-interface Song {
-  name: string
-  id: number
-  al: AL
-  ar: Array<AR>
-}
-interface AL {
-  id: number
-  name: string
-  picUrl: string
-}
-interface AR {
-  id: number
-  name: string
-}
-interface PlayListS {
-  name: string
-  id: number
-  coverImgUrl: string
-  trackCount: number
-  playCount: number
-}
-interface MlogList {
-  moreText?: string
-  resources?: []
-}
-interface PlayList {
-  moreText?: string
-  playLists?: Array<PlayListS>
-}
-interface SongList {
-  moreText?: string
-  songs?: Array<Song>
-}
 const props = defineProps<{
   songList: SongList
   playList: PlayList
@@ -67,7 +33,9 @@ const jump = (id: number) => {
 
 // 不跳转页面添加歌曲
 const addSong = (item: any) => {
-  const index = currentPlay.value.findIndex((song) => song.id === item.id)
+  const index = currentPlay.value.findIndex(
+    (song) => Number(song.id) === Number(item.id)
+  )
   const obj = {
     name: item.name,
     songName: item.ar[0].name,
