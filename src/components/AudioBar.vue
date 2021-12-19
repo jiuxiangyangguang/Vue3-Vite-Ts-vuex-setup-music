@@ -48,6 +48,7 @@ const audioPause = () => {
 
 // 原生结束播放
 const ended = () => {
+  $store.commit('setCurrentAudioLength', 0)
   let value = index.value + 1
   if (mode.value === 2) {
     $store.commit('setCurrentAudioLength', 0)
