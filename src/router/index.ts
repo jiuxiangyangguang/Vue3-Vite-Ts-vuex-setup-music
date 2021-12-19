@@ -11,7 +11,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/layout/Home.vue'
 import Find from '@/views/Find/Find.vue'
 import useStore from '@/hooks/useStore'
-
+const r = import.meta.globEager('/src/views/Find/compnents/*.vue') // 一下引入所有vue文件
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -25,7 +25,6 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Find',
         meta: { keepAlive: true, transition: 'fadess' },
         component: Find,
-
       },
       {
         path: 'podcast',

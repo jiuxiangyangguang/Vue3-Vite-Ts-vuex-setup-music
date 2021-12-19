@@ -42,7 +42,6 @@ const getLyric = async (id: string | number) => {
     })
   })
   lyrics.value = arr
-  console.log(arr)
 }
 
 watch(currentAudioLength, (newV, lodV) => {
@@ -52,17 +51,19 @@ watch(currentAudioLength, (newV, lodV) => {
 
 // 监听歌词索引变化
 watch(currentPlayIndex, async () => {
-  await nextTick()
-  if ($route.path !== 'play') return // 不在播放页面不需要操作歌词
+  // await nextTick()
+  if ($route.path !== '/play') return // 不在播放页面不需要操作歌词
+
   const top = currentPlayIndex.value
   const span = document.querySelectorAll('li span') as NodeListOf<HTMLLIElement>
   span.forEach((item) => {
-    item.style.transition = `background-size 0s ease`
+    item.style.transition = `background-size 0s linear`
     item.style.backgroundSize = '0'
   })
   //@ts-ignore
   const time = lyrics.value[top + 1].time - lyrics.value[top].time
-  span[top].style.transition = `background-size ${time - 0.5}s ease`
+
+  span[top].style.transition = `background-size ${time}s linear`
   span[top].style.backgroundSize = '100%'
   ul.value.style.top = `-${top * 40}px`
 })
