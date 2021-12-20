@@ -6,6 +6,9 @@ interface IDs {
 interface ID {
   id: number | null | string
 }
+interface Uid {
+  uid: number | null | string
+}
 interface SongId {
   songid: string
 }
@@ -66,6 +69,16 @@ export function getMusicDetail(params: IDs) {
 // 根据id获取歌词
 export function getMusicLyric(params: ID) {
   return request.get('/lyric', params)
+}
+
+// 获取喜欢音乐列表
+export function getLiekList(params: Uid) {
+  return request.get('/likelist', params)
+}
+
+// 获取私人FM
+export function getPersonalFm() {
+  return request.get(`/personal_fm`)
 }
 
 

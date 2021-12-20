@@ -72,6 +72,14 @@ const routes: Array<RouteRecordRaw> = [
       transition: ''
     }
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login/Login.vue'),
+    meta: {
+      transition: ''
+    }
+  },
 ]
 
 const router = createRouter({
