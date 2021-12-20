@@ -27,14 +27,10 @@ import request from '@/utils/request'
 //   })
 // }
 
-// // 手机登录
-// export function loginByPhone(params:object) {
-//   return request({
-//     url: '/login/cellphone',
-//     method: 'get',
-//     params
-//   })
-// }
+// 手机登录
+export function loginByPhone(params: object) {
+  return request.get('/login/cellphone', params)
+}
 // // 邮箱登录
 // export function loginByEmail(params:object) {
 //   return request({
@@ -43,14 +39,20 @@ import request from '@/utils/request'
 //     params
 //   })
 // }
+// 邮箱登录
+export function loginByEmail(params: object) {
+  return request.get('/login', params)
+}
 
-// // 获取账号信息
-// export function getAccountInfo() {
-//   return request({
-//     url: '/user/account',
-//     method: 'get'
-//   })
-// }
+// 获取账号信息
+export function getAccountInfo(params: object) {
+  return request.get('/user/account', params)
+}
+
+// 获取账详情
+export function getUserDetails(params: object) {
+  return request.get('/user/detail', params)
+}
 // // 退出登录
 // export function logoutAccount() {
 //   return request({

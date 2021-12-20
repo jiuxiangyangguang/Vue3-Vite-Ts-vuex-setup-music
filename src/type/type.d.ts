@@ -49,6 +49,7 @@ interface SongS {
 interface ALB {
   id: number
   name: string
+  picUrl?: string
 }
 interface ART {
   id: number
@@ -87,4 +88,19 @@ interface SongList {
   trackUpdateTime?: number
   tracks?: Array<any>
   coverImgUrl?: string
+}
+
+interface infoIcon {
+  name: string
+  icon: string
+}
+interface Login {
+  email?: string
+  password?: string
+  phone?: string
+  md5_password?: string
+}
+interface LoginObj {
+  name: string
+  data: string
 }

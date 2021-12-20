@@ -103,11 +103,23 @@ watch(
   .dot {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
+    transform: translate(-8px, -50%);
+    background-color: transparent;
     width: 6px;
     height: 6px;
+    padding: 8px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:after {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
   }
 }
 </style>

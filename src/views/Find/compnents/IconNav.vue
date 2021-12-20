@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { getPersonalFm } from '@/api/music'
+import useStore from '@/hooks/useStore'
 import useTime from '@/hooks/useTime'
 import { reactive } from '@vue/reactivity'
+const $store = useStore()
+
 const Time = useTime().getDate()
 const iconList = [
   {
@@ -24,11 +28,29 @@ const iconList = [
     icon: 'zhaunji'
   }
 ]
+
+const jump = async (icon: string) => {
+  if (icon === 'fm') {
+    $store.commit('setCurrentPlayCle')
+
+    const { data }: any = await getPersonalFm()
+
+    data.forEach((item: SongS) => {
+      // 向歌曲列表添加歌曲
+      $store.commit('setCurrentPlay', {
+        name: item.name,
+        songName: item?.artists[0].name,
+        id: Number(item.id), // 一定要存储数字类型
+        picUrl: item?.album.picUrl
+      })
+    })
+  }
+}
 </script>
 
 <template>
   <ul>
-    <li v-for="item in iconList" class="dfx-dc">
+    <li v-for="item in iconList" class="dfx-dc" @click="jump(item.icon)">
       <div class="icon dfx">
         <p v-if="item.icon === 'eli'" class="time">{{ Time }}</p>
         <svg-icon

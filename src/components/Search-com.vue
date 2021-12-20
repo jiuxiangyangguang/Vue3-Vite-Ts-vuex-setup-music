@@ -1,16 +1,25 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onActivated, onDeactivated, ref } from 'vue'
+import Menu from './Menu.vue'
+
+const popupShow = ref(false)
+</script>
 
 <template>
   <!-- 搜索组件 -->
   <div class="search">
     <svg-icon
       name="caidan"
+      @click="popupShow = true"
       :style="{
         fontSize: '20px',
         color: '#808080'
       }"
     ></svg-icon>
-    <van-search placeholder="请输入搜索关键词" />
+    <van-search
+      placeholder="请输入搜索关键词"
+      @click="$router.push('search')"
+    />
     <svg-icon
       name="yuying"
       :style="{
@@ -19,6 +28,15 @@
       }"
     ></svg-icon>
   </div>
+
+  <!-- 菜单弹出层 -->
+  <van-popup
+    v-model:show="popupShow"
+    position="left"
+    :style="{ width: '70%', height: '100%' }"
+  >
+    <Menu></Menu>
+  </van-popup>
 </template>
 
 <style lang="less" scoped>

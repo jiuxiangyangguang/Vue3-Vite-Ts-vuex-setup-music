@@ -41,10 +41,20 @@ const audio = {
   currentPlay: [] as Array<CurrentPlay>,
   currentPlayLen: 0
 }
+const userInfo = {
+  uid: '',
+  nickname: '未登录',
+  picUrl: '',
+  follows: 0,
+  followeds: 0,
+  eventCount: 0,
+  isLogin: false
+}
 
 
 const currentPlay = {}
 type Audio = typeof audio
+type UserInfo = typeof userInfo
 
 
 
@@ -52,14 +62,16 @@ export interface State {
   historyList: Array<SearchArr>
   audio: Audio,
   showPlayList: boolean,
-  routeArr: Array<route>
+  routeArr: Array<route>,
+  userInfo: UserInfo
 }
 
 export const state: State = {
   historyList: [],
   audio: { ...audio },
   showPlayList: false,
-  routeArr: []
+  routeArr: [],
+  userInfo,
 }
 
 
@@ -129,6 +141,10 @@ export const mutations = {
   setShowPlayList(state: State) {
     state.showPlayList = !state.showPlayList
   },
+  setUserInfo(state: State, obj: LoginObj) {
+    state.userInfo[obj.name] = obj.data
+    set('userInfo', JSON.stringify(state.userInfo))
+  },
 
   setRouteArr(state: State, route: route) {
     // 不重复添加路由
@@ -137,11 +153,15 @@ export const mutations = {
   },
   setLocation(state: State) {
     set('audio', JSON.stringify(state.audio))
+    set('userInfo', JSON.stringify(state.userInfo))
   },
   getLocation(state: State) {
     //@ts-ignore
-    const data = get('audio') && JSON.parse(get('audio'))
-    state.audio = Object.assign(state.audio, data)
+    const audiodata = get('audio') && JSON.parse(get('audio'))
+    //@ts-ignore
+    const userInfoData = get('userInfo') && JSON.parse(get('userInfo'))
+    state.audio = Object.assign(state.audio, audiodata)
+    state.userInfo = Object.assign(state.userInfo, userInfoData)
     state.audio.playFlag = false
   }
 }

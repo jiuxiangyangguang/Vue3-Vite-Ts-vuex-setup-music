@@ -16,7 +16,7 @@ onDeactivated(() => (swiperShow.value = false))
 <template>
   <div class="find">
     <!-- 搜索组件 -->
-    <search-com @click="$router.push('search')"></search-com>
+    <search-com></search-com>
     <div class="banner-nav">
       <!-- 轮播图区域 -->
       <swiper-vue v-if="swiperShow"></swiper-vue>

@@ -49,7 +49,7 @@ watch(show, () => {
   <!--  音乐播放组件 隐藏的全局共享 不可删除 -->
   <audio-bar />
   <!-- 音乐播放组件 -->
-  <audio-box v-show="$route.path !== '/play'" />
+  <audio-box v-show="$route.path !== '/play' && $route.path !== '/login'" />
 
   <!-- 播放列表 -->
   <transition name="playlist">
