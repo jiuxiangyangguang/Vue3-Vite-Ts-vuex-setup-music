@@ -71,20 +71,27 @@ const form = reactive({
     <div class="login-icon">
       <svg-icon name="wyy" style="font-size: 34px"></svg-icon>
     </div>
+    <p class="title" @click="$router.push('/')">立即体验</p>
 
     <!-- 表单登入区域 -->
     <div class="sign-box">
       <van-form @submit="form.onSubmit">
         <van-cell-group inset>
-          <van-field v-model="form.username" name="用户名" placeholder="邮箱" />
+          <van-field
+            v-model="form.username"
+            autocomplete="off"
+            name="用户名"
+            placeholder="邮箱"
+          />
           <van-field
             v-model="form.password"
+            autocomplete="off"
             type="password"
             name="密码"
             placeholder="密码"
           />
         </van-cell-group>
-        <div style="margin: 16px 0">
+        <div style="margin: 4px 0 16px 0">
           <van-button round block type="primary" native-type="submit">
             一键登录
           </van-button>
@@ -114,6 +121,13 @@ const form = reactive({
   height: 100%;
   background-color: #dc2b21;
   position: relative;
+  .title {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: #f5f5f5;
+    font-size: 14px;
+  }
   .login-icon {
     position: fixed;
     top: 30%;
@@ -126,6 +140,26 @@ const form = reactive({
     display: flex;
     justify-content: center;
     align-items: center;
+    &:after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 1px solid #f12a24;
+      position: absolute;
+      animation: identifier 3s linear infinite;
+    }
+    &:before {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 1px solid #f12a24;
+      position: absolute;
+      animation: identifier 3s linear infinite 1.5s;
+    }
   }
   .sign-box {
     width: 100%;
@@ -175,6 +209,16 @@ const form = reactive({
         border: 1px solid #ff8181;
       }
     }
+  }
+}
+@keyframes identifier {
+  0% {
+    width: 60px;
+    height: 60px;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
   }
 }
 </style>

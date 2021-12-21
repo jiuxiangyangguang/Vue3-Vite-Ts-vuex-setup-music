@@ -3,6 +3,7 @@ import { onActivated, onDeactivated, ref } from 'vue'
 import Menu from './Menu.vue'
 
 const popupShow = ref(false)
+onActivated(() => (popupShow.value = false))
 </script>
 
 <template>
