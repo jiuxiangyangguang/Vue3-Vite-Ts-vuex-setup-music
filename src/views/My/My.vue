@@ -1,10 +1,15 @@
+<script lang="ts">
+export default {
+  // name: 'my'
+}
+</script>
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, onActivated, onDeactivated, reactive, ref } from 'vue'
 import Menu from '@/components/Menu.vue'
 import useStore from '@/hooks/useStore'
-import { useRouter } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { getLiekList, getMusicDetail } from '@/api/music'
-
+import { Dialog } from 'vant'
 const infoIcon = ref<Array<infoIcon>>([
   {
     name: '最近播放',
@@ -61,6 +66,20 @@ const jump = () => {
 // 心动模式
 const lick = async () => {
   // 获取歌曲详情
+  if (!isLogin.value) {
+    Dialog.confirm({
+      message: '登录之后即可开启心动模式',
+      confirmButtonText: '登录'
+    })
+      .then(() => {
+        $router.push('login')
+      })
+      .catch(() => {
+        // on cancel
+      })
+
+    return
+  }
   const idsArr = ids.value.join(',')
   const data: any = await getMusicDetail({ ids: idsArr })
   const song: Array<Song> = data?.songs
@@ -77,7 +96,11 @@ const lick = async () => {
     })
   })
 }
-getlist()
+onActivated(() => {
+  popupShow.value = false
+
+  if (isLogin.value) getlist()
+})
 </script>
 
 <template>

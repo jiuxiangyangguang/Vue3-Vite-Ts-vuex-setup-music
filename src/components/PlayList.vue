@@ -12,7 +12,6 @@ import { reactive, ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
 import { getMusicDetail } from '@/api/music'
 const $store = useStore()
-const audioDom = ref<any>(null) // 音频标签
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
 const tipsText = ref('列表循环')
 const progerssAudioLength = computed(
@@ -87,15 +86,17 @@ const del = (i: number) => {
         </p>
       </div>
 
-      <ul>
-        <li v-for="(item, i) in currentPlay" @click="play(i)">
-          <p :class="index === i ? 'current' : ''">
-            <svg-icon name="td" v-if="index === i"></svg-icon>
-            {{ item.name }} - <span>{{ item.songName }}</span>
-          </p>
-          <van-icon name="cross" @click.stop="del(i)" />
-        </li>
-      </ul>
+      <div class="scoll">
+        <ul>
+          <li v-for="(item, i) in currentPlay" @click="play(i)">
+            <p :class="index === i ? 'current' : ''">
+              <svg-icon name="td" v-if="index === i"></svg-icon>
+              {{ item.name }} - <span>{{ item.songName }}</span>
+            </p>
+            <van-icon name="cross" @click.stop="del(i)" />
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -118,13 +119,16 @@ const del = (i: number) => {
     bottom: 20px;
     transform: translateX(-50%);
     border-radius: 20px;
-    padding: 20px 14px;
+    padding: 20px 0;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 20px;
+      padding: 4px 14px;
       .curren {
         font-weight: 700;
         span {
@@ -140,28 +144,34 @@ const del = (i: number) => {
         }
       }
     }
-    ul {
-      li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        line-height: 40px;
-        p {
-          font-size: 14px;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-        }
-        .current {
-          color: #f43319;
-          span {
-            color: #f43319;
+    .scoll {
+      flex: 1;
+      overflow: scroll;
+
+      ul {
+        padding: 0 14px;
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          line-height: 40px;
+          p {
+            font-size: 14px;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
-        }
-        span {
-          font-size: 12px;
-          color: #aaa;
+          .current {
+            color: #f43319;
+            span {
+              color: #f43319;
+            }
+          }
+          span {
+            font-size: 12px;
+            color: #aaa;
+          }
         }
       }
     }

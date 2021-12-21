@@ -31,6 +31,9 @@ import request from '@/utils/request'
 export function loginByPhone(params: object) {
   return request.get('/login/cellphone', params)
 }
+export function logout() {
+  return request.get('/logout')
+}
 // // 邮箱登录
 // export function loginByEmail(params:object) {
 //   return request({

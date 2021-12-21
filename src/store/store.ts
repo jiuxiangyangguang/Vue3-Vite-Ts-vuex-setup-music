@@ -71,7 +71,7 @@ export const state: State = {
   audio: { ...audio },
   showPlayList: false,
   routeArr: [],
-  userInfo,
+  userInfo: { ...userInfo },
 }
 
 
@@ -144,6 +144,11 @@ export const mutations = {
   setUserInfo(state: State, obj: LoginObj) {
     state.userInfo[obj.name] = obj.data
     set('userInfo', JSON.stringify(state.userInfo))
+  },
+  setUserInfoCle(state: State) {
+    state.userInfo = userInfo
+    ref('userInfo')
+    ref('token')
   },
 
   setRouteArr(state: State, route: route) {

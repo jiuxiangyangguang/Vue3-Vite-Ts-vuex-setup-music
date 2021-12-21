@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onDeactivated, ref } from 'vue'
+import { computed, onActivated, onDeactivated, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
+import { logout } from '@/api/user'
 const $store = useStore()
 const $router = useRouter()
 
@@ -10,6 +11,23 @@ const jump = () => {
   if (!user.value.isLogin) $router.push('login')
 }
 const checked = ref(false) // 是否是夜间模式
+
+const show = ref(false) // 是否退出
+const actions = ref([{ name: '退出登录' }, { name: '切换账号' }])
+const onSelect = async (item: string) => {
+  const data = await logout()
+  $store.commit('setUserInfoCle') // 清除输入信息
+  show.value = false
+  $router.push('login')
+}
+const login = () => {
+  if (user.value.isLogin) {
+    show.value = true
+  } else {
+    show.value = false
+    $router.push('login')
+  }
+}
 </script>
 
 <template>
@@ -17,6 +35,7 @@ const checked = ref(false) // 是否是夜间模式
     <div class="info">
       <div class="left-box">
         <p class="name" @click="jump">
+          <img-com :url="user.picUrl" v-if="user.isLogin"></img-com>
           <svg-icon
             name="sign"
             v-if="!user.isLogin"
@@ -77,6 +96,16 @@ const checked = ref(false) // 是否是夜间模式
           <van-icon name="arrow" />
         </li>
       </ul>
+
+      <div class="btn card" @click="login">
+        {{ user.isLogin ? '退出登录' : '登录网易云' }}
+      </div>
+      <van-action-sheet
+        teleport="body"
+        v-model:show="show"
+        :actions="actions"
+        @select="onSelect"
+      />
     </div>
   </div>
 </template>
@@ -96,7 +125,16 @@ const checked = ref(false) // 是否是夜间模式
     padding: 0 10px;
     box-sizing: border-box;
     .name {
+      display: flex;
+      align-items: center;
       .svg-icon {
+        margin-right: 10px;
+      }
+      .img-com {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
         margin-right: 10px;
       }
     }
@@ -128,6 +166,13 @@ const checked = ref(false) // 是否是夜间模式
         margin-right: 6px;
       }
     }
+  }
+  .btn {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #f43319;
+    font-size: 16px;
   }
 }
 </style>
