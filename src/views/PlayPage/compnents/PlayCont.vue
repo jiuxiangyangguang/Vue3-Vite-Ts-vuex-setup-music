@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
+import { getMusicDetail, getLikeMusic } from '@/api/music'
 import { Notify } from 'vant'
 import useTime from '@/hooks/useTime'
 const $store = useStore()
@@ -19,9 +19,9 @@ const tipsText = ref('') // 播放模式提示
 
 const showNotify = ref(false) // 播放模式提示框
 
-const showLove = ref(false) // 播放模式提示
-
 const collection = ref() // 爱心DOM
+
+const likeArr = computed(() => $store.state.userInfo.likeArr) // 喜欢的音乐列表
 
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
 
@@ -30,6 +30,8 @@ const index = computed(() => $store.state.audio.index) // 当前播放索引
 const mode = computed(() => $store.state.audio.mode) // 当前播放模式
 
 const currentPlayLen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表长度
+
+const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 
 const currentLength = computed(() => $store.state.audio.currentAudioLength) // 当前长度
 
@@ -49,18 +51,31 @@ const lineTotalLen = ref(0) // 进度条长度
 
 const time = useTime()
 
+const showLove = computed(() =>
+  likeArr.value.some(
+    (item: number) => item === currentPlay.value[index.value].id
+  )
+) // 喜欢歌曲
+
 // 控制播放暂停
 const play = () => {
   $store.commit('setPlayFlags')
 }
 
 // 爱心
-const anim = () => {
+const anim = async () => {
   collection.value.classList.add('anim-one')
-  showLove.value = !showLove.value
   setTimeout(() => {
     collection.value.classList.remove('anim-one')
   }, 500)
+
+  const ev = showLove.value ? 'setlikeArrRef' : 'setlikeArrAdd'
+  $store.commit(ev, currentPlay.value[index.value].id)
+
+  const data = await getLikeMusic({
+    like: showLove.value,
+    id: currentPlay.value[index.value].id
+  })
 }
 
 // 手指在屏幕上滑动式触发
