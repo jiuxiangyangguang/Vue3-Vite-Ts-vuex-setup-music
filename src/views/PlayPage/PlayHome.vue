@@ -39,7 +39,7 @@ const getDetail = async (flag: boolean, ids: number | string) => {
 
   // 判断歌单列表存不存在该歌曲
   currentPlay.value.forEach((item, i) => {
-    if (item.id === ids) {
+    if (item.id === Number(ids)) {
       $store.commit('setIndex', i)
       flag = false
     }

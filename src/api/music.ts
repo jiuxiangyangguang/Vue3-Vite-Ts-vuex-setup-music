@@ -12,6 +12,10 @@ interface Uid {
 interface SongId {
   songid: string
 }
+interface Like {
+  like: boolean
+  id: number | string
+}
 export function homepage() {
   return request.get('/homepage/block/page')
 }
@@ -79,6 +83,11 @@ export function getLiekList(params: Uid) {
 // 获取私人FM
 export function getPersonalFm() {
   return request.get(`/personal_fm`)
+}
+
+// 喜欢音乐
+export function getLikeMusic(params: Like) {
+  return request.get(`/like`, params)
 }
 
 

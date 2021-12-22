@@ -48,7 +48,8 @@ const userInfo = {
   follows: 0,
   followeds: 0,
   eventCount: 0,
-  isLogin: false
+  isLogin: false,
+  likeArr: [] as Array<number>
 }
 
 
@@ -149,6 +150,12 @@ export const mutations = {
     state.userInfo = userInfo
     ref('userInfo')
     ref('token')
+  },
+  setlikeArrRef(state: State, id: number) {
+    state.userInfo.likeArr = state.userInfo.likeArr.filter(item => item !== id)
+  },
+  setlikeArrAdd(state: State, id: number) {
+    state.userInfo.likeArr.push(id)
   },
 
   setRouteArr(state: State, route: route) {

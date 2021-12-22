@@ -59,6 +59,7 @@ const getlist = async () => {
   const data: any = await getLiekList({ uid: uid.value })
   ids.value = data?.ids
   len.value = data?.ids?.length
+  $store.commit('setUserInfo', { name: 'likeArr', data: data?.ids })
 }
 const jump = () => {
   if (!isLogin.value) $router.push('login')
@@ -85,7 +86,6 @@ const lick = async () => {
   const song: Array<Song> = data?.songs
 
   $store.commit('setCurrentPlayCle')
-
   song.forEach((item) => {
     // 向歌曲列表添加歌曲
     $store.commit('setCurrentPlay', {

@@ -158,6 +158,7 @@ const del = (i: number) => {
           p {
             font-size: 14px;
             text-overflow: ellipsis;
+            overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
