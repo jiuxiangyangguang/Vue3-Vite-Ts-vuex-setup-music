@@ -17,12 +17,21 @@ const $router = useRouter()
 const $store = useStore()
 
 const ul = ref() // 获取ul DOM
+
 const currentAudioLength = computed(() => $store.state.audio.currentAudioLength) // 当前播放长度
+
 const lyrics = ref<Array<Lyric>>([]) // 歌词对象列表
+
 const currentPlayIndex = ref(0) // 当前播放索引
+
 const index = computed(() => $store.state.audio.index) // 当前播放索引
+
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前列表
+
 const currentPlayLen = computed(() => $store.state.audio.currentPlayLen) // 当前列表
+
+const lineColor = computed(() => $store.state.skin.lineColor) // 当前用户选择颜色
+
 const emit = defineEmits(['showlyric'])
 
 // 获取歌词
@@ -114,8 +123,11 @@ getLyric($route.query.id as string)
     justify-content: center;
     span {
       line-height: 20px;
-      background: #ffffff -webkit-linear-gradient(left, #1dcf9f, #53ecc3) no-repeat
-        0 0;
+      background: #ffffff -webkit-linear-gradient(
+          left,
+          v-bind(lineColor),
+          v-bind(lineColor)
+        ) no-repeat 0 0;
       background-size: 0;
       -webkit-background-clip: text;
       color: transparent;
