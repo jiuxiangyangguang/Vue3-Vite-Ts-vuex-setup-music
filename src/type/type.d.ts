@@ -104,3 +104,7 @@ interface LoginObj {
   name: string
   data: string
 }
+interface Icon {
+  name: string
+  data: string
+}

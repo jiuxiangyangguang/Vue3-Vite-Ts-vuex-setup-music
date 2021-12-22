@@ -62,7 +62,11 @@ const getlist = async () => {
   $store.commit('setUserInfo', { name: 'likeArr', data: data?.ids })
 }
 const jump = () => {
-  if (!isLogin.value) $router.push('login')
+  if (!isLogin.value) {
+    $router.push('login')
+  } else {
+    $router.push('setup')
+  }
 }
 // 心动模式
 const lick = async () => {

@@ -49,13 +49,23 @@ const userInfo = {
   followeds: 0,
   eventCount: 0,
   isLogin: false,
-  likeArr: [] as Array<number>
+  likeArr: [] as Array<number>,
+  city: '',
+  province: '',
+  gender: 0 as 0 | 1 | 2,
+  birthday: 0,
+  signature: ''
+}
+const skin = {
+  progress: 'hhua',
+  lineColor: '#ff5345'
 }
 
 
 const currentPlay = {}
 type Audio = typeof audio
 type UserInfo = typeof userInfo
+type Skin = typeof skin
 
 
 
@@ -64,7 +74,8 @@ export interface State {
   audio: Audio,
   showPlayList: boolean,
   routeArr: Array<route>,
-  userInfo: UserInfo
+  userInfo: UserInfo,
+  skin: Skin
 }
 
 export const state: State = {
@@ -73,6 +84,7 @@ export const state: State = {
   showPlayList: false,
   routeArr: [],
   userInfo: { ...userInfo },
+  skin
 }
 
 
@@ -157,6 +169,10 @@ export const mutations = {
   setlikeArrAdd(state: State, id: number) {
     state.userInfo.likeArr.push(id)
   },
+  setSkinIcon(state: State, icon: Icon) {
+    state.skin[icon.name] = icon.data
+    set('skin', JSON.stringify(state.skin))
+  },
 
   setRouteArr(state: State, route: route) {
     // 不重复添加路由
@@ -172,8 +188,11 @@ export const mutations = {
     const audiodata = get('audio') && JSON.parse(get('audio'))
     //@ts-ignore
     const userInfoData = get('userInfo') && JSON.parse(get('userInfo'))
+    //@ts-ignore
+    const skin = get('skin') && JSON.parse(get('skin'))
     state.audio = Object.assign(state.audio, audiodata)
     state.userInfo = Object.assign(state.userInfo, userInfoData)
+    state.skin = Object.assign(state.skin, skin)
     state.audio.playFlag = false
   }
 }

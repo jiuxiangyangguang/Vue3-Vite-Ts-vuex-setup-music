@@ -238,6 +238,11 @@
     "@typescript-eslint/types" "5.7.0"
     eslint-visitor-keys "^3.0.0"
 
+"@vant/area-data@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmmirror.com/@vant/area-data/download/@vant/area-data-1.1.5.tgz#84df2063f222e7ea130ecb1c8d0943bb7a3a4d75"
+  integrity sha512-dva7UJXpOzR38dgSLW2pPD9e3EXLXokk7Un5LVzI3OtfWfF8FnQVScLjvHU0xB9I7UIQRKRoT6xtM8V1B5K0cg==
+
 "@vant/icons@^1.7.1":
   version "1.7.1"
   resolved "https://registry.npmmirror.com/@vant/icons/download/@vant/icons-1.7.1.tgz"

@@ -55,5 +55,17 @@ export default {
           console.log(err)
         })
     })
+  },
+  postUp(url: string, params?: any) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(url, stringify(params), { headers: { 'Content-Type': 'multipart/form-data' } })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
   }
 }

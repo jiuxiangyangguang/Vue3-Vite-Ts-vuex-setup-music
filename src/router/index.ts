@@ -73,6 +73,22 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/setup',
+    name: 'SetUp',
+    component: () => import('@/views/SetUp/SetUp.vue'),
+    meta: {
+      transition: ''
+    }
+  },
+  {
+    path: '/skin',
+    name: 'Skin',
+    component: () => import('@/views/Skin/Skin.vue'),
+    meta: {
+      transition: ''
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/Login/Login.vue'),
