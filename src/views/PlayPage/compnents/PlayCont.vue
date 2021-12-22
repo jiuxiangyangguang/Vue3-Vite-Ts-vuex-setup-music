@@ -29,6 +29,10 @@ const index = computed(() => $store.state.audio.index) // 当前播放索引
 
 const mode = computed(() => $store.state.audio.mode) // 当前播放模式
 
+const progressIcon = computed(() => $store.state.skin.progress) // 当前用户选选择的图标
+
+const lineColor = computed(() => $store.state.skin.lineColor) // 当前用户选择颜色
+
 const currentPlayLen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表长度
 
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
@@ -160,7 +164,7 @@ watch(currentLength, () => {
     <div class="progress" ref="progress">
       <div class="speed" ref="speed"></div>
       <div class="dot" ref="dot" @touchmove="touchmove" @touchend="touchend">
-        <svg-icon name="hhua" />
+        <svg-icon :name="progressIcon" />
       </div>
     </div>
     <span class="text">{{ time.getMS(durationLength) }}</span>
@@ -170,7 +174,7 @@ watch(currentLength, () => {
   <div class="icon">
     <svg-icon
       :name="mode === 1 ? 'sjbf' : mode === 0 ? 'lbbf' : 'dqxh'"
-      style="font-size: 18px"
+      :style="{ fontSize: '18px', color: lineColor }"
       @click="modeChange"
     />
     <svg-icon name="prev" @click="prev" />
@@ -205,7 +209,7 @@ watch(currentLength, () => {
     position: relative;
     .speed {
       width: 0;
-      background-color: #fc3b41;
+      background-color: v-bind(lineColor);
       height: 100%;
     }
     .dot {
@@ -218,19 +222,19 @@ watch(currentLength, () => {
   }
   .text {
     font-size: 12px;
-    color: #aaa;
+    color: #fff;
   }
 }
 .icon {
   display: flex;
   font-size: 40px;
-  color: #aaa;
+  color: #fff;
   align-items: center;
   margin-top: 10px;
   padding: 0 30px;
   .svg-icon {
     flex: 1;
-    color: #aaa;
+    color: #fff;
   }
   .van-icon {
     margin: 0 10px;

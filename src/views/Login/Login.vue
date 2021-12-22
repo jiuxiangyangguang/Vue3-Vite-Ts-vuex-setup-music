@@ -31,29 +31,25 @@ const form = reactive({
     }
     if (data.code === 200) {
       Notify({ type: 'success', message: `欢迎您,${data.profile.nickname}` })
-      $store.commit('setUserInfo', {
-        name: 'uid',
-        data: data.profile.userId
-      })
-      $store.commit('setUserInfo', {
-        name: 'nickname',
-        data: data.profile.nickname
-      })
-      $store.commit('setUserInfo', {
-        name: 'picUrl',
-        data: data.profile.avatarUrl
-      })
-      $store.commit('setUserInfo', {
-        name: 'follows',
-        data: data.profile.follows
-      })
-      $store.commit('setUserInfo', {
-        name: 'followeds',
-        data: data.profile.followeds
-      })
-      $store.commit('setUserInfo', {
-        name: 'eventCount',
-        data: data.profile.eventCount
+      const infoArr = [
+        'userId',
+        'nickname',
+        'avatarUrl',
+        'follows',
+        'followeds',
+        'eventCount',
+        'city',
+        'province',
+        'gender',
+        'signature',
+        'birthday'
+      ]
+      infoArr.forEach((item) => {
+        $store.commit('setUserInfo', {
+          name:
+            item === 'userId' ? 'uid' : item === 'avatarUrl' ? 'picUrl' : item,
+          data: data.profile[item]
+        })
       })
       $store.commit('setUserInfo', {
         name: 'isLogin',

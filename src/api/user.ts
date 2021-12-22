@@ -31,6 +31,7 @@ import request from '@/utils/request'
 export function loginByPhone(params: object) {
   return request.get('/login/cellphone', params)
 }
+// 退出登录
 export function logout() {
   return request.get('/logout')
 }
@@ -56,13 +57,18 @@ export function getAccountInfo(params: object) {
 export function getUserDetails(params: object) {
   return request.get('/user/detail', params)
 }
-// // 退出登录
-// export function logoutAccount() {
-//   return request({
-//     url: '/logout',
-//     method: 'get'
-//   })
-// }
+
+// 更新用户信息
+export function getInfoUpdate(params: object) {
+  return request.get('/user/update', params)
+}
+
+// 上传头像
+export function setUpImg(params: any) {
+  return request.get(`/avatar/upload?imgSize=200&timestamp=${Date.now()}`, params)
+}
+
+
 
 // // 获取用户歌单
 // export function getUserPlayList(params:object) {

@@ -74,7 +74,7 @@ const login = () => {
       <!-- 其他设置 -->
       <ul class="card">
         <p class="title">其他</p>
-        <li>
+        <li @click="$router.push('/setup')">
           <p>
             <svg-icon name="sz" :style="{ fontSize: '18px' }"></svg-icon>
             设置
@@ -88,7 +88,7 @@ const login = () => {
           </p>
           <van-switch v-model="checked" size="18px" inactive-color="#cdcdcd" />
         </li>
-        <li>
+        <li @click="$router.push('skin')">
           <p>
             <svg-icon name="gezb" :style="{ fontSize: '18px' }"></svg-icon>
             个性装扮
