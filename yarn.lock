@@ -3616,6 +3616,11 @@ vscode-vue-languageservice@^0.27.0:
     vscode-pug-languageservice "^0.27.24"
     vscode-typescript-languageservice "^0.27.25"
 
+vudio@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmmirror.com/vudio/download/vudio-2.1.1.tgz#af256c4e1c8ae8bdbbba0e718f8106a30a44e96e"
+  integrity sha1-ryVsThyK6L27ug5xj4EGowpE6W4=
+
 vue-eslint-parser@^8.0.1:
   version "8.0.1"
   resolved "https://registry.npmmirror.com/vue-eslint-parser/download/vue-eslint-parser-8.0.1.tgz#25e08b20a414551531f3e19f999902e1ecf45f13"

@@ -32,6 +32,8 @@ const show = ref(false) // 是否显示遮罩层
 
 const info = ref('') //当前弹窗内容
 
+const uName = ref(user.value.nickname)
+
 const maxDate = new Date()
 const minDate = new Date(1991, 0, 1)
 const date = new Date(user.value.birthday)
@@ -74,6 +76,14 @@ const afterRead = async (file: any) => {
 const uploaderclick = () => {
   uploader.value.chooseFile()
 }
+// 保存昵称或者简介
+const save = () => {
+  show.value = false
+  $store.commit('setUserInfo', {
+    name: 'nickname',
+    data: uName
+  })
+}
 // 监听用户信息修改
 watch(
   user,
@@ -84,7 +94,8 @@ watch(
       province: v.province,
       gender: v.gender,
       birthday: v.birthday,
-      signature: v.signature
+      signature: v.signature,
+      nickname: v.nickname
     })
   },
   { deep: true }
@@ -103,7 +114,7 @@ watch(
           <img-com :url="user.picUrl"></img-com>
         </p>
       </li>
-      <li>
+      <li @click="clickEv('nickname')">
         <p class="text">昵称</p>
         <p class="content">
           {{ user.nickname }}
@@ -118,7 +129,7 @@ watch(
       <li>
         <p class="text">二维码</p>
         <p class="content">
-          <img-com :url="user.picUrl"></img-com>
+          <van-icon name="qr" size="24" />
         </p>
       </li>
     </ul>
@@ -169,7 +180,7 @@ watch(
       @confirm="confirm"
       v-if="info === 'city'"
     />
-    <!-- // 选择性别 -->
+    <!-- 选择性别 -->
     <van-radio-group v-model="user.gender" @click.stop v-if="info === 'gender'">
       <van-cell-group inset>
         <van-cell title="男" clickable @click="checkedGender(1)">
@@ -184,6 +195,17 @@ watch(
         </van-cell>
       </van-cell-group>
     </van-radio-group>
+
+    <!-- 设置名称 -->
+    <van-cell-group inset v-if="info === 'nickname'" @click.stop class="name">
+      <van-field
+        autofocus
+        v-model="uName"
+        label="昵称"
+        placeholder="请输入用户名"
+      />
+      <van-button plain type="primary" @click="save">保存</van-button>
+    </van-cell-group>
   </van-overlay>
 </template>
 
@@ -235,34 +257,29 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
-  .van-radio-group {
-    flex: 1;
-  }
-  .van-area {
-    box-sizing: border-box;
-    margin: 10px;
-    flex: 1;
-    border-radius: 10px;
-=======
   .van-datetime-picker,
   .van-radio-group,
   .van-area {
     border-radius: 10px;
     margin: 10px;
     flex: 1;
->>>>>>> origin/master
     overflow: hidden;
     .van-picker-column__item--selected {
       color: #fb4f4e;
     }
   }
-<<<<<<< HEAD
-  .van-datetime-picker {
-    margin: 10px;
-    flex: 1;
+  .van-cell-group.name {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .van-button {
+      width: 40px;
+      padding: 0;
+      height: 24px;
+    }
+    .van-field__label {
+      width: 40px;
+    }
   }
-=======
->>>>>>> origin/master
 }
 </style>

@@ -112,6 +112,7 @@ watch(
     @ended="ended"
     @timeupdate="timeupdate"
     ref="audioDom"
+    id="audio"
     :src="resources"
   ></audio>
 </template>

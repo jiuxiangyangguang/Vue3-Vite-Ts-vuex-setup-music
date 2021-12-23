@@ -95,14 +95,11 @@ export function getLikeMusic(params: Like) {
   return request.get(`/like`, params)
 }
 
-<<<<<<< HEAD
-=======
 // 获取音乐下载url
 export function getUrl(params: GetUrl) {
   return request.get(`/song/download/url`, params)
 }
 
->>>>>>> origin/master
 
 
 

@@ -176,8 +176,8 @@ watch(currentLength, () => {
 </script>
 
 <template>
-  <div class="mask" @click="updomnShow = false">
-    <div class="updomn" v-if="updomnShow" @click.stop>
+  <div class="mask" @click="updomnShow = false" v-if="updomnShow">
+    <div class="updomn" @click.stop>
       <div class="title">请选择下载音质</div>
       <p @click="urlDownload(128000)">标准</p>
       <p @click="urlDownload(320000)">较高</p>
@@ -191,14 +191,12 @@ watch(currentLength, () => {
       :color="showLove ? '#ff5345' : '#eee'"
       @click="anim"
     />
-    <<<<<<< HEAD =======
     <van-icon
       name="upgrade"
       color="#fff"
       :style="{ transform: 'rotate(180deg)' }"
       @click="updomnShow = true"
     />
-    >>>>>>> origin/master
   </div>
 
   <!-- 进度条 -->
@@ -234,8 +232,6 @@ watch(currentLength, () => {
 </template>
 
 <style lang="less" scoped>
-<<<<<<< HEAD
-=======
 .mask {
   position: fixed;
   width: 100%;
@@ -262,18 +258,14 @@ watch(currentLength, () => {
     font-size: 14px;
   }
 }
->>>>>>> origin/master
 .collection {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-<<<<<<< HEAD
-=======
   .van-icon {
     margin: 0 8px;
   }
->>>>>>> origin/master
 }
 .progressbar {
   display: flex;
@@ -295,7 +287,7 @@ watch(currentLength, () => {
       height: 16px;
       position: absolute;
       top: -8px;
-      transform: translateX(-2px);
+      transform: translateX(-50%);
     }
   }
   .text {

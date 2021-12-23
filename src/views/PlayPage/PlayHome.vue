@@ -20,9 +20,14 @@ import useStore from '@/hooks/useStore'
 import playcont from './compnents/PlayCont.vue'
 import volume from './compnents/Volume.vue'
 import lyricCom from './compnents/LyricCom.vue'
+import url from '../../assets/muu.mp3'
+//@ts-ignore
+import Vudio from 'vudio'
+import axios from 'axios'
 const $route = useRoute()
 const $router = useRouter()
 const songdetail = ref<Array<Song>>([])
+const vudio = ref()
 const $store = useStore()
 
 const imgrotate = ref(null) // 旋转img
@@ -55,6 +60,50 @@ const getDetail = async (flag: boolean, ids: number | string) => {
     })
   }
 }
+
+const vudioFun = async () => {
+  await nextTick()
+  var audioObj = document.querySelector('#audio')
+  console.dir(audioObj)
+
+  console.log(audioObj.currentSrc)
+
+  audioObj.src = audioObj.currentSrc
+
+  var canvasObj = document.querySelector('#canvas')
+  vudio.value = new Vudio(audioObj, canvasObj, {
+    effect: 'circlewave', // waveform, circlewave, circlebar, lighting (4 visual effect)
+    accuracy: 128, // number of freqBar, must be pow of 2.
+    circlewave: {
+      maxHeight: 80, // max waveform bar height
+      minHeight: 1, // min waveform bar height
+      circleRadius: 100,
+      fadeSide: false,
+      maxParticle: 100,
+      shadowBlur: 0,
+      shadowColor: 'rgba(244,244,244,1)'
+    }
+  })
+
+  // vudio.value.dance()
+
+  fetch(audioObj.currentSrc)
+    .then((res) => res.blob())
+    .then((file) => {
+      var fr = new FileReader()
+      if (file.type.indexOf('audio') !== 0) return
+      fr.onload = function (evt) {
+        vudio.value.audioSrc.src = evt.target.result
+        vudio.value.audioSrc.play()
+        vudio.value.dance()
+      }
+      fr.readAsDataURL(file)
+    })
+
+  // // pause as you wish
+  // vudio.pause()
+}
+vudioFun()
 
 // 切换歌词显示
 const showlyric = () => {
@@ -126,6 +175,8 @@ const back = () => {
 
     <!-- 图片旋转组件 -->
     <div class="img-rotate" ref="imgrotate" v-show="imgBoxShow">
+      <audio id="audios"></audio>
+      <canvas id="canvas"></canvas>
       <img-com
         :url="songdetail[0]?.al.picUrl"
         size="200"
@@ -186,27 +237,35 @@ const back = () => {
 .img-rotate {
   flex: 1;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   .img-com {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     overflow: hidden;
     animation: imgrotate infinite 10s linear;
+    position: absolute;
+    top: 50%;
+    left: 50%;
   }
 }
 .controller {
   height: 100px;
   position: relative;
 }
-
+#canvas {
+  width: 100%;
+  height: 100%;
+}
 @keyframes imgrotate {
   0% {
-    transform: rotate(0);
+    transform: translate(-50%, -50%) rotate(0);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 </style>

@@ -40,31 +40,37 @@ const getlistData = async () => {
   better()
 }
 
-<<<<<<< HEAD
-const jump = (item: any) => {
-  $router.push({ path: '/song', query: { id: item.id } })
-=======
 const scale = (e: any, index: number) => {
   li.value[index].style.transform = 'scale(0.9)'
 }
+
+const jumpCharge = () => {}
+
+const jump = (item: any, index: number) => {
+  console.log(11111)
+
+  li.value[index].style.transform = 'scale(1)'
+  if (jumpFlag.value) $router.push({ path: '/song', query: { id: item.id } })
+}
+
+getlistData()
 </script>
 
 <template>
+  <!-- 推荐歌单 -->
   <div class="recom">
     <p class="title">
       推荐歌单 <span>更多<van-icon name="arrow" /></span>
     </p>
+    <div class="wrapper">
       <ul>
-<<<<<<< HEAD
-        <li v-for="item in songList" @click="jump(item)">
-=======
+        <li
           v-for="(item, index) in songList"
           @touchstart="scale($event, index)"
           @touchmove="jumpCharge()"
           @touchend="jump(item, index)"
           :ref="(el:any) => li.push(el)"
         >
->>>>>>> origin/master
           <img-com :url="item.picUrl" :size="500"></img-com>
           <p>{{ item.name }}</p>
         </li>
@@ -108,10 +114,7 @@ const scale = (e: any, index: number) => {
       margin-right: 10px;
       padding: 4px 0;
       position: relative;
-<<<<<<< HEAD
-=======
       transition: all 0.2s ease;
->>>>>>> origin/master
       &::before {
         content: '';
         display: block;

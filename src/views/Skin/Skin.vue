@@ -148,7 +148,7 @@ const setcolor = (icon: string) => {
           width: 16px;
           font-size: 10px;
           position: absolute;
-          bottom: 0px;
+          bottom: -1px;
           right: -1px;
           border-radius: 100% 0% 60% 40% / 100% 40% 60% 0%;
           background-color: #fe010d;
