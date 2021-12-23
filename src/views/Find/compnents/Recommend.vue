@@ -7,10 +7,27 @@ import { useRouter } from 'vue-router'
 
 const $router = useRouter()
 
+const li = ref<Array<HTMLLIElement>>([]) // liDOM元素
+
+const jumpFlag = ref(true) // 是否允许跳转
+
+const time = ref() // 定时
+
 const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
-    click: true
+    click: true,
+    preventDefaultException: {
+      className: /(^|\s)test(\s|$)/
+    }
+  })
+  // 滚动开始不允许跳转
+  bs.on('scrollStart', () => {
+    jumpFlag.value = false
+  })
+  // 滚动结束可以跳转
+  bs.on('scrollEnd', () => {
+    jumpFlag.value = true
   })
 }
 
@@ -23,22 +40,31 @@ const getlistData = async () => {
   better()
 }
 
+<<<<<<< HEAD
 const jump = (item: any) => {
   $router.push({ path: '/song', query: { id: item.id } })
+=======
+const scale = (e: any, index: number) => {
+  li.value[index].style.transform = 'scale(0.9)'
 }
-
-getlistData()
 </script>
 
 <template>
-  <!-- 推荐歌单 -->
   <div class="recom">
     <p class="title">
       推荐歌单 <span>更多<van-icon name="arrow" /></span>
     </p>
-    <div class="wrapper">
       <ul>
+<<<<<<< HEAD
         <li v-for="item in songList" @click="jump(item)">
+=======
+          v-for="(item, index) in songList"
+          @touchstart="scale($event, index)"
+          @touchmove="jumpCharge()"
+          @touchend="jump(item, index)"
+          :ref="(el:any) => li.push(el)"
+        >
+>>>>>>> origin/master
           <img-com :url="item.picUrl" :size="500"></img-com>
           <p>{{ item.name }}</p>
         </li>
@@ -82,6 +108,10 @@ getlistData()
       margin-right: 10px;
       padding: 4px 0;
       position: relative;
+<<<<<<< HEAD
+=======
+      transition: all 0.2s ease;
+>>>>>>> origin/master
       &::before {
         content: '';
         display: block;

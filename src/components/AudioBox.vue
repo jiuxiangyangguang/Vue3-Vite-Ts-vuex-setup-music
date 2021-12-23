@@ -113,7 +113,10 @@ watch(
           size="200"
         ></img-com>
       </div>
-      <p>{{ currentPlay[index]?.songName }}/{{ currentPlay[index]?.name }}</p>
+      <p>
+        {{ currentPlay[index]?.songName }}-
+        <span>{{ currentPlay[index]?.name }}</span>
+      </p>
     </div>
 
     <div class="icon">
@@ -148,6 +151,9 @@ watch(
     display: flex;
     width: 80%;
     align-items: center;
+    span {
+      color: #aaa;
+    }
   }
   .bgc {
     width: 40px;
@@ -175,7 +181,8 @@ watch(
     align-items: center;
     .van-icon {
       position: absolute;
-      left: 5px;
+      left: 7px;
+      font-size: 16px;
     }
     svg {
       color: #000;
