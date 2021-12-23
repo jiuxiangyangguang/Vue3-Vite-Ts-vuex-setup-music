@@ -16,6 +16,11 @@ interface Like {
   like: boolean
   id: number | string
 }
+interface GetUrl {
+  id: number | string
+  br: 320000 | 128000 | 999000
+}
+
 export function homepage() {
   return request.get('/homepage/block/page')
 }
@@ -88,6 +93,11 @@ export function getPersonalFm() {
 // 喜欢音乐
 export function getLikeMusic(params: Like) {
   return request.get(`/like`, params)
+}
+
+// 获取音乐下载url
+export function getUrl(params: GetUrl) {
+  return request.get(`/song/download/url`, params)
 }
 
 

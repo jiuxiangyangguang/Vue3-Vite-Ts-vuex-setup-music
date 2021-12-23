@@ -7,10 +7,27 @@ import { useRouter } from 'vue-router'
 
 const $router = useRouter()
 
+const li = ref<Array<HTMLLIElement>>([]) // liDOM元素
+
+const jumpFlag = ref(true) // 是否允许跳转
+
+const time = ref() // 定时
+
 const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
-    click: true
+    click: true,
+    preventDefaultException: {
+      className: /(^|\s)test(\s|$)/
+    }
+  })
+  // 滚动开始不允许跳转
+  bs.on('scrollStart', () => {
+    jumpFlag.value = false
+  })
+  // 滚动结束可以跳转
+  bs.on('scrollEnd', () => {
+    jumpFlag.value = true
   })
 }
 
@@ -23,8 +40,17 @@ const getlistData = async () => {
   better()
 }
 
-const jump = (item: any) => {
-  $router.push({ path: '/song', query: { id: item.id } })
+const scale = (e: any, index: number) => {
+  li.value[index].style.transform = 'scale(0.9)'
+}
+
+const jumpCharge = () => {}
+
+const jump = (item: any, index: number) => {
+  console.log(11111)
+
+  li.value[index].style.transform = 'scale(1)'
+  if (jumpFlag.value) $router.push({ path: '/song', query: { id: item.id } })
 }
 
 getlistData()
@@ -38,7 +64,13 @@ getlistData()
     </p>
     <div class="wrapper">
       <ul>
-        <li v-for="item in songList" @click="jump(item)">
+        <li
+          v-for="(item, index) in songList"
+          @touchstart="scale($event, index)"
+          @touchmove="jumpCharge()"
+          @touchend="jump(item, index)"
+          :ref="(el:any) => li.push(el)"
+        >
           <img-com :url="item.picUrl" :size="500"></img-com>
           <p>{{ item.name }}</p>
         </li>
@@ -82,6 +114,7 @@ getlistData()
       margin-right: 10px;
       padding: 4px 0;
       position: relative;
+      transition: all 0.2s ease;
       &::before {
         content: '';
         display: block;

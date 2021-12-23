@@ -235,22 +235,16 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-  .van-radio-group {
-    flex: 1;
-  }
+  .van-datetime-picker,
+  .van-radio-group,
   .van-area {
-    box-sizing: border-box;
+    border-radius: 10px;
     margin: 10px;
     flex: 1;
-    border-radius: 10px;
     overflow: hidden;
     .van-picker-column__item--selected {
       color: #fb4f4e;
     }
-  }
-  .van-datetime-picker {
-    margin: 10px;
-    flex: 1;
   }
 }
 </style>

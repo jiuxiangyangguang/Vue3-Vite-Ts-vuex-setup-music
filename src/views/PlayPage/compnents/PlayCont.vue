@@ -10,9 +10,10 @@
 <script setup lang="ts">
 import { reactive, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail, getLikeMusic } from '@/api/music'
+import { getUrl, getLikeMusic } from '@/api/music'
 import { Notify } from 'vant'
 import useTime from '@/hooks/useTime'
+import axios from 'axios'
 const $store = useStore()
 
 const tipsText = ref('') // 播放模式提示
@@ -53,6 +54,8 @@ const len = ref(0) // 手动偏移进度条
 
 const lineTotalLen = ref(0) // 进度条长度
 
+const updomnShow = ref(false) // 是否显示下载盒子
+
 const time = useTime()
 
 const showLove = computed(() =>
@@ -80,6 +83,30 @@ const anim = async () => {
     like: showLove.value,
     id: currentPlay.value[index.value].id
   })
+}
+
+// 下载音乐
+const urlDownload = async (br: 320000 | 128000 | 999000) => {
+  const { data }: any = await getUrl({
+    id: currentPlay.value[index.value].id,
+    br
+  })
+  updomnShow.value = false
+  fetch(data.url)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const a = document.createElement('a')
+      document.body.appendChild(a)
+      a.style.display = 'none'
+      const url = window.URL.createObjectURL(blob)
+      a.href = url
+      a.download = `${currentPlay.value[index.value].name}-${
+        currentPlay.value[index.value].songName
+      }.mp3`
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    })
 }
 
 // 手指在屏幕上滑动式触发
@@ -149,12 +176,26 @@ watch(currentLength, () => {
 </script>
 
 <template>
+  <div class="mask" @click="updomnShow = false">
+    <div class="updomn" v-if="updomnShow" @click.stop>
+      <div class="title">请选择下载音质</div>
+      <p @click="urlDownload(128000)">标准</p>
+      <p @click="urlDownload(320000)">较高</p>
+      <p @click="urlDownload(999000)">极高(无损)</p>
+    </div>
+  </div>
   <!-- 下载,收藏,爱心 -->
   <div class="collection" ref="collection">
     <van-icon
       name="like"
       :color="showLove ? '#ff5345' : '#eee'"
       @click="anim"
+    />
+    <van-icon
+      name="upgrade"
+      color="#fff"
+      :style="{ transform: 'rotate(180deg)' }"
+      @click="updomnShow = true"
     />
   </div>
 
@@ -191,11 +232,40 @@ watch(currentLength, () => {
 </template>
 
 <style lang="less" scoped>
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.updomn {
+  position: fixed;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  box-sizing: border-box;
+  .title {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  p {
+    line-height: 40px;
+    font-size: 14px;
+  }
+}
 .collection {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  .van-icon {
+    margin: 0 8px;
+  }
 }
 .progressbar {
   display: flex;
