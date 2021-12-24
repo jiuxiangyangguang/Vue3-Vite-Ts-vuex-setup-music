@@ -112,6 +112,7 @@ watch(
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100000;
     &:after {
       content: '';
       display: block;
