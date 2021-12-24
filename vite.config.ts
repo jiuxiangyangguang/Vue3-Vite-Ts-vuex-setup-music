@@ -12,6 +12,7 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import ViteComponents, { VantResolver } from 'vite-plugin-components'  // 自动的注册vant组件 
 import styleImport from 'vite-plugin-style-import'
+import viteCompression from 'vite-plugin-compression'
 import { svgBuilder } from './src/utils/svgBuilder'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 // https://vitejs.dev/config/
@@ -39,7 +40,15 @@ export default defineConfig(({ mode }) => {
             resolveStyle: (name) => `vant/es/${name}/style`
           }
         ]
-      })
+      }),
+      // viteCompression({
+      //   //生成压缩包gz
+      //   verbose: true,
+      //   disable: false,
+      //   threshold: 10240,
+      //   algorithm: 'gzip',
+      //   ext: '.gz',
+      // }),
     ],
     server: {
       host: true,
@@ -65,6 +74,25 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, './src')
       }
     },
+    build: {
+      terserOptions: {
+        compress: {
+          //生产环境时移除console
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      // 取消计算文件大小，加快打包速度
+      brotliSize: false,
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: '[ext]/[name]-[hash].[ext]',
+        },
+      },
+    }
   }
 }
 )

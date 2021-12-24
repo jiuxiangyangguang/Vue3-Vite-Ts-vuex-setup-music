@@ -10,7 +10,7 @@ const songlist = ref()
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const props = defineProps<{
   songList: SongList
-  playList: PlayList
+  playList: PlayListV
   new_mlog: MlogList
 }>()
 
