@@ -16,7 +16,7 @@
 
 ```shell
 // github地址
-$ git clone https://github.com/jiuxiangyangguang/Vue3-Vite-Ts-vuex-setup-misic.git
+$ git clone https://github.com/jiuxiangyangguang/Vue3-Vite-Ts-vuex-setup-music.git
 
 // gitee地址
 $ git https://gitee.com/jiuxiangyangguang/musicwangyi.git
