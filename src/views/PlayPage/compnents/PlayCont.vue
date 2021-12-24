@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import { getUrl, getLikeMusic } from '@/api/music'
+import { getUrl, getLikeMusic, getMusicComment } from '@/api/music'
 import { Notify, Toast } from 'vant'
 import useTime from '@/hooks/useTime'
 import axios from 'axios'
@@ -114,6 +114,14 @@ const urlDownload = async (br: 320000 | 128000 | 999000) => {
   }
 }
 
+// 查看评论
+const getComment = async () => {
+  const data = await getMusicComment({
+    id: currentPlay.value[index.value].id,
+    limit: 30
+  })
+}
+
 // 手指在屏幕上滑动式触发
 const touchmove = (e: any) => {
   flag.value = true // 切换手动控制
@@ -189,7 +197,7 @@ watch(currentLength, () => {
       <p @click="urlDownload(999000)">极高(无损)</p>
     </div>
   </div>
-  <!-- 下载,收藏,爱心 -->
+  <!-- 下载,收藏,评论 -->
   <div class="collection" ref="collection">
     <van-icon
       name="like"
@@ -202,6 +210,7 @@ watch(currentLength, () => {
       :style="{ transform: 'rotate(180deg)' }"
       @click="updomnShow = true"
     />
+    <van-icon name="chat-o" color="#fff" @click="getComment" />
   </div>
 
   <!-- 进度条 -->

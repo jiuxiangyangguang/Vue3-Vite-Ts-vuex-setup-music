@@ -222,7 +222,7 @@ const back = () => {
       <canvas id="canvas"></canvas>
       <img-com
         :url="songdetail[0]?.al.picUrl"
-        size="200"
+        size="500"
         @click="showlyric"
       ></img-com>
     </div>
