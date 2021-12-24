@@ -53,7 +53,7 @@ const modeChange = (mode: string) => {
     Dialog.confirm({
       message: '是否开启音乐动画,该功能处于实验阶段'
     }).then(() => {
-      $store.commit('setAntFlag', false)
+      $store.commit('setAntFlag', true)
     })
   }
 }

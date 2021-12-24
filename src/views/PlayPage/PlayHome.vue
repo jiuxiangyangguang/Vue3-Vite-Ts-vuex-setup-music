@@ -168,11 +168,17 @@ watch([index, currentPlaylen], async () => {
   isdown() // 运行动效
 })
 
-// 监听音乐动效变化
-watch(mode, () => {
+// 监听音乐动效模式变化
+watch(mode, (newV, oldV) => {
   vudio.value.setOption({
     effect: mode.value
   })
+})
+// 监听音乐动效是否开启变化
+watch(flag, (newV, oldV) => {
+  if (oldV) {
+    window.location.reload()
+  }
 })
 // @ts-ignore
 onActivated(() => {

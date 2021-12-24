@@ -41,14 +41,14 @@ export default defineConfig(({ mode }) => {
           }
         ]
       }),
-      // viteCompression({
-      //   //生成压缩包gz
-      //   verbose: true,
-      //   disable: false,
-      //   threshold: 10240,
-      //   algorithm: 'gzip',
-      //   ext: '.gz',
-      // }),
+      viteCompression({
+        //生成压缩包gz
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: 'gzip',
+        ext: '.gz',
+      }),
     ],
     server: {
       host: true,
