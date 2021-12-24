@@ -81,7 +81,7 @@ const vudioFun = async (url: string) => {
     const audioObj = document.querySelector('#audio')
     const canvasObj = document.querySelector('#canvas')
     vudio.value = new Vudio(audioObj, canvasObj, {
-      effect: 'circlewave', // waveform, circlewave, circlebar, lighting (4 visual effect)
+      effect: mode.value, // waveform, circlewave, circlebar, lighting (4 visual effect)
       accuracy: 128, // number of freqBar, must be pow of 2.
       circlewave: {
         maxHeight: 80, // max waveform bar height
@@ -150,7 +150,6 @@ watch(
     } else {
       el.style.animationPlayState = 'paused'
     }
-    isdown() // 运行动效
   },
   { immediate: true }
 )

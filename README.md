@@ -48,8 +48,7 @@ $ yarn dev
 
 目前音乐动效仅是<font color='red'>实验功能</font>,只支持动感圆波,节奏跳动两种模式,可在个性装扮中设置
 
-<img src="https://s2.loli.net/2021/12/24/yEU7MP5nBdTacSs.png" alt="image-20211224143530127" style="zoom:50%;" />
 
-<img src="https://s2.loli.net/2021/12/24/raWQENqfinmsSAc.png" alt="image-20211224143225335" style="zoom: 50%;" />
 
-<img src="C:\Users\liangweicai\AppData\Roaming\Typora\typora-user-images\image-20211224143603834.png" alt="image-20211224143603834" style="zoom:50%;" />
+<img src="mdimg/Snipaste_2021-12-24_15-00-19.png" alt="Snipaste_2021-12-24_15-00-19" style="zoom: 80%;" /><img src="mdimg/Snipaste_2021-12-24_14-58-37.png" alt="Snipaste_2021-12-24_14-58-37" style="zoom: 80%;" /><img src="mdimg/Snipaste_2021-12-24_14-59-39.png" alt="Snipaste_2021-12-24_14-59-39" style="zoom: 80%;" />
+
