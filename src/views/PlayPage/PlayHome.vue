@@ -15,7 +15,7 @@ export default {
 <script setup lang="ts">
 import { computed, onActivated, ref, onMounted, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getMusicDetail } from '@/api/music'
+import { getMusicDetail, getMusicUrl } from '@/api/music'
 import useStore from '@/hooks/useStore'
 import playcont from './compnents/PlayCont.vue'
 import volume from './compnents/Volume.vue'
@@ -23,18 +23,31 @@ import lyricCom from './compnents/LyricCom.vue'
 import url from '../../assets/muu.mp3'
 //@ts-ignore
 import Vudio from 'vudio'
-import axios from 'axios'
+
 const $route = useRoute()
+
 const $router = useRouter()
+
 const songdetail = ref<Array<Song>>([])
+
 const vudio = ref()
+
 const $store = useStore()
 
 const imgrotate = ref(null) // 旋转img
+
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
+
+const flag = computed(() => $store.state.audio.animation.flag) // 是否开启动效
+
+const mode = computed(() => $store.state.audio.animation.mode) // 动效模式
+
 const index = computed(() => $store.state.audio.index) // 当前播放索引
+
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
+
 const currentPlaylen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表
+
 const imgBoxShow = ref<boolean>(true) // 切换图片歌词显示
 
 // 获取歌曲详情
@@ -61,49 +74,65 @@ const getDetail = async (flag: boolean, ids: number | string) => {
   }
 }
 
-const vudioFun = async () => {
-  await nextTick()
-  var audioObj = document.querySelector('#audio')
-  console.dir(audioObj)
+// 动效函数
+const vudioFun = async (url: string) => {
+  if (!vudio.value) {
+    await nextTick()
+    const audioObj = document.querySelector('#audio')
+    const canvasObj = document.querySelector('#canvas')
+    vudio.value = new Vudio(audioObj, canvasObj, {
+      effect: 'circlewave', // waveform, circlewave, circlebar, lighting (4 visual effect)
+      accuracy: 128, // number of freqBar, must be pow of 2.
+      circlewave: {
+        maxHeight: 80, // max waveform bar height
+        minHeight: 1, // min waveform bar height
+        circleRadius: 100,
+        fadeSide: false,
+        maxParticle: 100,
+        shadowBlur: 0,
+        shadowColor: 'rgba(244,244,244,1)'
+      },
+      circlebar: {
+        maxHeight: 80, // max waveform bar height
+        minHeight: 1, // min waveform bar height
+        circleRadius: 100,
+        fadeSide: false,
+        maxParticle: 100,
+        shadowBlur: 0,
+        shadowColor: 'rgba(244,244,244,1)'
+      }
+    })
+  }
 
-  console.log(audioObj.currentSrc)
-
-  audioObj.src = audioObj.currentSrc
-
-  var canvasObj = document.querySelector('#canvas')
-  vudio.value = new Vudio(audioObj, canvasObj, {
-    effect: 'circlewave', // waveform, circlewave, circlebar, lighting (4 visual effect)
-    accuracy: 128, // number of freqBar, must be pow of 2.
-    circlewave: {
-      maxHeight: 80, // max waveform bar height
-      minHeight: 1, // min waveform bar height
-      circleRadius: 100,
-      fadeSide: false,
-      maxParticle: 100,
-      shadowBlur: 0,
-      shadowColor: 'rgba(244,244,244,1)'
-    }
-  })
-
-  // vudio.value.dance()
-
-  fetch(audioObj.currentSrc)
+  fetch(url) // 请求资源
     .then((res) => res.blob())
     .then((file) => {
-      var fr = new FileReader()
+      const fr = new FileReader()
       if (file.type.indexOf('audio') !== 0) return
       fr.onload = function (evt) {
+        //@ts-ignore
         vudio.value.audioSrc.src = evt.target.result
         vudio.value.audioSrc.play()
         vudio.value.dance()
       }
       fr.readAsDataURL(file)
     })
-
   // // pause as you wish
   // vudio.pause()
 }
-vudioFun()
+
+// 查看是否可以下载
+const isdown = async () => {
+  if (!flag.value) return // 记录可以动效播放的音乐
+  // 获取音乐`url
+  const { data }: any = await getMusicUrl({
+    id: currentPlay.value[index.value].id
+  })
+  $store.commit('setLocalMusic', currentPlay.value[index.value])
+  if (data[0].url) {
+    vudioFun(data[0].url) // 开启动效动画
+  }
+}
 
 // 切换歌词显示
 const showlyric = () => {
@@ -121,6 +150,7 @@ watch(
     } else {
       el.style.animationPlayState = 'paused'
     }
+    isdown() // 运行动效
   },
   { immediate: true }
 )
@@ -135,8 +165,16 @@ watch([index, currentPlaylen], async () => {
   // 防止因为切换歌曲,从其他页面跳转过来   使用replace来替换历史记录,方便返回上一级
   if ($route.path === '/play') $router.replace({ path: 'play', query: { id } }) // 虽然路由更新但参数未更新
   getDetail(false, id)
+
+  isdown() // 运行动效
 })
 
+// 监听音乐动效变化
+watch(mode, () => {
+  vudio.value.setOption({
+    effect: mode.value
+  })
+})
 // @ts-ignore
 onActivated(() => {
   getDetail(true, $route.query.id as string)

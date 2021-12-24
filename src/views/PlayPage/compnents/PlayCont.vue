@@ -11,7 +11,7 @@
 import { reactive, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { getUrl, getLikeMusic } from '@/api/music'
-import { Notify } from 'vant'
+import { Notify, Toast } from 'vant'
 import useTime from '@/hooks/useTime'
 import axios from 'axios'
 const $store = useStore()
@@ -92,21 +92,26 @@ const urlDownload = async (br: 320000 | 128000 | 999000) => {
     br
   })
   updomnShow.value = false
-  fetch(data.url)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const a = document.createElement('a')
-      document.body.appendChild(a)
-      a.style.display = 'none'
-      const url = window.URL.createObjectURL(blob)
-      a.href = url
-      a.download = `${currentPlay.value[index.value].name}-${
-        currentPlay.value[index.value].songName
-      }.mp3`
-      a.click()
-      document.body.removeChild(a)
-      window.URL.revokeObjectURL(url)
-    })
+  if (!data.url) {
+    Toast.fail('当前歌曲不支持下载')
+  } else {
+    fetch(data.url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const a = document.createElement('a')
+        document.body.appendChild(a)
+        a.style.display = 'none'
+        const url = window.URL.createObjectURL(blob)
+        a.href = url
+        a.download = `${currentPlay.value[index.value].name}-${
+          currentPlay.value[index.value].songName
+        }.mp3`
+        a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+      })
+    $store.commit('setLocalMusic', currentPlay.value[index.value])
+  }
 }
 
 // 手指在屏幕上滑动式触发

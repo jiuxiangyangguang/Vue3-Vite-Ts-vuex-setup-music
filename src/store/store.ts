@@ -39,7 +39,11 @@ const audio = {
   lyric: '', // 歌词
   index: 0, // 当前播放第几首 数组索引
   currentPlay: [] as Array<CurrentPlay>,
-  currentPlayLen: 0
+  currentPlayLen: 0,
+  animation: {
+    flag: true,
+    mode: 'circlewave'
+  }
 }
 const userInfo = {
   uid: '',
@@ -75,7 +79,8 @@ export interface State {
   showPlayList: boolean,
   routeArr: Array<route>,
   userInfo: UserInfo,
-  skin: Skin
+  skin: Skin,
+  localMusic: Array<CurrentPlay>
 }
 
 export const state: State = {
@@ -84,7 +89,8 @@ export const state: State = {
   showPlayList: false,
   routeArr: [],
   userInfo: { ...userInfo },
-  skin
+  skin,
+  localMusic: []
 }
 
 
@@ -134,7 +140,10 @@ export const mutations = {
   },
   resAudio(state: State) {
     state.audio = audio
-
+  },
+  setAnimation(state: State, animation: boolean) {
+    state.audio.animation.flag = animation
+    set('audio', JSON.stringify(state.audio))
   },
   setIndex(state: State, index: number) {
     if (index < 0) {
@@ -173,6 +182,17 @@ export const mutations = {
     state.skin[icon.name] = icon.data
     set('skin', JSON.stringify(state.skin))
   },
+  setLocalMusic(state: State, obj: CurrentPlay) {
+    if (state.localMusic.some(item => item.id === obj.id)) return
+    state.localMusic.unshift(obj)
+    set('localMusic', JSON.stringify(state.localMusic))
+  },
+  setAntMode(state: State, mode: string) {
+    state.audio.animation.mode = mode
+  },
+  setAntFlag(state: State, flag: boolean) {
+    state.audio.animation.flag = flag
+  },
 
   setRouteArr(state: State, route: route) {
     // 不重复添加路由
@@ -190,8 +210,11 @@ export const mutations = {
     const userInfoData = get('userInfo') && JSON.parse(get('userInfo'))
     //@ts-ignore
     const skin = get('skin') && JSON.parse(get('skin'))
+    //@ts-ignore
+    const localMusic = get('localMusic') && JSON.parse(get('localMusic'))
     state.audio = Object.assign(state.audio, audiodata)
     state.userInfo = Object.assign(state.userInfo, userInfoData)
+    state.localMusic = Object.assign(state.localMusic, localMusic)
     state.skin = Object.assign(state.skin, skin)
     state.audio.playFlag = false
   }

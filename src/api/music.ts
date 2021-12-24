@@ -100,6 +100,11 @@ export function getUrl(params: GetUrl) {
   return request.get(`/song/download/url`, params)
 }
 
+// 获取音乐url
+export function getMusicUrl(params: ID) {
+  return request.get(`/song//url`, params)
+}
+
 
 
 

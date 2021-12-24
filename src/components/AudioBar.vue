@@ -19,6 +19,8 @@ const progerssAudioLength = computed(
   () => $store.state.audio.progerssAudioLength
 ) // 总长度
 
+const audio = computed(() => $store.state.audio) // 整个音乐对象
+
 const mode = computed(() => $store.state.audio.mode) // 播放模式
 
 const volume = computed(() => $store.state.audio.volume) // 音量
@@ -38,7 +40,9 @@ const audioPlay = () => {
   audioDom.value.volume = volume.value // 设置音量
   audioDom.value.currentTime = $store.state.audio.currentAudioLength
   $store.commit('setPlayFlag', true)
-  $store.commit('setDurationAudioLength', audioDom.value.duration)
+  if (audioDom.value.duration) {
+    $store.commit('setDurationAudioLength', audioDom.value.duration)
+  }
 }
 
 // 原生暂停播放
@@ -94,7 +98,7 @@ watch(setCurrentLen, () => {
 })
 // 监听歌曲变化  保存数据在本地
 watch(
-  [currentPlay, index, volume, currentPlayLen, playFlag],
+  audio,
   () => {
     $store.commit('setLocation')
   },
