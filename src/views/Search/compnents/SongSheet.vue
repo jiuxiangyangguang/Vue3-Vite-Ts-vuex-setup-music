@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getMultimatch } from '@/api/music'
-import useTime from '@/hooks/useTime'
-import useStore from '@/hooks/useStore'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 // import SeachHomeVue from './compnents/SeachHome.vue'
 // import SearchTabs from './compnents/SearchTabs.vue'
-import { dir, log } from 'console'
 const $router = useRouter()
-const $store = useStore()
 const cord = ref()
 const emit = defineEmits(['loadMore'])
 const flag = ref<boolean>(false) // 等待框
@@ -17,7 +12,7 @@ const lodingFlag = ref<boolean>(false) // 加载框
 const props = defineProps({
   currenplayList: {
     type: Array as () => Array<PlayList>,
-    default: []
+    default: () => []
   }
 })
 const touchEnd = () => {

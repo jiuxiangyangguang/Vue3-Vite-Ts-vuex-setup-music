@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onActivated, onDeactivated, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
 import { logout } from '@/api/user'
@@ -14,8 +14,8 @@ const checked = ref(false) // 是否是夜间模式
 
 const show = ref(false) // 是否退出
 const actions = ref([{ name: '退出登录' }, { name: '切换账号' }])
-const onSelect = async (item: string) => {
-  const data = await logout()
+const onSelect = async () => {
+  await logout()
   $store.commit('setUserInfoCle') // 清除输入信息
   show.value = false
   $router.push('login')

@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue'
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
+/* eslint-disable */
 import {
   Navigation,
   Controller,

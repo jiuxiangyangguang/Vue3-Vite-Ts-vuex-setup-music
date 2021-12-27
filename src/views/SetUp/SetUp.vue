@@ -4,14 +4,11 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import Menu from '@/components/Menu.vue'
+import { computed, ref, watch } from 'vue'
 import useStore from '@/hooks/useStore'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
-import { getInfoUpdate, setUpImg } from '@/api/user'
+import { useRouter } from 'vue-router'
 import { areaList } from '@vant/area-data'
 import useTime from '@/hooks/useTime'
-import axios from 'axios'
 import { Toast } from 'vant'
 
 const $store = useStore()
@@ -19,12 +16,6 @@ const $store = useStore()
 const $router = useRouter()
 
 const uploader = ref() // 获取图片上传DOM
-
-const nickname = computed(() => $store.state.userInfo.nickname) // 登入名称
-
-const uid = computed(() => $store.state.userInfo.uid) // 用户名称
-
-const isLogin = computed(() => $store.state.userInfo.isLogin) // 是否登录
 
 const user = computed(() => $store.state.userInfo) // 用户数据
 
@@ -68,9 +59,8 @@ const confirmY = (v: any) => {
   })
 }
 // 上传头像
-const afterRead = async (file: any) => {
+const afterRead = async () => {
   Toast.fail('服务器升级中,暂不支持头像上传')
-  const data = await setUpImg({ aa: 100 })
 }
 // 头像点击事件
 const uploaderclick = () => {
@@ -89,14 +79,6 @@ watch(
   user,
   async () => {
     const v = user.value
-    const data = await getInfoUpdate({
-      city: v.city,
-      province: v.province,
-      gender: v.gender,
-      birthday: v.birthday,
-      signature: v.signature,
-      nickname: v.nickname
-    })
   },
   { deep: true }
 )

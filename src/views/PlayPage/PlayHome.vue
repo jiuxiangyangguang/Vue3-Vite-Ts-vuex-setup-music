@@ -13,14 +13,13 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted, watch, nextTick } from 'vue'
+import { computed, onActivated, ref, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getMusicDetail, getMusicUrl } from '@/api/music'
 import useStore from '@/hooks/useStore'
 import playcont from './compnents/PlayCont.vue'
 import volume from './compnents/Volume.vue'
 import lyricCom from './compnents/LyricCom.vue'
-import url from '../../assets/muu.mp3'
 //@ts-ignore
 import Vudio from 'vudio'
 
@@ -168,11 +167,17 @@ watch([index, currentPlaylen], async () => {
   isdown() // 运行动效
 })
 
-// 监听音乐动效变化
-watch(mode, () => {
+// 监听音乐动效模式变化
+watch(mode, (newV, oldV) => {
   vudio.value.setOption({
     effect: mode.value
   })
+})
+// 监听音乐动效是否开启变化
+watch(flag, (newV, oldV) => {
+  if (oldV) {
+    window.location.reload()
+  }
 })
 // @ts-ignore
 onActivated(() => {
@@ -216,7 +221,7 @@ const back = () => {
       <canvas id="canvas"></canvas>
       <img-com
         :url="songdetail[0]?.al.picUrl"
-        size="200"
+        size="500"
         @click="showlyric"
       ></img-com>
     </div>

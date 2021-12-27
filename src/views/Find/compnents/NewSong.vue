@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { getNewSong } from '@/api/music'
-import BScroll from '@better-scroll/core'
-import { useRoute, useRouter } from 'vue-router'
-import { nextTick, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import useStore from '@/hooks/useStore'
 const $router = useRouter()
 const $store = useStore()
-const better = () => {
-  const bs = new BScroll('.wrapper', {
-    scrollX: true,
-    click: true
-  })
-}
 const newSongData = ref([]) // 默认展示3首歌曲
 
 const songData = ref([]) // 获取的所有歌曲

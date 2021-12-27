@@ -4,8 +4,8 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { getKeyWord } from '@/api/music'
 import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
@@ -21,7 +21,6 @@ const $store = useStore()
 const $time = useTime()
 const com = ref(1) //显示某个组件
 $store.commit('getHistoryList') // 获取历史搜索
-const historyList = computed(() => $store.state.historyList) // 历史记录数组
 
 // 自动聚焦
 onMounted(() => {

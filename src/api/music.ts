@@ -20,7 +20,10 @@ interface GetUrl {
   id: number | string
   br: 320000 | 128000 | 999000
 }
-
+interface Comment {
+  id: number
+  limit?: number
+}
 export function homepage() {
   return request.get('/homepage/block/page')
 }
@@ -103,6 +106,11 @@ export function getUrl(params: GetUrl) {
 // 获取音乐url
 export function getMusicUrl(params: ID) {
   return request.get(`/song//url`, params)
+}
+
+// 获取音乐url
+export function getMusicComment(params: Comment) {
+  return request.get(`/comment/music`, params)
 }
 
 

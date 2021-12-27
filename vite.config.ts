@@ -3,7 +3,7 @@
  * @Date: 2021-11-16 14:43:38
  * @LastEditTime: 2021-12-03 09:28:12
  * @LastEditors: jiuxiangyang
- * @Description: 
+ * @Description:
  * @FilePath: \musicwangyi\vite.config.ts
  * 版权声明
  */
@@ -13,7 +13,7 @@ import vue from '@vitejs/plugin-vue'
 import ViteComponents, { VantResolver } from 'vite-plugin-components'  // 自动的注册vant组件 
 import styleImport from 'vite-plugin-style-import'
 import viteCompression from 'vite-plugin-compression'
-import { svgBuilder } from './src/utils/svgBuilder'
+// import { svgBuilder } from './src/utils/svgBuilder'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 // https://vitejs.dev/config/
 //@ts-ignore
@@ -41,14 +41,14 @@ export default defineConfig(({ mode }) => {
           }
         ]
       }),
-      // viteCompression({
-      //   //生成压缩包gz
-      //   verbose: true,
-      //   disable: false,
-      //   threshold: 10240,
-      //   algorithm: 'gzip',
-      //   ext: '.gz',
-      // }),
+      viteCompression({
+        //生成压缩包gz
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: 'gzip',
+        ext: '.gz',
+      }),
     ],
     server: {
       host: true,

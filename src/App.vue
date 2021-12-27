@@ -8,7 +8,7 @@
  * 版权声明
 -->
 <script lang="ts">
-import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue'
+import { computed, defineAsyncComponent, shallowRef, watch } from 'vue'
 const playlist = shallowRef(null)
 
 export default {
@@ -16,11 +16,10 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import useStore from './hooks/useStore'
 
 const $route = useRoute()
-const $router = useRouter()
 const $store = useStore()
 const show = computed(() => $store.state.showPlayList)
 $store.commit('getLocation')

@@ -8,9 +8,8 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
 import { useRoute, useRouter } from 'vue-router'
 
 const $store = useStore()
@@ -19,15 +18,7 @@ const $route = useRoute()
 
 const $router = useRouter()
 
-const audioDom = ref<any>(null) // 音频标签
-
-const imgcom = ref(null) // 旋转标签
-
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
-
-const progerssAudioLength = computed(
-  () => $store.state.audio.progerssAudioLength
-) // 总长度
 
 const currentRate = ref(0)
 
@@ -37,20 +28,11 @@ const durationAudioLength = computed(
   () => $store.state.audio.durationAudioLength
 ) // 音乐播放长度
 
-const mode = computed(() => $store.state.audio.mode) // 播放模式
-
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前音乐列表
-
-const resources = ref('') // 当前播放url
 
 const index = computed(() => $store.state.audio.index) // 当前音乐在播放列表中的索引
 
-const setCurrentLen = computed(() => $store.state.audio.setCurrentLen) // 用户手动设置播放长度
-
 // 音乐播放中
-const timeupdate = () => {
-  $store.commit('setCurrentAudioLength', audioDom.value.currentTime)
-}
 
 // 控制播放暂停
 const play = () => {

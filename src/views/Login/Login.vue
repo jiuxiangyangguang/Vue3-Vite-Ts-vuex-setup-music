@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { loginByEmail, loginByPhone, getAccountInfo } from '@/api/user'
-import { reactive, ref, toRefs } from 'vue'
+import { loginByEmail, loginByPhone } from '@/api/user'
+import { reactive } from 'vue'
 import { Toast, Notify } from 'vant'
 import { useRouter } from 'vue-router'
 import md5 from 'js-md5'

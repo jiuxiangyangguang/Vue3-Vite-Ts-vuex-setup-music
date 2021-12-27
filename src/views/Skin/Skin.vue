@@ -4,14 +4,9 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import Menu from '@/components/Menu.vue'
+import { computed } from 'vue'
 import useStore from '@/hooks/useStore'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
-import { getInfoUpdate, setUpImg } from '@/api/user'
-import { areaList } from '@vant/area-data'
-import useTime from '@/hooks/useTime'
-import axios from 'axios'
+import { useRouter } from 'vue-router'
 import { Dialog, Notify } from 'vant'
 
 const $store = useStore()
@@ -53,7 +48,7 @@ const modeChange = (mode: string) => {
     Dialog.confirm({
       message: '是否开启音乐动画,该功能处于实验阶段'
     }).then(() => {
-      $store.commit('setAntFlag', false)
+      $store.commit('setAntFlag', true)
     })
   }
 }

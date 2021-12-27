@@ -11,7 +11,6 @@ import { createApp } from 'vue'
 import Router from '@/router'
 import Vuex from '@/store'
 import App from './App.vue'
-import { Notify } from 'vant'
 
 import 'virtual:svg-icons-register'
 import '@/assets/style/index.less' // 总样式表

@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getListById } from '@/api/music'
-import useTime from '@/hooks/useTime'
-import useStore from '@/hooks/useStore'
-const $route = useRoute()
-const $router = useRouter()
+import { ref } from 'vue'
 const scollBox = ref() // 滚动盒子
 const flag = ref<boolean>(false) // 动画阀
 const active = ref<string>('es') // 动画阀
-const $store = useStore()
 
 // 类型声明方式
 // const props = defineProps<{
@@ -17,7 +10,7 @@ const $store = useStore()
 // }>()
 
 // 运行时声明
-const props = defineProps({
+defineProps({
   hot: {
     type: Array as () => Array<HOT>,
     default: () => []

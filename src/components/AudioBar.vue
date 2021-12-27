@@ -8,16 +8,12 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
 
 const $store = useStore()
 const audioDom = ref<any>(null) // 音频标签
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
-const progerssAudioLength = computed(
-  () => $store.state.audio.progerssAudioLength
-) // 总长度
 
 const audio = computed(() => $store.state.audio) // 整个音乐对象
 

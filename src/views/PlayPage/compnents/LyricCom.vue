@@ -8,12 +8,11 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted, watch, nextTick } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { getMusicLyric } from '@/api/music'
 import useStore from '@/hooks/useStore'
 const $route = useRoute()
-const $router = useRouter()
 const $store = useStore()
 
 const ul = ref() // 获取ul DOM
@@ -53,7 +52,7 @@ const getLyric = async (id: string | number) => {
   lyrics.value = arr
 }
 
-watch(currentAudioLength, (newV, lodV) => {
+watch(currentAudioLength, (newV) => {
   const index = lyrics.value.findIndex((item) => item.time === Math.floor(newV))
   if (index !== -1) currentPlayIndex.value = index
 })
@@ -129,6 +128,7 @@ getLyric($route.query.id as string)
           v-bind(lineColor)
         ) no-repeat 0 0;
       background-size: 0;
+      background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       display: -webkit-box;
