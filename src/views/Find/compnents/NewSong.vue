@@ -59,7 +59,7 @@ newsong()
       <span @click="palyAll"><van-icon name="play-circle-o" />播放</span>
     </div>
     <ul>
-      <li v-for="item: any in newSongData" @click="jump(item.id)">
+      <li v-for="item: any in newSongData" @click="jump(item.id)" v-wave>
         <img-com :url="item.picUrl" :size="100"></img-com>
         <div class="info">
           <p class="songname">{{ item.name }}</p>
@@ -91,12 +91,15 @@ newsong()
       border-radius: 20px;
     }
   }
+
   ul {
     li {
       display: flex;
       align-items: center;
       height: 50px;
       position: relative;
+      background-color: transparent;
+      overflow: hidden;
       .info {
         font-size: 12px;
         margin-left: 10px;

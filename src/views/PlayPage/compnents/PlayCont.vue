@@ -11,11 +11,7 @@
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { getUrl, getLikeMusic, getMusicComment } from '@/api/music'
-<<<<<<< HEAD
 import { Toast } from 'vant'
-=======
-import { Notify, Toast } from 'vant'
->>>>>>> 9d7660dd52e73a4855b5556662e57022a42d3af6
 import useTime from '@/hooks/useTime'
 const $store = useStore()
 
@@ -117,11 +113,7 @@ const urlDownload = async (br: 320000 | 128000 | 999000) => {
 
 // 查看评论
 const getComment = async () => {
-<<<<<<< HEAD
   await getMusicComment({
-=======
-  const data = await getMusicComment({
->>>>>>> 9d7660dd52e73a4855b5556662e57022a42d3af6
     id: currentPlay.value[index.value].id,
     limit: 30
   })
