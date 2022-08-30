@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
   const httpurl = loadEnv(mode, process.cwd()).VITE_BASE_API
 
   return {
+    base: './',
     plugins: [
       vue(),
       // svgBuilder('./src/assets/icon/svg/'),
