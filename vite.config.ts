@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) => {
       port: 1102,
       proxy: {
         '/api': {
-          target: mode === 'online' ? httpurl : 'http://localhost:3000',
+          target: mode === 'online' ? httpurl : 'http://192.168.6.69:8080',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }

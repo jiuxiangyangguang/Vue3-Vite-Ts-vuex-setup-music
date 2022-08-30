@@ -10,8 +10,9 @@
 import axios from 'axios'
 import store from '@/store/index'
 import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据
+console.log(import.meta.env)
 const service = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_BASE_API as string,
   // https://music.qier222.com/api/
   timeout: 10000,
   withCredentials: true

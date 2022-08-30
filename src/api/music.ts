@@ -105,7 +105,7 @@ export function getUrl(params: GetUrl) {
 
 // 获取音乐url
 export function getMusicUrl(params: ID) {
-  return request.get(`/song//url`, params)
+  return request.get(`/song/url`, params)
 }
 
 // 获取音乐url
