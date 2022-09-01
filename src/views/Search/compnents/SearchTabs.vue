@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 
-import { useRoute, useRouter } from 'vue-router'
 import { getMultimatch } from '@/api/music'
-import useTime from '@/hooks/useTime'
-import useStore from '@/hooks/useStore'
 import comsive from './Comprehensive.vue'
 import single from './Single.vue'
 import songsheet from './SongSheet.vue'
 
-const $route = useRoute()
-const $router = useRouter()
-const $store = useStore()
 const active = ref<string>('综合')
 const currensongList = ref() // 单曲组件
-const currennew_mlog = ref() // 视频组件
-const currenalbum = ref() // 专辑组件
 const currenplayList = ref() // 歌单组件
 const songList = ref({}) // 单曲列表
 const new_mlog = ref({}) // 视频列表
@@ -48,7 +40,6 @@ const tablist = [
   }
 ]
 
-const emit = defineEmits(['tabSwitch'])
 const props = defineProps({
   keyword: {
     type: String,
@@ -82,12 +73,12 @@ watch(
 
 <template>
   <van-tabs v-model:active="active" swipeable>
-    <van-tab :name="item.name" v-for="item in tablist" :title="item.name">
+    <van-tab v-for="item in tablist" :title="item.name" :name="item.name">
       <comsive
+        v-if="item.name === '综合'"
         :songList="songList"
         :playList="playList"
         :new_mlog="new_mlog"
-        v-if="item.name === '综合'"
       />
       <single
         v-if="item.name === '单曲'"

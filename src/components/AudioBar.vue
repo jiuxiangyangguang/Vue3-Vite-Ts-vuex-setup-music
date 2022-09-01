@@ -8,16 +8,14 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
 
 const $store = useStore()
 const audioDom = ref<any>(null) // 音频标签
 const playFlag = computed(() => $store.state.audio.playFlag) // 是否播放
-const progerssAudioLength = computed(
-  () => $store.state.audio.progerssAudioLength
-) // 总长度
+
+const audio = computed(() => $store.state.audio) // 整个音乐对象
 
 const mode = computed(() => $store.state.audio.mode) // 播放模式
 
@@ -38,7 +36,9 @@ const audioPlay = () => {
   audioDom.value.volume = volume.value // 设置音量
   audioDom.value.currentTime = $store.state.audio.currentAudioLength
   $store.commit('setPlayFlag', true)
-  $store.commit('setDurationAudioLength', audioDom.value.duration)
+  if (audioDom.value.duration) {
+    $store.commit('setDurationAudioLength', audioDom.value.duration)
+  }
 }
 
 // 原生暂停播放
@@ -94,7 +94,7 @@ watch(setCurrentLen, () => {
 })
 // 监听歌曲变化  保存数据在本地
 watch(
-  [currentPlay, index, volume, currentPlayLen, playFlag],
+  audio,
   () => {
     $store.commit('setLocation')
   },
@@ -112,6 +112,7 @@ watch(
     @ended="ended"
     @timeupdate="timeupdate"
     ref="audioDom"
+    id="audio"
     :src="resources"
   ></audio>
 </template>

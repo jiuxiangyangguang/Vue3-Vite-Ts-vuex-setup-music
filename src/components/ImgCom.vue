@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
 interface Img {
   url: string
   size?: number | string
   skeleton?: boolean
 }
-const $store = useStore()
-const $route = useRoute()
 const flag = ref<boolean>(true)
-const props = withDefaults(defineProps<Img>(), {
+withDefaults(defineProps<Img>(), {
   url: '',
   size: 100,
   skeleton: false

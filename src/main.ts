@@ -11,12 +11,12 @@ import { createApp } from 'vue'
 import Router from '@/router'
 import Vuex from '@/store'
 import App from './App.vue'
-import { Notify } from 'vant'
 
 import 'virtual:svg-icons-register'
 import '@/assets/style/index.less' // 总样式表
-
-createApp(App)
-  .use(Router)
+import directive from '@/utils/directive'
+const app = createApp(App)
+directive(app)
+app.use(Router)
   .use(Vuex)
   .mount('#app')

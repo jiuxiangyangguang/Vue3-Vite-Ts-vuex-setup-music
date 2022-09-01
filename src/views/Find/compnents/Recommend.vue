@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getPersonalized } from '@/api/music'
-import { reactive, ref } from '@vue/reactivity'
+import { ref } from '@vue/reactivity'
 import BScroll from '@better-scroll/core'
 import { nextTick } from 'vue'
 import { useRouter } from 'vue-router'
@@ -11,12 +11,11 @@ const li = ref<Array<HTMLLIElement>>([]) // liDOM元素
 
 const jumpFlag = ref(true) // 是否允许跳转
 
-const time = ref() // 定时
-
 const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
     click: true,
+    eventPassthrough: 'vertical',
     preventDefaultException: {
       className: /(^|\s)test(\s|$)/
     }

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
-const $route = useRoute()
 const $router = useRouter()
 const $store = useStore()
 const flag = ref<boolean>(false) // 等待框
-const songlist = ref()
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 const props = defineProps<{
   songList: SongList
-  playList: PlayList
+  playList: PlayListV
   new_mlog: MlogList
 }>()
 

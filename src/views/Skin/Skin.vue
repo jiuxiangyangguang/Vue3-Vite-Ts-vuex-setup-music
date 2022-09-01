@@ -4,36 +4,33 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import Menu from '@/components/Menu.vue'
+import { computed } from 'vue'
 import useStore from '@/hooks/useStore'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
-import { getInfoUpdate, setUpImg } from '@/api/user'
-import { areaList } from '@vant/area-data'
-import useTime from '@/hooks/useTime'
-import axios from 'axios'
-import { Toast } from 'vant'
+import { useRouter } from 'vue-router'
+import { Dialog, Notify } from 'vant'
 
 const $store = useStore()
 
 const $router = useRouter()
 
-const uploader = ref() // 获取图片上传DOM
-
-const nickname = computed(() => $store.state.userInfo.nickname) // 登入名称
-
-const uid = computed(() => $store.state.userInfo.uid) // 用户名称
-
-const isLogin = computed(() => $store.state.userInfo.isLogin) // 是否登录
-
-const user = computed(() => $store.state.userInfo) // 用户数据
-
 const progress = computed(() => $store.state.skin.progress) // 当前用户选选择的图标
 
-const lineColor = computed(() => $store.state.skin.lineColor) // 当前用户选选择的图标
+const lineColor = computed(() => $store.state.skin.lineColor) // 当前用户选选择的颜色
+
+const mode = computed(() => $store.state.audio.animation.mode) // 当前动效
+
+const flag = computed({
+  get() {
+    return $store.state.audio.animation.flag
+  },
+  set(value) {
+    $store.commit('setAntFlag', value)
+  }
+}) // 当前是否开启动效
 
 const iconArr = ['hhua', 'gtx', 'ljr', 'mgdz', 'zzx']
 const colorArr = ['#ff5345', '#8d13a4', '#f16325', '#76e3de', 'zzx']
+const modeArr = ['circlewave', 'circlebar']
 // 设置进度条图标
 const setIcon = (icon: string) => {
   $store.commit('setSkinIcon', { name: 'progress', data: icon })
@@ -41,6 +38,19 @@ const setIcon = (icon: string) => {
 // 设置颜色
 const setcolor = (icon: string) => {
   $store.commit('setSkinIcon', { name: 'lineColor', data: icon })
+}
+// 设置动效
+const modeChange = (mode: string) => {
+  if (flag.value) {
+    $store.commit('setAntMode', mode)
+    Notify({ type: 'warning', message: '音乐动效目前处于测试阶段' })
+  } else {
+    Dialog.confirm({
+      message: '是否开启音乐动画,该功能处于实验阶段'
+    }).then(() => {
+      $store.commit('setAntFlag', true)
+    })
+  }
 }
 </script>
 
@@ -81,6 +91,35 @@ const setcolor = (icon: string) => {
           @click="setcolor(item)"
         >
           <div class="flag" v-show="lineColor === item">
+            <svg-icon name="bj" class="bj"></svg-icon>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="title">
+        <p>
+          播放动效<span :style="{ color: '#fe010d' }"
+            >实验阶段部分歌曲不支持</span
+          >
+        </p>
+        <van-switch
+          v-model="flag"
+          size="16"
+          active-color="#ee0a24"
+          inactive-color="#dcdee0"
+        />
+      </div>
+      <ul class="icon">
+        <li
+          v-for="item in modeArr"
+          :class="{ active: mode === item }"
+          :style="{ backgroundColor: item }"
+          @click="modeChange(item)"
+        >
+          <p>{{ item === 'circlewave' ? '动感圆波' : '跳动节奏' }}</p>
+          <div class="flag" v-show="mode === item">
             <svg-icon name="bj" class="bj"></svg-icon>
           </div>
         </li>
@@ -143,12 +182,18 @@ const setcolor = (icon: string) => {
         box-shadow: 0 0 4px #ccc;
         position: relative;
         box-sizing: border-box;
+        p {
+          text-align: center;
+          font-size: 14px;
+          padding: 0 10px;
+          line-height: 20px;
+        }
         .flag {
           height: 16px;
           width: 16px;
           font-size: 10px;
           position: absolute;
-          bottom: 0px;
+          bottom: -1px;
           right: -1px;
           border-radius: 100% 0% 60% 40% / 100% 40% 60% 0%;
           background-color: #fe010d;

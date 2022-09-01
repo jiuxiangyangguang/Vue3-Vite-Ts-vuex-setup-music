@@ -4,14 +4,11 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
-import Menu from '@/components/Menu.vue'
+import { computed, ref, watch } from 'vue'
 import useStore from '@/hooks/useStore'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
-import { getInfoUpdate, setUpImg } from '@/api/user'
+import { useRouter } from 'vue-router'
 import { areaList } from '@vant/area-data'
 import useTime from '@/hooks/useTime'
-import axios from 'axios'
 import { Toast } from 'vant'
 
 const $store = useStore()
@@ -20,17 +17,13 @@ const $router = useRouter()
 
 const uploader = ref() // 获取图片上传DOM
 
-const nickname = computed(() => $store.state.userInfo.nickname) // 登入名称
-
-const uid = computed(() => $store.state.userInfo.uid) // 用户名称
-
-const isLogin = computed(() => $store.state.userInfo.isLogin) // 是否登录
-
 const user = computed(() => $store.state.userInfo) // 用户数据
 
 const show = ref(false) // 是否显示遮罩层
 
 const info = ref('') //当前弹窗内容
+
+const uName = ref(user.value.nickname)
 
 const maxDate = new Date()
 const minDate = new Date(1991, 0, 1)
@@ -66,26 +59,26 @@ const confirmY = (v: any) => {
   })
 }
 // 上传头像
-const afterRead = async (file: any) => {
+const afterRead = async () => {
   Toast.fail('服务器升级中,暂不支持头像上传')
-  const data = await setUpImg({ aa: 100 })
 }
 // 头像点击事件
 const uploaderclick = () => {
   uploader.value.chooseFile()
+}
+// 保存昵称或者简介
+const save = () => {
+  show.value = false
+  $store.commit('setUserInfo', {
+    name: 'nickname',
+    data: uName
+  })
 }
 // 监听用户信息修改
 watch(
   user,
   async () => {
     const v = user.value
-    const data = await getInfoUpdate({
-      city: v.city,
-      province: v.province,
-      gender: v.gender,
-      birthday: v.birthday,
-      signature: v.signature
-    })
   },
   { deep: true }
 )
@@ -103,7 +96,7 @@ watch(
           <img-com :url="user.picUrl"></img-com>
         </p>
       </li>
-      <li>
+      <li @click="clickEv('nickname')">
         <p class="text">昵称</p>
         <p class="content">
           {{ user.nickname }}
@@ -118,7 +111,7 @@ watch(
       <li>
         <p class="text">二维码</p>
         <p class="content">
-          <img-com :url="user.picUrl"></img-com>
+          <van-icon name="qr" size="24" />
         </p>
       </li>
     </ul>
@@ -169,7 +162,7 @@ watch(
       @confirm="confirm"
       v-if="info === 'city'"
     />
-    <!-- // 选择性别 -->
+    <!-- 选择性别 -->
     <van-radio-group v-model="user.gender" @click.stop v-if="info === 'gender'">
       <van-cell-group inset>
         <van-cell title="男" clickable @click="checkedGender(1)">
@@ -184,6 +177,17 @@ watch(
         </van-cell>
       </van-cell-group>
     </van-radio-group>
+
+    <!-- 设置名称 -->
+    <van-cell-group inset v-if="info === 'nickname'" @click.stop class="name">
+      <van-field
+        autofocus
+        v-model="uName"
+        label="昵称"
+        placeholder="请输入用户名"
+      />
+      <van-button plain type="primary" @click="save">保存</van-button>
+    </van-cell-group>
   </van-overlay>
 </template>
 
@@ -244,6 +248,19 @@ watch(
     overflow: hidden;
     .van-picker-column__item--selected {
       color: #fb4f4e;
+    }
+  }
+  .van-cell-group.name {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .van-button {
+      width: 40px;
+      padding: 0;
+      height: 24px;
+    }
+    .van-field__label {
+      width: 40px;
     }
   }
 }

@@ -16,19 +16,8 @@
  * @FilePath: \musicwangyi\src\views\PlayPage\PlayHome.vue
  * 版权声明
 -->
-<script setup lang="ts">
-import { computed, onActivated, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getListById } from '@/api/music'
-import useStore from '@/hooks/useStore'
-const $route = useRoute()
-const $router = useRouter()
+<script setup lang="ts"></script>
 
-const $store = useStore()
-</script>
-
-<template>
-  <!-- 图片旋转组件 -->
-</template>
+<template></template>
 
 <style lang="less" scoped></style>

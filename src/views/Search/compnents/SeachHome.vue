@@ -1,40 +1,15 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import {
-  getListById,
-  getHot,
-  getHotDetail,
-  getKeyWord,
-  getMultimatch
-} from '@/api/music'
+import { computed, ref } from 'vue'
+import { getHot } from '@/api/music'
 import ranDomSong from './ranDomSong.vue'
-import useTime from '@/hooks/useTime'
 import useStore from '@/hooks/useStore'
-const $route = useRoute()
-const $router = useRouter()
-const searValue = ref('') // 搜索关键字
 const $store = useStore()
-const $time = useTime()
 const hot = ref([])
 
 $store.commit('getHistoryList') // 获取历史搜索
 const historyList = computed(() => $store.state.historyList) // 历史记录数组
 const emit = defineEmits(['tabSwitch'])
-const props = defineProps({
-  keyword: {
-    type: String,
-    default: ''
-  }
-})
 // 搜索事件
-const onSearch = () => {
-  const seach = {
-    value: searValue.value,
-    date: $time.getTimeYMD
-  }
-  $store.commit('setHistoryList', seach)
-}
 // 获取排行榜
 const getRankList = async () => {
   const {

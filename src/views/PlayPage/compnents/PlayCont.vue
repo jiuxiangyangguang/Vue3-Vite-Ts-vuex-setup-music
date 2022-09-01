@@ -8,12 +8,11 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
-import { getUrl, getLikeMusic } from '@/api/music'
-import { Notify } from 'vant'
+import { getUrl, getLikeMusic, getMusicComment } from '@/api/music'
+import { Toast } from 'vant'
 import useTime from '@/hooks/useTime'
-import axios from 'axios'
 const $store = useStore()
 
 const tipsText = ref('') // 播放模式提示
@@ -33,8 +32,6 @@ const mode = computed(() => $store.state.audio.mode) // 当前播放模式
 const progressIcon = computed(() => $store.state.skin.progress) // 当前用户选选择的图标
 
 const lineColor = computed(() => $store.state.skin.lineColor) // 当前用户选择颜色
-
-const currentPlayLen = computed(() => $store.state.audio.currentPlayLen) // 当前播放列表长度
 
 const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前播放列表
 
@@ -79,7 +76,7 @@ const anim = async () => {
   const ev = showLove.value ? 'setlikeArrRef' : 'setlikeArrAdd'
   $store.commit(ev, currentPlay.value[index.value].id)
 
-  const data = await getLikeMusic({
+  await getLikeMusic({
     like: showLove.value,
     id: currentPlay.value[index.value].id
   })
@@ -92,21 +89,34 @@ const urlDownload = async (br: 320000 | 128000 | 999000) => {
     br
   })
   updomnShow.value = false
-  fetch(data.url)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const a = document.createElement('a')
-      document.body.appendChild(a)
-      a.style.display = 'none'
-      const url = window.URL.createObjectURL(blob)
-      a.href = url
-      a.download = `${currentPlay.value[index.value].name}-${
-        currentPlay.value[index.value].songName
-      }.mp3`
-      a.click()
-      document.body.removeChild(a)
-      window.URL.revokeObjectURL(url)
-    })
+  if (!data.url) {
+    Toast.fail('当前歌曲不支持下载')
+  } else {
+    fetch(data.url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const a = document.createElement('a')
+        document.body.appendChild(a)
+        a.style.display = 'none'
+        const url = window.URL.createObjectURL(blob)
+        a.href = url
+        a.download = `${currentPlay.value[index.value].name}-${
+          currentPlay.value[index.value].songName
+        }.mp3`
+        a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+      })
+    $store.commit('setLocalMusic', currentPlay.value[index.value])
+  }
+}
+
+// 查看评论
+const getComment = async () => {
+  await getMusicComment({
+    id: currentPlay.value[index.value].id,
+    limit: 30
+  })
 }
 
 // 手指在屏幕上滑动式触发
@@ -176,27 +186,19 @@ watch(currentLength, () => {
 </script>
 
 <template>
-  <div class="mask" @click="updomnShow = false">
-    <div class="updomn" v-if="updomnShow" @click.stop>
+  <div class="mask" @click="updomnShow = false" v-if="updomnShow">
+    <div class="updomn" @click.stop>
       <div class="title">请选择下载音质</div>
       <p @click="urlDownload(128000)">标准</p>
       <p @click="urlDownload(320000)">较高</p>
       <p @click="urlDownload(999000)">极高(无损)</p>
     </div>
   </div>
-  <!-- 下载,收藏,爱心 -->
+  <!-- 下载,收藏,评论 -->
   <div class="collection" ref="collection">
-    <van-icon
-      name="like"
-      :color="showLove ? '#ff5345' : '#eee'"
-      @click="anim"
-    />
-    <van-icon
-      name="upgrade"
-      color="#fff"
-      :style="{ transform: 'rotate(180deg)' }"
-      @click="updomnShow = true"
-    />
+    <van-icon name="like" :color="showLove ? '#ff5345' : '#eee'" @click="anim" />
+    <van-icon name="upgrade" color="#fff" :style="{ transform: 'rotate(180deg)' }" @click="updomnShow = true" />
+    <van-icon name="chat-o" color="#fff" @click="getComment" />
   </div>
 
   <!-- 进度条 -->
@@ -213,16 +215,9 @@ watch(currentLength, () => {
 
   <!-- 播放控制 -->
   <div class="icon">
-    <svg-icon
-      :name="mode === 1 ? 'sjbf' : mode === 0 ? 'lbbf' : 'dqxh'"
-      :style="{ fontSize: '18px', color: lineColor }"
-      @click="modeChange"
-    />
+    <svg-icon :name="mode === 1 ? 'sjbf' : mode === 0 ? 'lbbf' : 'dqxh'" :style="{ fontSize: '18px', color: lineColor }" @click="modeChange" />
     <svg-icon name="prev" @click="prev" />
-    <van-icon
-      @click="play"
-      :name="!playFlag ? 'play-circle-o' : 'pause-circle-o'"
-    />
+    <van-icon @click="play" :name="!playFlag ? 'play-circle-o' : 'pause-circle-o'" />
     <svg-icon name="next" @click="next" />
     <svg-icon name="bflb" style="font-size: 18px" @click="show" />
   </div>
@@ -287,7 +282,7 @@ watch(currentLength, () => {
       height: 16px;
       position: absolute;
       top: -8px;
-      transform: translateX(-2px);
+      transform: translateX(-50%);
     }
   }
   .text {
@@ -324,7 +319,7 @@ watch(currentLength, () => {
   transform: translate(-50%, -50%);
 }
 .anim-one {
-  .van-icon {
+  .van-icon.van-icon-like {
     animation: heartbeat 0.5s ease infinite;
   }
 }

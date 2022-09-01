@@ -8,18 +8,13 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
-import { Notify } from 'vant'
-import useTime from '@/hooks/useTime'
 const $store = useStore()
 
 const speed = ref() // 是进度条
 
 const volume = computed(() => $store.state.audio.volume) // 音量
-
-const volumeicon = ref('') // 音量
 
 const dot = ref() // 是进度点
 
@@ -30,9 +25,6 @@ const len = ref(0) // 手动偏移进度条
 const lineTotalLen = ref(0) // 进度条长度
 
 // 控制播放暂停
-const play = () => {
-  $store.commit('setPlayFlags')
-}
 
 // 手指在屏幕上滑动式触发
 const touchmove = (e: any) => {
@@ -49,9 +41,6 @@ const touchmove = (e: any) => {
 }
 
 // 手指离开屏幕
-const touchend = () => {
-  // 设置播放进度
-}
 watch(
   volume,
   async () => {
@@ -112,6 +101,7 @@ watch(
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100000;
     &:after {
       content: '';
       display: block;

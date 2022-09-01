@@ -25,7 +25,7 @@ interface MlogList {
   moreText?: string
   resources?: []
 }
-interface PlayList {
+interface PlayListV {
   moreText?: string
   playLists?: Array<PlayListS>
 }

@@ -96,3 +96,23 @@ body {
     bottom: 20px;
   }
 }
+
+// 水波指令
+.v-wave-show {
+  background-color: currentColor;
+  position: absolute;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.2;
+}
+.v-wave-enter {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.v-wave-hide {
+  transform: scale(25);
+  opacity: 0;
+}

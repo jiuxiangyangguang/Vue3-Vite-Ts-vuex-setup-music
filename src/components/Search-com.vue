@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onActivated, onDeactivated, ref } from 'vue'
+import { onActivated, ref } from 'vue'
 import Menu from './Menu.vue'
 
 const popupShow = ref(false)

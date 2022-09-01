@@ -4,10 +4,10 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, onActivated, onDeactivated, reactive, ref } from 'vue'
+import { computed, onActivated, ref } from 'vue'
 import Menu from '@/components/Menu.vue'
 import useStore from '@/hooks/useStore'
-import { onBeforeRouteLeave, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { getLiekList, getMusicDetail } from '@/api/music'
 import { Dialog } from 'vant'
 const infoIcon = ref<Array<infoIcon>>([

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { computed, onActivated, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { Notify } from 'vant'
-import { useRoute, useRouter } from 'vue-router'
-import { getMultimatch } from '@/api/music'
-import useTime from '@/hooks/useTime'
+import { useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
 // import SeachHomeVue from './compnents/SeachHome.vue'
 // import SearchTabs from './compnents/SearchTabs.vue'
@@ -18,7 +16,7 @@ const currentPlay = computed(() => $store.state.audio.currentPlay) // 当前列�
 const props = defineProps({
   currensongList: {
     type: Array as () => Array<SongS>,
-    default: []
+    default: () => []
   }
 })
 const touchEnd = () => {

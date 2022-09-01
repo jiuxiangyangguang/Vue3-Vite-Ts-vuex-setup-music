@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getListById } from '@/api/music'
 import useTime from '@/hooks/useTime'
-import { computed, onActivated, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import useStore from '@/hooks/useStore'
 const $route = useRoute()
