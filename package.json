@@ -2,12 +2,12 @@
   "name": "musicwangyi",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite ",
+    "dev": "vite --mode dev",
     "online": "vite --mode online",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build  --mode beta",
     "serve": "vite preview",
     "lint": "eslint \"src/**/*.{js,vue}\"",
-    "server":"yarn dev | node E:/Vue3项目实践/网易云音乐模板/NeteaseCloudMusicApi/app.js"
+    "server": "yarn dev | node E:/Vue3项目实践/网易云音乐模板/NeteaseCloudMusicApi/app.js"
   },
   "dependencies": {
     "@better-scroll/core": "^2.4.2",

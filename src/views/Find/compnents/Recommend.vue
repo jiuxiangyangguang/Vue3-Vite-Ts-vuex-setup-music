@@ -15,6 +15,7 @@ const better = () => {
   const bs = new BScroll('.wrapper', {
     scrollX: true,
     click: true,
+    eventPassthrough: 'vertical',
     preventDefaultException: {
       className: /(^|\s)test(\s|$)/
     }
