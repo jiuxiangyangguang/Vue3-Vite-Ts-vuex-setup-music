@@ -82,18 +82,10 @@ watch(
 </script>
 
 <template>
-  <div
-    class="audio-box"
-    v-if="currentPlay.length > 0"
-    :style="{ bottom: $route?.matched[0]?.path === '/' ? '50px' : '0px' }"
-  >
+  <div class="audio-box" v-if="currentPlay.length > 0" :style="{ bottom: $route?.matched[0]?.path === '/' ? '50px' : '0px' }">
     <div class="leftbox" @click="jump">
       <div class="bgc">
-        <img-com
-          id="imgcom"
-          :url="currentPlay[index]?.picUrl"
-          size="200"
-        ></img-com>
+        <img-com id="imgcom" :url="currentPlay[index]?.picUrl" size="200"></img-com>
       </div>
       <p>
         {{ currentPlay[index]?.songName }}-
@@ -102,14 +94,7 @@ watch(
     </div>
 
     <div class="icon">
-      <van-circle
-        v-model:current-rate="currentRate"
-        :rate="(currentAudioLength * 100) / durationAudioLength"
-        size="30px"
-        color="#fc3b41"
-        layer-color="#ebedf0"
-        :stroke-width="60"
-      />
+      <van-circle v-model:current-rate="currentRate" :rate="(currentAudioLength * 100) / durationAudioLength" size="30px" color="#fc3b41" layer-color="#ebedf0" :stroke-width="60" />
       <van-icon :name="!playFlag ? 'play' : 'pause'" @click="play" />
       <svg-icon name="bflb" style="font-size: 18px" @click="showList" />
     </div>
