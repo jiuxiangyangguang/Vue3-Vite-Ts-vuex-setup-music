@@ -10,7 +10,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
-import ViteComponents, { VantResolver } from 'vite-plugin-components'  // 自动的注册vant组件 
+import ViteComponents, { VantResolver } from 'vite-plugin-components' // 自动的注册vant组件
 import styleImport from 'vite-plugin-style-import'
 import viteCompression from 'vite-plugin-compression'
 // import { svgBuilder } from './src/utils/svgBuilder'
@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
         symbolId: 'icon-[name]'
       }),
       ViteComponents({
-        customComponentResolvers: [VantResolver()],
+        customComponentResolvers: [VantResolver()]
       }),
       styleImport({
         libs: [
@@ -48,15 +48,15 @@ export default defineConfig(({ mode }) => {
         disable: false,
         threshold: 10240,
         algorithm: 'gzip',
-        ext: '.gz',
-      }),
+        ext: '.gz'
+      })
     ],
     server: {
       host: true,
-      port: 1102,
+      port: 1111,
       proxy: {
         '/api': {
-          target: mode === 'online' ? httpurl : 'http://192.168.6.69:8080',
+          target: mode === 'online' ? httpurl : 'http://47.115.228.238:8080',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }
@@ -66,7 +66,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         less: {
-          javascriptEnabled: true,
+          javascriptEnabled: true
         }
       }
     },
@@ -80,9 +80,10 @@ export default defineConfig(({ mode }) => {
         compress: {
           //生产环境时移除console
           drop_console: true,
-          drop_debugger: true,
-        },
+          drop_debugger: true
+        }
       },
+      minify: 'terser',
       // 取消计算文件大小，加快打包速度
       brotliSize: false,
       sourcemap: false,
@@ -90,10 +91,9 @@ export default defineConfig(({ mode }) => {
         output: {
           chunkFileNames: 'js/[name]-[hash].js',
           entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: '[ext]/[name]-[hash].[ext]',
-        },
-      },
+          assetFileNames: '[ext]/[name]-[hash].[ext]'
+        }
+      }
     }
   }
-}
-)
+})
