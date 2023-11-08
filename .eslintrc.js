@@ -35,8 +35,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/no-parsing-error': 'off',
     'vue/valid-template-root': 'off',
-    'unused-imports/no-unused-imports': 'error',
-    'no-unused-vars': ['error', { vars: 'all', args: 'after-used' }] // 不能有声明后未被使用的变量或参数
+    'unused-imports/no-unused-imports': 'error'
   },
   // defineProps defineEmits defineExpose withDefaults 是全局使用的，不需要从 vue 中引入
   globals: {
