@@ -7,7 +7,7 @@
  * @FilePath: \musicwangyi\src\store\store.ts
  * 版权声明
  */
-import { get, set, ref } from '@/utils/local'
+import { get, ref, set } from '@/utils/local'
 interface route {
   name: string
   path: string
@@ -200,13 +200,12 @@ export const mutations = {
     set('userInfo', JSON.stringify(state.userInfo))
   },
   getLocation(state: State) {
-    //@ts-ignore
     const audiodata = get('audio') && JSON.parse(get('audio'))
-    //@ts-ignore
+
     const userInfoData = get('userInfo') && JSON.parse(get('userInfo'))
-    //@ts-ignore
+
     const skin = get('skin') && JSON.parse(get('skin'))
-    //@ts-ignore
+
     const localMusic = get('localMusic') && JSON.parse(get('localMusic'))
     state.audio = Object.assign(state.audio, audiodata)
     state.userInfo = Object.assign(state.userInfo, userInfoData)

@@ -55,15 +55,7 @@ const showList = () => {
 }
 
 // 监听播放
-watch(
-  playFlag,
-  () => {
-    if (playFlag.value) {
-    } else {
-    }
-  },
-  { immediate: true }
-)
+watch(playFlag, () => {}, { immediate: true })
 // 控制图片是否旋转
 watch(
   playFlag,

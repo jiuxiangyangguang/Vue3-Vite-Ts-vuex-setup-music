@@ -3,24 +3,25 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    node: true
   },
   extends: [
+    'eslint:recommended',
     'plugin:vue/vue3-essential',
-    'plugin:vue/vue3-recommended',
-    'prettier'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
+    // 允许使用ES12语法
     ecmaVersion: 12,
     // 指定ESlint的解析器
     parser: '@typescript-eslint/parser',
-    // 允许使用ES语法
-    ecmaVersion: 2020,
     // 允许使用import
     sourceType: 'module'
   },
-  plugins: ['vue', 'unused-imports', '@typescript-eslint', 'prettier'],
+  plugins: ['vue', 'unused-imports', '@typescript-eslint'],
   rules: {
     'vue/no-multiple-template-root': 'off',
     // 允许大写字母开头的函数不作为构造函数，vite.config.ts 中使用的 Components AntDesignVueResolver 都属于大写字母开头不作为构造函数
@@ -35,6 +36,9 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/no-parsing-error': 'off',
     'vue/valid-template-root': 'off',
+    'no-undef': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'unused-imports/no-unused-imports': 'error'
   },
   // defineProps defineEmits defineExpose withDefaults 是全局使用的，不需要从 vue 中引入

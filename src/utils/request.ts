@@ -7,8 +7,8 @@
  * @FilePath: \musicwangyi\src\utils\request.ts
  * 版权声明
  */
-import axios from 'axios';
-import { stringify } from 'qs'; // 引入qs模块，用来序列化post类型的数据
+import axios from 'axios'
+import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据
 console.log(import.meta.env)
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_API as string,

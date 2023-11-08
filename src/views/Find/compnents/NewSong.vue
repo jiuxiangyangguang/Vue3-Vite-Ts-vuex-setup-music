@@ -19,7 +19,7 @@ const replay = async () => {
   const len = 34
   const { result }: any = await getNewSong(len)
   const one = Math.ceil(Math.random() * len - 4)
-  //@ts-ignore
+
   newSongData.value = [result[one], result[one + 1], result[one + 2]]
 
   songData.value = result

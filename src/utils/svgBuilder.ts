@@ -45,7 +45,7 @@ export const svgBuilder = (path: any, perfix = 'icon') => {
   const res = svgFind(path)
   return {
     name: 'svg-transform',
-    transformIndexHtml(dom: String) {
+    transformIndexHtml(dom: string) {
       return dom.replace(
         '<body>',
         `<body><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">${res.join(

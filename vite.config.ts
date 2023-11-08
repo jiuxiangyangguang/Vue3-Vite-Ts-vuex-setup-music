@@ -7,16 +7,16 @@
  * @FilePath: \musicwangyi\vite.config.ts
  * 版权声明
  */
-import { defineConfig, loadEnv } from 'vite'
-import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+import { defineConfig, loadEnv } from 'vite'
 import ViteComponents, { VantResolver } from 'vite-plugin-components' // 自动的注册vant组件
-import styleImport from 'vite-plugin-style-import'
 import viteCompression from 'vite-plugin-compression'
+import styleImport from 'vite-plugin-style-import'
 // import { svgBuilder } from './src/utils/svgBuilder'
 import viteSvgIcons from 'vite-plugin-svg-icons'
 // https://vitejs.dev/config/
-//@ts-ignore
+
 export default defineConfig(({ mode }) => {
   // 获取环境变量
   const httpurl = loadEnv(mode, process.cwd()).VITE_BASE_API

@@ -68,7 +68,7 @@ watch(currentPlayIndex, async () => {
     item.style.transition = `background-size 0s linear`
     item.style.backgroundSize = '0'
   })
-  //@ts-ignore
+
   const time = lyrics.value[top + 1].time - lyrics.value[top].time
 
   span[top].style.transition = `background-size ${time}s linear`

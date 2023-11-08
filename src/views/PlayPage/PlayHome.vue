@@ -20,7 +20,6 @@ import useStore from '@/hooks/useStore'
 import playcont from './compnents/PlayCont.vue'
 import volume from './compnents/Volume.vue'
 import lyricCom from './compnents/LyricCom.vue'
-//@ts-ignore
 import Vudio from 'vudio'
 
 const $route = useRoute()
@@ -109,7 +108,6 @@ const vudioFun = async (url: string) => {
       const fr = new FileReader()
       if (file.type.indexOf('audio') !== 0) return
       fr.onload = function (evt) {
-        //@ts-ignore
         vudio.value.audioSrc.src = evt.target.result
         vudio.value.audioSrc.play()
         vudio.value.dance()
@@ -179,7 +177,7 @@ watch(flag, (newV, oldV) => {
     window.location.reload()
   }
 })
-// @ts-ignore
+
 onActivated(() => {
   getDetail(true, $route.query.id as string)
 })

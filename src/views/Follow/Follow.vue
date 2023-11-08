@@ -6,7 +6,6 @@ const onOversize = () => {}
 </script>
 
 <template>
-    
   <van-uploader
     v-model="fileList"
     :after-read="afterRead"

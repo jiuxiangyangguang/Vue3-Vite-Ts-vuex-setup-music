@@ -1,7 +1,6 @@
 import server from './request'
 
-function MyServer() {
-  // @ts-ignore
+function MyServer(this: any) {
   this.server = server
 }
 MyServer.prototype.parseRouter = function (name: string, urlObj: any) {
@@ -27,7 +26,6 @@ MyServer.prototype.sendMes = function (
   const configs = config || {} // 用户自定义配置
   const types = type || 'get' // 请求方式
   const reData = configs?.data || {} // 请求数据
-  const self = this
 
   // 数据处理模块
   const defaultFn = function (mes: any) {
@@ -43,5 +41,4 @@ MyServer.prototype.sendMes = function (
   this.server[type](url, { params: reData }).then(before).then(defaultFn)
 }
 
-// @ts-ignore
 export default new MyServer()

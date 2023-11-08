@@ -26,7 +26,6 @@ $store.commit('getLocation')
 
 watch(show, () => {
   if (show.value) {
-    //@ts-ignore
     playlist.value = defineAsyncComponent(
       () => import('@/components/PlayList.vue')
     )
