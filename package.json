@@ -8,6 +8,7 @@
     "serve": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx,.vue --fix",
+    "pre-commit": "lint-staged",
     "server": "yarn dev | node E:/Vue3项目实践/网易云音乐模板/NeteaseCloudMusicApi/app.js"
   },
   "dependencies": {
