@@ -40,8 +40,8 @@ const login = () => {
             name="sign"
             v-if="!user.isLogin"
             :style="{ fontSize: '16px' }"
-          ></svg-icon
-          >{{ user.nickname }}
+          ></svg-icon>
+          {{ user.nickname }}
         </p>
       </div>
       <svg-icon name="sys" :style="{ fontSize: '16px' }"></svg-icon>
@@ -50,22 +50,22 @@ const login = () => {
       <ul class="card">
         <li>
           <p>
-            <svg-icon name="dx" :style="{ fontSize: '18px' }"></svg-icon
-            >我的消息
+            <svg-icon name="dx" :style="{ fontSize: '18px' }"></svg-icon>
+            我的消息
           </p>
           <van-icon name="arrow" />
         </li>
         <li>
           <p>
-            <svg-icon name="yb" :style="{ fontSize: '18px' }"></svg-icon
-            >云呗中心
+            <svg-icon name="yb" :style="{ fontSize: '18px' }"></svg-icon>
+            云呗中心
           </p>
           <van-icon name="arrow" />
         </li>
         <li>
           <p>
-            <svg-icon name="czz" :style="{ fontSize: '18px' }"></svg-icon
-            >创作者中心
+            <svg-icon name="czz" :style="{ fontSize: '18px' }"></svg-icon>
+            创作者中心
           </p>
           <van-icon name="arrow" />
         </li>

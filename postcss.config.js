@@ -7,7 +7,7 @@ export default {
       stage: 0, // 默认值是2，0表示启用所有新特性
       autoprefixer: { grid: true }, // 启用CSS Grid Layout的autoprefixer
       browsers: ['>1%', 'last 2 versions', 'Firefox ESR', 'not dead'] // 浏览器的选择范围
-    })
+    }),
     postcssPxToViewport({
       viewportWidth: 750, // 视窗的宽度，对应的是我们设计稿的宽度，一般是750
       unitPrecision: 3, // 指定`px`转换为视窗单位值的小数位数

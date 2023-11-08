@@ -66,7 +66,8 @@ const del = (i: number) => {
     <div class="list">
       <div class="top">
         <p class="curren">
-          当前播放<span>({{ currentPlayLen }})</span>
+          当前播放
+          <span>({{ currentPlayLen }})</span>
         </p>
         <p class="icon" @click="modeChange">
           <svg-icon
@@ -82,7 +83,8 @@ const del = (i: number) => {
           <li v-for="(item, i) in currentPlay" @click="play(i)">
             <p :class="index === i ? 'current' : ''">
               <svg-icon name="td" v-if="index === i"></svg-icon>
-              {{ item.name }} - <span>{{ item.songName }}</span>
+              {{ item.name }} -
+              <span>{{ item.songName }}</span>
             </p>
             <van-icon name="cross" @click.stop="del(i)" />
           </li>

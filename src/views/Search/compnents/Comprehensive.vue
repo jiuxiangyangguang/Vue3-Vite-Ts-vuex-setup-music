@@ -50,7 +50,11 @@ const addSong = (item: any) => {
     <!-- 单曲列表 -->
     <div class="song" v-show="flag">
       <h2>
-        单曲 <span><van-icon name="play-circle-o" />播放</span>
+        单曲
+        <span>
+          <van-icon name="play-circle-o" />
+          播放
+        </span>
       </h2>
       <ul>
         <li v-for="item in songList.songs" @click="jump(item.id)">
@@ -61,8 +65,8 @@ const addSong = (item: any) => {
                 class="svg"
                 name="wus"
                 style="font-size: 20px"
-              ></svg-icon
-              >{{ item.ar[0].name }}-{{ item.al.name }}
+              ></svg-icon>
+              {{ item.ar[0].name }}-{{ item.al.name }}
             </p>
           </div>
           <svg-icon

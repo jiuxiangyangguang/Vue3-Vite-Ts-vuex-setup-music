@@ -3,14 +3,13 @@
  * @Date: 2021-11-16 14:44:41
  * @LastEditTime: 2021-12-02 11:13:18
  * @LastEditors: jiuxiangyang
- * @Description: 
+ * @Description:
  * @FilePath: \musicwangyi\src\router\index.ts
  * 版权声明
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/layout/Home.vue'
 import Find from '@/views/Find/Find.vue'
-import useStore from '@/hooks/useStore'
 const r = import.meta.globEager('/src/views/Find/compnents/*.vue') // 一下引入所有vue文件
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,27 +23,27 @@ const routes: Array<RouteRecordRaw> = [
         path: 'find',
         name: 'Find',
         meta: { keepAlive: true, transition: 'fadess' },
-        component: Find,
+        component: Find
       },
       {
         path: 'podcast',
         name: 'Podcast',
-        component: () => import('@/views/Podcast/Podcast.vue'),
+        component: () => import('@/views/Podcast/Podcast.vue')
       },
       {
         path: 'my',
         name: 'My',
-        component: () => import('@/views/My/My.vue'),
+        component: () => import('@/views/My/My.vue')
       },
       {
         path: 'follow',
         name: 'Follow',
-        component: () => import('@/views/Follow/Follow.vue'),
+        component: () => import('@/views/Follow/Follow.vue')
       },
       {
         path: 'yuncun',
         name: 'Yuncun',
-        component: () => import('@/views/Yuncun/Yuncun.vue'),
+        component: () => import('@/views/Yuncun/Yuncun.vue')
       }
     ]
   },
@@ -95,7 +94,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       transition: ''
     }
-  },
+  }
 ]
 
 const router = createRouter({

@@ -85,7 +85,8 @@ const tabSwitch = (str: string) => {
       <van-icon :name="searValue ? 'cross' : 'down'" @click="back" />
       <div class="searchMue" v-show="searList.length && flag">
         <p v-for="item: any in searList" @click="keyWord(item.keyword)">
-          <van-icon name="search" /> <span>{{ item.keyword }} </span>
+          <van-icon name="search" />
+          <span>{{ item.keyword }}</span>
         </p>
       </div>
     </div>

@@ -59,7 +59,11 @@ getlistData()
   <!-- 推荐歌单 -->
   <div class="recom">
     <p class="title">
-      推荐歌单 <span>更多<van-icon name="arrow" /></span>
+      推荐歌单
+      <span>
+        更多
+        <van-icon name="arrow" />
+      </span>
     </p>
     <div class="wrapper">
       <ul>

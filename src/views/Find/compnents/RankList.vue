@@ -13,7 +13,10 @@ getTopListData()
   <div class="rank">
     <div class="title">
       <p>排行榜</p>
-      <span>更多<van-icon name="arrow" /></span>
+      <span>
+        更多
+        <van-icon name="arrow" />
+      </span>
     </div>
     <div class="rankcord">
       <p class="title">{{ topList[0]?.name }}</p>

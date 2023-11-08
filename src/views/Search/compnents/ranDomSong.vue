@@ -33,22 +33,23 @@ const scollStart = () => {
 <template>
   <div class="ranklist">
     <van-tabs v-model:active="active">
-      <van-tab title="热搜榜"
-        ><div class="randombox">
+      <van-tab title="热搜榜">
+        <div class="randombox">
           <ul class="list">
             <li v-for="(item, index) in hot" @click="emit('jump', item.first)">
               <span
                 :style="{ color: index < 3 ? '#e71c34' : '#b3afaf' }"
                 class="index"
-                >{{ index + 1 }}</span
               >
-              <span :style="{ color: index < 3 ? '#000' : '#b3afaf' }">{{
-                item.first
-              }}</span>
+                {{ index + 1 }}
+              </span>
+              <span :style="{ color: index < 3 ? '#000' : '#b3afaf' }">
+                {{ item.first }}
+              </span>
             </li>
           </ul>
-        </div></van-tab
-      >
+        </div>
+      </van-tab>
       <van-tab title="随机榜">
         <div class="randombox">
           <div class="random">

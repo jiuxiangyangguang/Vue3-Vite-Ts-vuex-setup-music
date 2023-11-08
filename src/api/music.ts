@@ -28,15 +28,15 @@ export function homepage() {
   return request.get('/homepage/block/page')
 }
 
-// 获取海报 
+// 获取海报
 export function getBanner() {
   return request.get('/banner')
 }
-// 推荐歌单 
+// 推荐歌单
 export function getPersonalized(limit: number = 10) {
   return request.get(`/personalized?limit=${limit}`)
 }
-// 推荐新音乐 
+// 推荐新音乐
 export function getNewSong(limit: number = 10) {
   return request.get(`/personalized/newsong?limit=${limit}`)
 }
@@ -69,8 +69,14 @@ export function getKeyWord(params: string) {
 /** 获取新歌速递
   @param type  1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
 **/
-export function getMultimatch(params: string, type: number = 1, limit: number = 30) {
-  return request.get(`/search/cloudsearch?keywords=${params}&type=${type}&limit=${limit}`)
+export function getMultimatch(
+  params: string,
+  type: number = 1,
+  limit: number = 30
+) {
+  return request.get(
+    `/search/cloudsearch?keywords=${params}&type=${type}&limit=${limit}`
+  )
 }
 
 // 根据id获取音乐详情
@@ -112,5 +118,3 @@ export function getMusicUrl(params: ID) {
 export function getMusicComment(params: Comment) {
   return request.get(`/comment/music`, params)
 }
-
-

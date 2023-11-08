@@ -127,7 +127,7 @@ getListData()
           <div class="info" @click="jump(item.id)">
             <p class="songname">{{ item.name }}</p>
             <p class="songArName">
-              <span v-for="son in item.ar"> {{ son.name + '/' }}</span>
+              <span v-for="son in item.ar">{{ son.name + '/' }}</span>
             </p>
           </div>
           <div class="icon">

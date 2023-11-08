@@ -12,20 +12,19 @@ export default {
   banner: { url: '/banner', type: 'get' }
 }
 
-
 // export function homepage() {
 //   return request.get('/homepage/block/page')
 // }
 
-// // 获取海报 
+// // 获取海报
 // export function getBanner() {
 //   return request.get('/banner')
 // }
-// // 推荐歌单 
+// // 推荐歌单
 // export function getPersonalized(limit: number = 10) {
 //   return request.get(`/personalized?limit=${limit}`)
 // }
-// // 推荐新音乐 
+// // 推荐新音乐
 // export function getNewSong(limit: number = 10) {
 //   return request.get(`/personalized/newsong?limit=${limit}`)
 // }

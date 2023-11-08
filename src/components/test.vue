@@ -8,9 +8,8 @@
  * 版权声明
 -->
 <script setup lang="ts">
-import { reactive, ref, computed, watch, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import { getMusicDetail } from '@/api/music'
 interface MusicList {
   id: string
   name: string

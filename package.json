@@ -6,7 +6,8 @@
     "online": "vite --mode online",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build  --mode beta",
     "serve": "vite preview",
-    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "format": "prettier --write .",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx,.vue --fix",
     "server": "yarn dev | node E:/Vue3项目实践/网易云音乐模板/NeteaseCloudMusicApi/app.js"
   },
   "dependencies": {
@@ -31,11 +32,13 @@
     "@typescript-eslint/parser": "^5.8.0",
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.5.0",
-    "eslint-config-prettier": "^8.3.0",
+    "prettier": "2.8.4",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.2.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "less": "^4.1.1",
     "less-loader": "5",
     "postcss": "^8.4.31",
@@ -49,6 +52,19 @@
     "vite-plugin-compression": "^0.3.6",
     "vite-plugin-style-import": "^1.3.0",
     "vite-plugin-svg-icons": "^1.0.5",
-    "vue-tsc": "^0.3.0"
+    "vue-tsc": "^0.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

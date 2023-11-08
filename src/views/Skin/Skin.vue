@@ -57,11 +57,15 @@ const modeChange = (mode: string) => {
 <template>
   <div class="skin">
     <div class="top-box">
-      <van-icon name="down" @click="$router.go(-1)" /> 个性装扮
+      <van-icon name="down" @click="$router.go(-1)" />
+      个性装扮
     </div>
     <div class="card">
       <div class="title">
-        <p>进度条图标<span>个性装扮,与众不同</span></p>
+        <p>
+          进度条图标
+          <span>个性装扮,与众不同</span>
+        </p>
         <van-icon name="fire" color="#ee0a24" />
       </div>
       <ul class="icon">
@@ -80,7 +84,10 @@ const modeChange = (mode: string) => {
 
     <div class="card">
       <div class="title">
-        <p>全局颜色<span>进度条,提示框</span></p>
+        <p>
+          全局颜色
+          <span>进度条,提示框</span>
+        </p>
         <van-icon name="fire" color="#ee0a24" />
       </div>
       <ul class="icon">
@@ -100,9 +107,8 @@ const modeChange = (mode: string) => {
     <div class="card">
       <div class="title">
         <p>
-          播放动效<span :style="{ color: '#fe010d' }"
-            >实验阶段部分歌曲不支持</span
-          >
+          播放动效
+          <span :style="{ color: '#fe010d' }">实验阶段部分歌曲不支持</span>
         </p>
         <van-switch
           v-model="flag"

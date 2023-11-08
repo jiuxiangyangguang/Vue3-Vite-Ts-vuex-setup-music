@@ -87,7 +87,8 @@ watch(
 <template>
   <div class="myinfo">
     <div class="top-box">
-      <van-icon name="down" @click="$router.go(-1)" /> 我的资料
+      <van-icon name="down" @click="$router.go(-1)" />
+      我的资料
     </div>
     <ul class="basic-info">
       <li @click="uploaderclick">

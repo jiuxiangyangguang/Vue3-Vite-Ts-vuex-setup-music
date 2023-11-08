@@ -6,7 +6,8 @@ const onOversize = () => {}
 </script>
 
 <template>
-    <van-uploader
+    
+  <van-uploader
     v-model="fileList"
     :after-read="afterRead"
     :max-size="5 * 1024 * 1024"

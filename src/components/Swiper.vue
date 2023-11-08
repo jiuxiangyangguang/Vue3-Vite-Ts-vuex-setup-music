@@ -86,7 +86,10 @@ getBannerData()
   :deep(.swiper-pagination-bullet) {
     background-color: #eee;
   }
-  :deep(.swiper-pagination-bullet-active, .swiper-pagination-bullet-active-main) {
+  :deep(
+      .swiper-pagination-bullet-active,
+      .swiper-pagination-bullet-active-main
+    ) {
     background-color: #b90b0b !important;
   }
 }

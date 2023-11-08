@@ -31,5 +31,8 @@ export function getInfoUpdate(params: object) {
 
 // 上传头像
 export function setUpImg(params: any) {
-  return request.get(`/avatar/upload?imgSize=200&timestamp=${Date.now()}`, params)
+  return request.get(
+    `/avatar/upload?imgSize=200&timestamp=${Date.now()}`,
+    params
+  )
 }

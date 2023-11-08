@@ -24,9 +24,14 @@ function svgFind(e: any): any {
               else if (s2 === 'height') height = s3
               return ''
             })
-          if (!hasViewBox.test($2)) content += `viewBox="0 0 ${width} ${height}"`
-          return `<symbol id="${idPerfix}-${dirent.name.replace('.svg', '')}" ${content}>`
-        }).replace('</svg>', '</symbol>')
+          if (!hasViewBox.test($2))
+            content += `viewBox="0 0 ${width} ${height}"`
+          return `<symbol id="${idPerfix}-${dirent.name.replace(
+            '.svg',
+            ''
+          )}" ${content}>`
+        })
+        .replace('</svg>', '</symbol>')
       arr.push(svg)
     }
   }
@@ -43,7 +48,9 @@ export const svgBuilder = (path: any, perfix = 'icon') => {
     transformIndexHtml(dom: String) {
       return dom.replace(
         '<body>',
-        `<body><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">${res.join('')}</svg>`
+        `<body><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute; width: 0; height: 0">${res.join(
+          ''
+        )}</svg>`
       )
     }
   }

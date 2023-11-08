@@ -3,7 +3,7 @@
  * @Date: 2021-11-16 14:43:38
  * @LastEditTime: 2021-12-03 09:22:14
  * @LastEditors: jiuxiangyang
- * @Description: 
+ * @Description:
  * @FilePath: \musicwangyi\src\main.ts
  * 版权声明
  */
@@ -17,6 +17,4 @@ import '@/assets/style/index.less' // 总样式表
 import directive from '@/utils/directive'
 const app = createApp(App)
 directive(app)
-app.use(Router)
-  .use(Vuex)
-  .mount('#app')
+app.use(Router).use(Vuex).mount('#app')

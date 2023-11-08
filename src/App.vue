@@ -52,7 +52,7 @@ watch(show, () => {
 
   <!-- 播放列表 -->
   <transition name="playlist">
-    <component :is="playlist"> </component>
+    <component :is="playlist"></component>
   </transition>
 </template>
 

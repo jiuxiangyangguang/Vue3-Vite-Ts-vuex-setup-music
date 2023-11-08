@@ -55,8 +55,14 @@ newsong()
   <!-- 推荐新音乐 -->
   <div class="newsong">
     <div class="title">
-      <p><van-icon name="replay" @click="replay" /> 推荐新音乐</p>
-      <span @click="palyAll"><van-icon name="play-circle-o" />播放</span>
+      <p>
+        <van-icon name="replay" @click="replay" />
+        推荐新音乐
+      </p>
+      <span @click="palyAll">
+        <van-icon name="play-circle-o" />
+        播放
+      </span>
     </div>
     <ul>
       <li v-for="item: any in newSongData" @click="jump(item.id)" v-wave>

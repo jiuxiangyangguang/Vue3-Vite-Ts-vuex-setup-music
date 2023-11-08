@@ -3,18 +3,18 @@
  * @Date: 2021-11-26 16:32:01
  * @LastEditTime: 2021-12-05 19:39:07
  * @LastEditors: jiuxiangyang
- * @Description: 
+ * @Description:
  * @FilePath: \musicwangyi\src\store\store.ts
  * 版权声明
  */
 import { get, set, ref } from '@/utils/local'
 interface route {
-  name: string,
+  name: string
   path: string
 }
 interface SearchArr {
-  value: string;
-  date: string;
+  value: string
+  date: string
 }
 interface CurrentPlay {
   name: string
@@ -65,21 +65,18 @@ const skin = {
   lineColor: '#ff5345'
 }
 
-
 const currentPlay = {}
 type Audio = typeof audio
 type UserInfo = typeof userInfo
 type Skin = typeof skin
 
-
-
 export interface State {
   historyList: Array<SearchArr>
-  audio: Audio,
-  showPlayList: boolean,
-  routeArr: Array<route>,
-  userInfo: UserInfo,
-  skin: Skin,
+  audio: Audio
+  showPlayList: boolean
+  routeArr: Array<route>
+  userInfo: UserInfo
+  skin: Skin
   localMusic: Array<CurrentPlay>
 }
 
@@ -92,9 +89,6 @@ export const state: State = {
   skin,
   localMusic: []
 }
-
-
-
 
 export const mutations = {
   setHistoryList(state: State, payload: SearchArr) {
@@ -173,7 +167,9 @@ export const mutations = {
     ref('token')
   },
   setlikeArrRef(state: State, id: number) {
-    state.userInfo.likeArr = state.userInfo.likeArr.filter(item => item !== id)
+    state.userInfo.likeArr = state.userInfo.likeArr.filter(
+      (item) => item !== id
+    )
   },
   setlikeArrAdd(state: State, id: number) {
     state.userInfo.likeArr.push(id)
@@ -183,7 +179,7 @@ export const mutations = {
     set('skin', JSON.stringify(state.skin))
   },
   setLocalMusic(state: State, obj: CurrentPlay) {
-    if (state.localMusic.some(item => item.id === obj.id)) return
+    if (state.localMusic.some((item) => item.id === obj.id)) return
     state.localMusic.unshift(obj)
     set('localMusic', JSON.stringify(state.localMusic))
   },
@@ -196,7 +192,7 @@ export const mutations = {
 
   setRouteArr(state: State, route: route) {
     // 不重复添加路由
-    if (state.routeArr.some(item => item.name === route.name)) return
+    if (state.routeArr.some((item) => item.name === route.name)) return
     state.routeArr.push(route)
   },
   setLocation(state: State) {

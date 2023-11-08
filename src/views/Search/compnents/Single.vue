@@ -69,7 +69,11 @@ const addSong = (item: any) => {
   <div class="animt" ref="cord" v-show="flag">
     <div class="cord" @touchend="touchEnd()">
       <h2>
-        单曲 <span><van-icon name="play-circle-o" />播放</span>
+        单曲
+        <span>
+          <van-icon name="play-circle-o" />
+          播放
+        </span>
       </h2>
       <ul>
         <li v-for="item in currensongList" @click="jump(item.id)">
@@ -80,8 +84,8 @@ const addSong = (item: any) => {
                 class="svg"
                 name="wus"
                 style="font-size: 20px"
-              ></svg-icon
-              >{{ item.artists[0].name }}-{{ item.album.name }}
+              ></svg-icon>
+              {{ item.artists[0].name }}-{{ item.album.name }}
             </p>
           </div>
           <svg-icon

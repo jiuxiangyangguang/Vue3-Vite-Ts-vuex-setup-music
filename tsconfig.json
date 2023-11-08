@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
-    "suppressImplicitAnyIndexErrors": true,  // 解决any索引报错
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -13,10 +12,8 @@
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

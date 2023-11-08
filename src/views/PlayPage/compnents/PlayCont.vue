@@ -196,8 +196,17 @@ watch(currentLength, () => {
   </div>
   <!-- 下载,收藏,评论 -->
   <div class="collection" ref="collection">
-    <van-icon name="like" :color="showLove ? '#ff5345' : '#eee'" @click="anim" />
-    <van-icon name="upgrade" color="#fff" :style="{ transform: 'rotate(180deg)' }" @click="updomnShow = true" />
+    <van-icon
+      name="like"
+      :color="showLove ? '#ff5345' : '#eee'"
+      @click="anim"
+    />
+    <van-icon
+      name="upgrade"
+      color="#fff"
+      :style="{ transform: 'rotate(180deg)' }"
+      @click="updomnShow = true"
+    />
     <van-icon name="chat-o" color="#fff" @click="getComment" />
   </div>
 
@@ -215,9 +224,16 @@ watch(currentLength, () => {
 
   <!-- 播放控制 -->
   <div class="icon">
-    <svg-icon :name="mode === 1 ? 'sjbf' : mode === 0 ? 'lbbf' : 'dqxh'" :style="{ fontSize: '18px', color: lineColor }" @click="modeChange" />
+    <svg-icon
+      :name="mode === 1 ? 'sjbf' : mode === 0 ? 'lbbf' : 'dqxh'"
+      :style="{ fontSize: '18px', color: lineColor }"
+      @click="modeChange"
+    />
     <svg-icon name="prev" @click="prev" />
-    <van-icon @click="play" :name="!playFlag ? 'play-circle-o' : 'pause-circle-o'" />
+    <van-icon
+      @click="play"
+      :name="!playFlag ? 'play-circle-o' : 'pause-circle-o'"
+    />
     <svg-icon name="next" @click="next" />
     <svg-icon name="bflb" style="font-size: 18px" @click="show" />
   </div>
