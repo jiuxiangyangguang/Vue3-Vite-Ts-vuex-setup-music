@@ -26,7 +26,7 @@ MyServer.prototype.sendMes = function (
   const configs = config || {} // 用户自定义配置
   const types = type || 'get' // 请求方式
   const reData = configs?.data || {} // 请求数据
-
+  const aa = '1'
   // 数据处理模块
   const defaultFn = function (mes: any) {
     return mes

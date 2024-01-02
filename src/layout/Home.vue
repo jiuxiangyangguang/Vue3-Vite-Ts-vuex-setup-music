@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from '@vue/reactivity'
-import { watch } from '@vue/runtime-core'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 const active = ref<string>('/find')
 const $router = useRouter()

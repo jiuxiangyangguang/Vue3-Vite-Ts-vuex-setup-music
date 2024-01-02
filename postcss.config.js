@@ -1,7 +1,7 @@
-import postcssPresetEnv from 'postcss-preset-env'
-import postcssPxToViewport from 'postcss-px-to-viewport-8-plugin'
+var postcssPresetEnv = require('postcss-preset-env')
+var postcssPxToViewport = require('postcss-px-to-viewport-8-plugin')
 
-export default {
+module.exports = {
   plugins: [
     postcssPresetEnv({
       stage: 0, // 默认值是2，0表示启用所有新特性

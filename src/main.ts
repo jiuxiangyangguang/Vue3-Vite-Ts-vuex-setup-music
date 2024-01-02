@@ -7,12 +7,12 @@
  * @FilePath: \musicwangyi\src\main.ts
  * 版权声明
  */
-import { createApp } from 'vue'
 import Router from '@/router'
 import Vuex from '@/store'
+import { createApp } from 'vue'
 import App from './App.vue'
 
-import 'virtual:svg-icons-register'
+// import 'virtual:svg-icons-register'
 import '@/assets/style/index.less' // 总样式表
 import directive from '@/utils/directive'
 const app = createApp(App)
