@@ -9,12 +9,12 @@
  */
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 import { defineConfig, loadEnv } from 'vite'
-import ViteComponents, { VantResolver } from 'vite-plugin-components' // 自动的注册vant组件
 import viteCompression from 'vite-plugin-compression'
-import styleImport from 'vite-plugin-style-import'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // import { svgBuilder } from './src/utils/svgBuilder'
-import viteSvgIcons from 'vite-plugin-svg-icons'
 // https://vitejs.dev/config/
 
 export default defineConfig(({ mode }) => {
@@ -25,23 +25,15 @@ export default defineConfig(({ mode }) => {
     base: './',
     plugins: [
       vue(),
+      Components({
+        resolvers: [VantResolver()]
+      }),
       // svgBuilder('./src/assets/icon/svg/'),
-      viteSvgIcons({
+      createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/assets/icon/svg')],
         symbolId: 'icon-[name]'
       }),
-      ViteComponents({
-        customComponentResolvers: [VantResolver()]
-      }),
-      styleImport({
-        libs: [
-          {
-            libraryName: 'vant',
-            esModule: true,
-            resolveStyle: (name) => `vant/es/${name}/style`
-          }
-        ]
-      }),
+
       viteCompression({
         //生成压缩包gz
         verbose: true,

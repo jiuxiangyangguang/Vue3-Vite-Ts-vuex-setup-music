@@ -16,6 +16,7 @@
     }
   },
   "include": [
+    "node_modules/vant/lib/index.d.ts",
     "src/**/*.ts",
     "types/**/*.d.ts",
     "src/**/*.d.ts",

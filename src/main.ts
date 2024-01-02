@@ -12,9 +12,9 @@ import Vuex from '@/store'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-// import 'virtual:svg-icons-register'
 import '@/assets/style/index.less' // 总样式表
 import directive from '@/utils/directive'
+import 'virtual:svg-icons-register' // svg插入脚本
 const app = createApp(App)
 directive(app)
 app.use(Router).use(Vuex).mount('#app')

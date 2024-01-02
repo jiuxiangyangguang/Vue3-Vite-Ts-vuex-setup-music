@@ -4,12 +4,13 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, onActivated, ref } from 'vue'
+import { getLiekList, getMusicDetail } from '@/api/music'
 import Menu from '@/components/Menu.vue'
 import useStore from '@/hooks/useStore'
+import { showDialog } from 'vant'
+import 'vant/es/dialog/style'
+import { computed, onActivated, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getLiekList, getMusicDetail } from '@/api/music'
-import { Dialog } from 'vant'
 const infoIcon = ref<Array<infoIcon>>([
   {
     name: '最近播放',
@@ -72,7 +73,7 @@ const jump = () => {
 const lick = async () => {
   // 获取歌曲详情
   if (!isLogin.value) {
-    Dialog.confirm({
+    showDialog({
       message: '登录之后即可开启心动模式',
       confirmButtonText: '登录'
     })
