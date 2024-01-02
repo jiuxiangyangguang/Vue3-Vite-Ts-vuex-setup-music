@@ -4,12 +4,12 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
 import useStore from '@/hooks/useStore'
-import { useRouter } from 'vue-router'
-import { areaList } from '@vant/area-data'
 import useTime from '@/hooks/useTime'
+import { areaList } from '@vant/area-data'
 import { Toast } from 'vant'
+import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const $store = useStore()
 
@@ -27,9 +27,10 @@ const uName = ref(user.value.nickname)
 
 const maxDate = new Date()
 const minDate = new Date(1991, 0, 1)
-const date = new Date(user.value.birthday)
+const date = ref(['2021', '01', '01'])
 
 const clickEv = (v: string) => {
+  console.log(v)
   info.value = v
   show.value = true
 }
@@ -145,10 +146,9 @@ watch(
   <van-uploader ref="uploader" v-show="false" :after-read="afterRead" />
   <van-overlay :show="show" @click="show = false">
     <!-- 选择时间 -->
-    <van-datetime-picker
-      v-if="info === 'birthday'"
+    <van-date-picker
       v-model="date"
-      type="date"
+      :columns-type="['year', 'month', 'day']"
       title="选择年月日"
       @confirm="confirmY"
       :min-date="minDate"
@@ -240,7 +240,9 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-  .van-datetime-picker,
+  .van-picker {
+    width: 300px;
+  }
   .van-radio-group,
   .van-area {
     border-radius: 10px;

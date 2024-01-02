@@ -11,7 +11,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import viteCompression from 'vite-plugin-compression'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // import { svgBuilder } from './src/utils/svgBuilder'
@@ -19,7 +19,6 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineConfig(({ mode }) => {
   // 获取环境变量
-  const httpurl = loadEnv(mode, process.cwd()).VITE_BASE_API
 
   return {
     base: './',
@@ -48,7 +47,7 @@ export default defineConfig(({ mode }) => {
       port: 1111,
       proxy: {
         '/api': {
-          target: mode === 'online' ? httpurl : 'http://47.115.228.238:8080',
+          target: 'http://192.168.6.97:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }

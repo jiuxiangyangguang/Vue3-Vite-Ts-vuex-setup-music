@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite --mode dev",
     "online": "vite --mode online",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build  --mode beta",
+    "build": "vite build --mode online",
     "serve": "vite preview",
     "format": "prettier --write .",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx,.vue --fix",
